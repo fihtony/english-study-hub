@@ -1,0 +1,41 @@
+/* Minimal styles for index template (CSTL-1) */
+:root{
+  --max-width: 840px;
+  --gutter: 1rem;
+  --muted: #444;
+  --bg: #ffffff;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  background: var(--bg);
+  color: #111;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 2rem auto;
+  padding: calc(var(--gutter) * 1.5);
+  box-sizing: border-box;
+}
+
+h1 {
+  margin: 0 0 0.5rem 0;
+  font-size: clamp(1.25rem, 2.5vw, 2rem);
+  text-align: center;
+  line-height: 1.15;
+}
+
+p {
+  margin: 0 0 1rem 0;
+  color: var(--muted);
+  line-height: 1.6;
+  text-align: center;
+}

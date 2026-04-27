@@ -1,0 +1,20 @@
+HTTP/1.1 200 OK
+Content-Type: text/html; charset=utf-8
+Content-Length: 345
+Server: Werkzeug/2.3.3 Python/3.12
+Date: Mon, 27 Apr 2026 18:45:08 GMT
+Connection: close
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>English Study Hub</title>
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+  <main class="container">
+  <h1>English Study Hub</h1>
+  <p>Welcome — practice reading and expand your vocabulary with curated lessons.</p>
+  <!-- more content follows -->
