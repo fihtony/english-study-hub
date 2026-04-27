@@ -1,0 +1,218 @@
+Purpose
+This document is a step-by-step developer helper for:
+- renaming the local branch to the accepted branch name,
+- pushing the new branch and deleting the old remote branch,
+- producing a GitHub PR body (template) that contains Jira links, reviewer checklist, and links to .work artifacts,
+- attaching and committing .work artifacts (pytest output, server curl),
+- Jira transition and commenting examples (API + UI guidance),
+- README / requirements / app import-safety checks to validate before creating PR.
+
+1) Ensure working tree is clean
+git status --porcelain
+# If needed, stash or commit local changes:
+git add -A && git commit -m "WIP: save progress" || true
+
+2) Rename local branch and push remote branch (use these exact commands)
+# Rename local branch from the old name to the new canonical name:
+git branch -m feature/CSTL-1_task-0005_1 feature/CSTL-1-landing-page
+
+# Delete the old remote branch name (remove remote ref for old branch)
+git push origin :feature/CSTL-1_task-0005_1
+
+# Push the renamed branch and set upstream
+git push -u origin feature/CSTL-1-landing-page
+
+Notes:
+- If a PR already exists whose head branch is the old name (feature/CSTL-1_task-0005_1) then:
+  a) On GitHub: edit the PR to change the head branch (GitHub does not allow swapping head branch; if not possible, close that PR and open a new PR from feature/CSTL-1-landing-page).
+  b) Or create a new PR and reference the old PR in the description explaining the rename.
+
+3) Commit and attach .work artifacts to the same branch (required by PR body)
+# Create .work folder and capture test + server evidence
+mkdir -p .work
+
+# Run tests and capture full output
+pytest -q 2>&1 | tee .work/pytest-output.txt
+
+# Start the dev server (in a separate terminal or background) and capture curl evidence:
+# Start server in background (use appropriate command for the repo)
+python run.py & SERVER_PID=$!
+sleep 1  # give server a moment to start
+curl -sS http://127.0.0.1:5000/ > .work/server-curl.txt
+# verify CSS path is present
+curl -sS http://127.0.0.1:5000/static/css/styles.css >> .work/server-curl.txt || true
+# stop the server after capturing evidence
+kill $SERVER_PID || true
+
+# Stage and commit artifacts (they must be on the PR branch)
+git add .work/pytest-output.txt .work/server-curl.txt
+git commit -m "Add test and server evidence (.work artifacts) for PR"
+git push
+
+4) README & requirements verification and changes (must be present on PR)
+# Ensure README.md contains exact run/test commands
+# Example required contents to add/update in README.md:
+#   pip install -r requirements.txt
+#   pytest -q
+#   python run.py
+# Ensure requirements.txt pins Flask:
+#   Flask==2.2.5
+# Optionally add top-level python_requires in package metadata or mention in README.
+
+# Git commands to update README and requirements, commit and push:
+git add README.md requirements.txt
+git commit -m "Update README with run/test commands; pin Flask in requirements.txt"
+git push
+
+5) create_app import-safety check (app/__init__.py and run.py)
+# Ensure importing the app package causes no side effects.
+# Requirements:
+# - app/__init__.py must expose a create_app() factory and must NOT call app.run() at import time.
+# - run.py must import create_app and start the server under __main__ guard:
+#     if __name__ == "__main__":
+#         app = create_app()
+#         app.run(host="127.0.0.1", port=5000, debug=True)
+# If any top-level run is present in app/__init__.py, move it to run.py and commit the change.
+
+# Quick grep to check for top-level run() calls:
+grep -nR "app.run" -n app || true
+# If found in app/__init__.py, refactor and commit.
+
+6) PR creation (GitHub UI recommended) and PR body template
+- Create a PR where the head branch is feature/CSTL-1-landing-page and the base branch is main (or repo default).
+- Paste the PR body below exactly (fill placeholders). The PR must include direct links (relative paths) to .work artifacts so reviewers can click them:
+
+PR Title:
+feature/CSTL-1-landing-page — Landing page and static assets for CSTL-1
+
+PR Description (paste and fill):
+----
+Jira: https://<JIRA_BASE_URL>/browse/CSTL-1
+(If Jira cloud api link required: https://api.atlassian.com/ex/jira/<CLOUDID>/rest/api/3/issue/10000)
+
+Short summary
+- Implement landing page for CSTL-1.
+- Key changes: template + static CSS + tests + updated README and requirements.
+- Files touched (short list; expand as needed):
+  - app/__init__.py
+  - run.py
+  - templates/index.html
+  - static/css/styles.css
+  - tests/test_index.py
+  - README.md
+  - requirements.txt
+  - .work/pytest-output.txt
+  - .work/server-curl.txt
+
+Reviewer checklist
+- [ ] Confirm PR head branch is feature/CSTL-1-landing-page (not feature/CSTL-1_task-0005_1).
+- [ ] Run the test suite locally:
+      pytest -q
+  Confirm tests pass. Full test output is included in .work/pytest-output.txt
+- [ ] Inspect files listed above and verify no top-level app.run() calls exist in app/__init__.py.
+- [ ] Confirm README.md contains exact run/test commands:
+      pip install -r requirements.txt
+      pytest -q
+      python run.py
+- [ ] Verify pinned Flask version in requirements.txt (e.g., Flask==2.2.5).
+- [ ] Validate running server output (index HTML and static CSS) using `.work/server-curl.txt`
+      cat .work/server-curl.txt
+- [ ] Check CI (if present) passed.
+
+Artifacts (included in this branch)
+- .work/pytest-output.txt   (full pytest output captured on branch)
+- .work/server-curl.txt     (curl output proving server responds and CSS served)
+
+Additional notes for reviewers
+- If you see the old branch name in GitHub PR metadata, close that PR and re-open from feature/CSTL-1-landing-page or update head by creating a new PR from the renamed branch.
+- If tests fail locally, please include failing output in a review comment.
+
+7) Jira workflow: transition and comment (UI or API)
+A) UI approach (manual)
+- Open Jira issue CSTL-1 in browser.
+- Transition to "In Progress".
+- When PR is ready and artifacts included, transition to "In Review".
+- Add a Jira comment with the PR URL and state that CI/tests passed and point to .work artifacts.
+
+B) API approach (curl examples — requires API token, email, and cloudId)
+# NOTE: Replace placeholders {EMAIL}, {API_TOKEN}, {JIRA_BASE_URL}, {CLOUD_ID}, {PR_URL}
+# Get available transitions:
+curl -u "{EMAIL}:{API_TOKEN}" \
+  -H "Accept: application/json" \
+  "https://{JIRA_BASE_URL}/rest/api/3/issue/CSTL-1/transitions" \
+  -o .work/jira-transitions.json
+
+# Example: transition to 'In Progress' (replace transition id with an id found in the previous response)
+curl -u "{EMAIL}:{API_TOKEN}" \
+  -H "Content-Type: application/json" \
+  -X POST \
+  --data '{"transition": {"id": "31"}}' \
+  "https://{JIRA_BASE_URL}/rest/api/3/issue/CSTL-1/transitions" \
+  -o .work/jira-transition-in-progress.json
+
+# Add a comment to the Jira issue with the PR link and artifact references
+curl -u "{EMAIL}:{API_TOKEN}" \
+  -H "Content-Type: application/json" \
+  -X POST \
+  --data "{\"body\": \"PR: {PR_URL}\nTests: passed (see .work/pytest-output.txt in repo)\nServer evidence: .work/server-curl.txt\"}" \
+  "https://{JIRA_BASE_URL}/rest/api/3/issue/CSTL-1/comment" \
+  -o .work/jira-comment-response.json
+
+# Transition to 'In Review' once PR created and artifacts attached:
+curl -u "{EMAIL}:{API_TOKEN}" \
+  -H "Content-Type: application/json" \
+  -X POST \
+  --data '{"transition": {"id": "41"}}' \
+  "https://{JIRA_BASE_URL}/rest/api/3/issue/CSTL-1/transitions" \
+  -o .work/jira-transition-in-review.json
+
+# Commit and attach API responses as evidence
+git add .work/jira-*.json
+git commit -m "Add Jira API evidence for CSTL-1 transitions and comments"
+git push
+
+Notes on Jira API:
+- Transition IDs differ per Jira instance; call the transitions endpoint to discover the correct ID for "In Progress" and "In Review".
+- Keep API tokens secure; do not commit credentials. The commands above assume an environment where {API_TOKEN} is an environment variable or securely provided.
+
+8) Evidence to include in PR and in the branch
+- .work/pytest-output.txt (full pytest run)
+- .work/server-curl.txt (server response and CSS)
+- (Optional) .work/jira-transitions.json, .work/jira-transition-in-progress.json, .work/jira-comment-response.json, .work/jira-transition-in-review.json
+
+All these files must be committed on branch feature/CSTL-1-landing-page, so reviewers can open and inspect them directly in GitHub UI.
+
+9) Typical workflow summary (commands)
+# Rename + push branch
+git branch -m feature/CSTL-1_task-0005_1 feature/CSTL-1-landing-page
+git push origin :feature/CSTL-1_task-0005_1
+git push -u origin feature/CSTL-1-landing-page
+
+# Run tests and save artifacts
+mkdir -p .work
+pytest -q 2>&1 | tee .work/pytest-output.txt
+
+# Run server and capture curl evidence
+python run.py & SERVER_PID=$!; sleep 1; curl -sS http://127.0.0.1:5000/ > .work/server-curl.txt; kill $SERVER_PID
+
+# Stage, commit and push artifacts and docs
+git add .work/pytest-output.txt .work/server-curl.txt README.md requirements.txt
+git commit -m "CSTL-1: landing page, tests, docs, and artifacts"
+git push
+
+10) PR follow-up / reviewer guidance
+- Ask reviewer to verify branch name (feature/CSTL-1-landing-page), run pytest -q, inspect app/__init__.py for no side-effects, and check README & requirements.
+- If Jira automation is available (smart commits), reference the PR URL in a Jira comment or use the API examples above, capturing responses to .work/ and committing them.
+- Once reviewer confirms, set feedback_for_dev=null per acceptance workflow.
+
+Appendix: Quick troubleshooting
+- If remote rejects push because the old remote ref still exists, run:
+  git fetch origin
+  git push origin --delete feature/CSTL-1_task-0005_1
+  git push -u origin feature/CSTL-1-landing-page
+
+- If a PR already exists with the old branch:
+  - Preferred: create a new PR from feature/CSTL-1-landing-page and close the old PR after linking them.
+  - Alternative: rebase/force-push is discouraged unless coordinated with reviewers.
+
+End.
