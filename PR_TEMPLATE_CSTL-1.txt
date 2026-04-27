@@ -1,0 +1,155 @@
+PR Title
+CSTL-1: Implement Landing Page (Bare-bones)
+
+Jira
+https://tarch.atlassian.net/browse/CSTL-1
+
+One-line summary
+Minimal landing page at '/' for English Study Hub with header, centered hero message, and "Start Quiz" CTA linking to '/quiz'. TypeScript React implementation + unit tests and build/test evidence attached.
+
+Branch
+feature/CSTL-1-landing
+
+What changed (files expected in this PR)
+- STEP-0-DETECT.md
+- src/pages/LandingPage.tsx
+- src/styles/LandingPage.module.css
+- src/App.tsx         (or src/routes.tsx if routes are centralized)
+- src/pages/__tests__/LandingPage.test.tsx
+- PR_TEMPLATE_CSTL-1.txt (this PR template)
+
+If additional files were touched, list them here (one per line):
+- (add any other modified files here)
+
+How to review locally
+1. git fetch origin && git checkout -b feature/CSTL-1-landing origin/feature/CSTL-1-landing (or create branch locally and push)
+2. npm ci
+3. npm run start             # open http://localhost:3000 and verify landing page at '/'
+4. npm run test               # unit tests
+5. npm run build              # production build
+
+Build & test commands (run these and paste outputs in the blocks below)
+- Install: npm ci
+- Start (dev): npm run start
+- Tests: npm test -- --coverage
+- Build: npm run build
+
+Paste actual build output below (copy from your terminal)
+--- BUILD OUTPUT START ---
+[Paste full npm run build output here]
+Example expected success lines (do not delete when pasting actual):
+> Building for production...
+Compiled successfully.
+
+File sizes after gzip:
+  static/js/main.[hash].js — 34.1 KB
+--- BUILD OUTPUT END ---
+
+Paste actual test output & coverage below (copy from your terminal)
+--- TEST OUTPUT START ---
+[Paste full npm test output here]
+Example expected success lines (do not delete when pasting actual):
+ PASS src/pages/__tests__/LandingPage.test.tsx
+  ✓ renders header, hero, and CTA (xx ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       1 passed, 1 total
+Coverage:    lines: 100% | statements: 100% | functions: 100% | branches: 100%
+--- TEST OUTPUT END ---
+
+Implementation notes & acceptance criteria
+- Landing page at path '/' shows:
+  - Header text: "English Study Hub"
+  - Hero: "Welcome to English Study Hub" and one-line description
+  - CTA button: "Start Quiz" which navigates client-side to '/quiz'
+- Styling is scoped (module CSS or inline). No global theme changes.
+- All changes are TypeScript typed and include unit tests using React Testing Library + Jest.
+- The route registration is safe: if the repo centralizes routes in src/routes.tsx, the mapping '/' -> LandingPage was added there instead of in App.tsx.
+- No backend changes required.
+
+Changed-files checklist (for contributor before requesting review)
+- [ ] Code compiles (tsc / build)
+- [ ] Unit tests added and passing
+- [ ] Coverage added for LandingPage component
+- [ ] Styling is scoped (module or component-level)
+- [ ] No hard-coded secrets, credentials, or tokens
+- [ ] Accessibility: CTA is keyboard-focusable and uses semantic button/anchor
+- [ ] Manual smoke test performed in browser (dev server)
+
+Reviewer checklist
+- [ ] Confirm landing page renders at '/' in dev and production build
+- [ ] Verify header text, hero text, and CTA exist
+- [ ] Click CTA and verify client-side navigation to '/quiz'
+- [ ] Review unit tests and run the test suite locally
+- [ ] Confirm there are no TypeScript errors or new lint failures
+- [ ] Confirm no unrelated files were modified
+
+PR metadata to include in the GitHub PR description
+- PR title: CSTL-1: Implement Landing Page (Bare-bones)
+- Jira: https://tarch.atlassian.net/browse/CSTL-1
+- Branch: feature/CSTL-1-landing
+- Changed files (explicit list included above)
+- How to run locally (commands above)
+- Build output & test output (paste into the blocks above)
+- Estimated review time: ~30–60 minutes
+
+Maintainer instructions (please perform)
+1. Add a comment to the Jira ticket CSTL-1 with this PR URL and a short note:
+   "PR opened implementing bare-bones landing page. Ready for review: <PR URL>"
+2. Transition the Jira ticket CSTL-1 to In Progress (or assign to the reviewer) so CI/status tracking reflects active work.
+3. Optionally, add the reviewer as an assignee or request reviewer in GitHub.
+
+Suggested Jira comment to paste (one-line)
+"Implemented initial landing page (CSTL-1). PR: <PR URL> — ready for review. Please move CSTL-1 to In Progress."
+
+PR description template (copy into PR body)
+-----
+CSTL-1: Implement Landing Page (Bare-bones)
+
+Jira: https://tarch.atlassian.net/browse/CSTL-1
+Branch: feature/CSTL-1-landing
+
+Summary:
+Minimal landing page at '/' with header, hero, and CTA to '/quiz'. Includes unit tests and build verification.
+
+Files changed:
+- src/pages/LandingPage.tsx
+- src/styles/LandingPage.module.css
+- src/App.tsx (or src/routes.tsx)
+- src/pages/__tests__/LandingPage.test.tsx
+- STEP-0-DETECT.md
+
+How to test locally:
+- npm ci
+- npm run start
+- npm run test
+- npm run build
+
+Build output:
+(See pasted build output block in this PR)
+
+Test output & coverage:
+(See pasted test output block in this PR)
+
+Notes for maintainer:
+- Please move CSTL-1 to In Progress and add the PR link to the Jira ticket comments.
+
+Estimate: 30–60 minutes for review.
+
+Attachments / Evidence
+- Branch: feature/CSTL-1-landing
+- PR: <paste PR URL here>
+- Build log: included above
+- Test results: included above
+
+Risks & additional notes
+- Implemented as React + TypeScript. If maintainers prefer Next.js or Flask, escalate and reopen a task to re-target implementation.
+- No production data migrations or backend changes included.
+- If CI scripts differ in this repo, use the repo's canonical npm/yarn commands and paste those logs instead.
+
+Contributor sign-off
+Name: ____________________
+Email: ___________________
+Date: ____________________
+
+End of template.

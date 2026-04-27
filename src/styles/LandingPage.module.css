@@ -1,0 +1,150 @@
+/* Scoped styles for LandingPage (CSS Module) */
+:root {
+  --bg: #ffffff;
+  --card-bg: #f8fafc;
+  --primary: #0b76ef; /* vivid blue CTA */
+  --primary-contrast: #ffffff;
+  --text: #0f1724;
+  --muted: #6b7280;
+  --radius: 12px;
+  --shadow: 0 6px 20px rgba(11, 118, 239, 0.08);
+  --container-padding: 1.5rem;
+  --max-width: 760px;
+  --transition-fast: 160ms;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+/* Full viewport container; centers hero vertically while keeping header near top */
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  padding: var(--container-padding);
+  box-sizing: border-box;
+  color: var(--text);
+}
+
+/* Header placed visually near the top of the page with roomy top spacing */
+.header {
+  width: 100%;
+  text-align: center;
+  padding-top: 2.25rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+  line-height: 1.1;
+  color: var(--text);
+}
+
+/* Hero box centered in the page */
+.hero {
+  width: 100%;
+  max-width: var(--max-width);
+  background: linear-gradient(180deg, var(--card-bg), #ffffff);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: clamp(1.25rem, 3vw, 2rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.75rem;
+  box-sizing: border-box;
+}
+
+/* Main welcome title inside hero */
+.heroTitle {
+  margin: 0;
+  font-size: clamp(1.5rem, 3.4vw, 2rem);
+  font-weight: 700;
+  color: var(--text);
+}
+
+/* Supporting description text */
+.heroDescription {
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(0.95rem, 1.8vw, 1.05rem);
+  line-height: 1.4;
+  max-width: 60ch;
+}
+
+/* Prominent CTA button (also works if applied to <a> elements) */
+.cta {
+  display: inline-block;
+  appearance: none;
+  -webkit-appearance: none;
+  border: none;
+  background-color: var(--primary);
+  color: var(--primary-contrast);
+  padding: 0.75rem 1.25rem;
+  margin-top: 0.5rem;
+  border-radius: 10rem;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform var(--transition-fast) ease,
+    box-shadow var(--transition-fast) ease,
+    background-color var(--transition-fast) ease;
+  box-shadow: 0 6px 18px rgba(11, 118, 239, 0.12);
+  line-height: 1;
+}
+
+/* Hover / active states for CTA with accessible contrast preserved */
+.cta:hover,
+.cta:active {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(11, 118, 239, 0.16);
+  background-color: #0a65d6;
+}
+
+/* Keyboard focus visible for accessibility */
+.cta:focus-visible {
+  outline: 3px solid rgba(11, 118, 239, 0.18);
+  outline-offset: 3px;
+  box-shadow: 0 10px 28px rgba(11, 118, 239, 0.18);
+}
+
+/* Disabled state */
+.cta[disabled],
+.cta.disabled {
+  background-color: #cbd5e1;
+  color: #ffffff;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 520px) {
+  :root {
+    --container-padding: 1rem;
+  }
+  .header {
+    padding-top: 1.5rem;
+  }
+  .hero {
+    padding: 1rem;
+    border-radius: 10px;
+  }
+  .cta {
+    width: 100%;
+    padding: 0.85rem;
+    font-size: 1.05rem;
+  }
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .cta,
+  .hero,
+  .container {
+    transition: none !important;
+    animation: none !important;
+  }
+}
