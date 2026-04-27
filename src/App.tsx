@@ -1,86 +1,67 @@
-import React, { Suspense, lazy } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import LandingPage from './pages/LandingPage';
 
-const Loader: React.FC = () => (
-  <div role="status" aria-live="polite" style={{ padding: 24, textAlign: 'center' }}>
-    Loading…
-  </div>
-);
+type ErrorBoundaryState = { hasError: boolean; error?: Error };
 
 /**
- * Attempt to lazy-load an existing routes module from common candidate locations.
- * If none are present, fall back to a no-op component so the LandingPage at '/'
- * does not break the app and other routes remain untouched.
+ * Simple Error Boundary to catch render-time errors in children and
+ * present a safe fallback UI. This prevents the entire SPA from
+ * failing silently and helps with graceful degradation in production.
  */
-const tryImportExistingRoutes = async (): Promise<{ default: React.ComponentType<any> }> => {
-  const candidates = [
-    './routes',
-    './Routes',
-    './AppRoutes',
-    './router',
-    './Router',
-    './routes/index',
-    './Routes/index',
-  ];
-
-  for (const path of candidates) {
-    try {
-      // Dynamic import may include many modules in the bundle depending on bundler config.
-      // Try to return the first module that exports a usable React component (default or named AppRoutes).
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore - dynamic import with variable path; handled defensively.
-      const mod = await import(path);
-      if (!mod) continue;
-      if (mod.default && (typeof mod.default === 'function' || typeof mod.default === 'object')) {
-        return { default: mod.default as React.ComponentType };
-      }
-      if (mod.AppRoutes && (typeof mod.AppRoutes === 'function' || typeof mod.AppRoutes === 'object')) {
-        return { default: mod.AppRoutes as React.ComponentType };
-      }
-    } catch {
-      // ignore and try next candidate
-    }
+class ErrorBoundary extends React.Component<{ children: React.ReactNode }, ErrorBoundaryState> {
+  constructor(props: { children: React.ReactNode }) {
+    super(props);
+    this.state = { hasError: false, error: undefined };
   }
 
-  // Fallback: empty component so app still works with only LandingPage registered at '/'
-  const Empty: React.FC = () => null;
-  return { default: Empty };
-};
+  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
+    return { hasError: true, error };
+  }
 
-const ExistingRoutes = lazy(tryImportExistingRoutes);
+  componentDidCatch(error: Error, info: React.ErrorInfo) {
+    // Production: send this info to logging/monitoring service.
+    // Avoid exposing error details to users (no stack traces in UI).
+    // eslint-disable-next-line no-console
+    console.error('Unhandled error in App ErrorBoundary:', error, info);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div role="alert" style={{ padding: 24, textAlign: 'center' }}>
+          <h1>Something went wrong</h1>
+          <p>We&apos;re unable to display this page right now. Please try again later.</p>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
 
 /**
- * App router.
+ * Top-level SPA application.
  *
- * Notes to maintainers:
- * - LandingPage is explicitly registered at path '/' as the top-level landing route.
- * - Existing application routes (if defined elsewhere) are lazy-loaded and mounted at '/*'
- *   to avoid breaking prior behavior. If there is an existing root route in another file,
- *   that module will control its own internal route ordering; react-router v6 uses
- *   path-to-regexp matching which prevents simple prefix shadowing of unrelated routes.
+ * - Uses react-router DOM BrowserRouter with explicit root routes.
+ * - '/' -> LandingPage
+ * - any other path -> Navigate to '/' (client-side redirect, replace history)
+ *
+ * Exporting both default and a named `app` reference for tests/importers.
  */
 const App: React.FC = () => {
   return (
     <BrowserRouter>
-      <Suspense fallback={<Loader />}>
+      <ErrorBoundary>
         <Routes>
-          {/* Landing page mounted at exact '/' */}
           <Route path="/" element={<LandingPage />} />
-
-          {/* Preserve existing routes if they exist in other modules; otherwise render nothing */}
-          <Route
-            path="/*"
-            element={
-              <Suspense fallback={<Loader />}>
-                <ExistingRoutes />
-              </Suspense>
-            }
-          />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
-      </Suspense>
+      </ErrorBoundary>
     </BrowserRouter>
   );
 };
+
+// Named export for tests that import an app reference.
+export const app = App;
 
 export default App;

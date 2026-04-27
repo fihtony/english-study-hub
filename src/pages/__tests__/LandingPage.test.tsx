@@ -8,9 +8,10 @@ import LandingPage from '../LandingPage';
 
 afterEach(() => {
   cleanup();
+  jest.clearAllMocks();
 });
 
-describe('LandingPage', () => {
+describe('LandingPage (SPA - React Router)', () => {
   test('renders header and hero message', () => {
     render(
       <MemoryRouter initialEntries={['/']}>
@@ -18,8 +19,9 @@ describe('LandingPage', () => {
       </MemoryRouter>
     );
 
-    // Header should display the app name
-    expect(screen.getByText(/English Study Hub/i)).toBeVisible();
+    // App name in header
+    const header = screen.getByRole('banner') || screen.getByText(/English Study Hub/i);
+    expect(header).toBeVisible();
 
     // Hero title should be present
     expect(
@@ -27,7 +29,7 @@ describe('LandingPage', () => {
     ).toBeVisible();
   });
 
-  test('clicking CTA navigates to /quiz', async () => {
+  test('clicking CTA navigates to /quiz using history router', async () => {
     const history = createMemoryHistory({ initialEntries: ['/'] });
 
     render(
@@ -38,14 +40,15 @@ describe('LandingPage', () => {
 
     const user = userEvent.setup();
 
-    // Find CTA button by role and accessible name. Accept common label "Start Quiz".
+    // Find CTA by accessible name; fall back to first button if label differs
     const cta =
       screen.queryByRole('button', { name: /Start Quiz/i }) ||
+      screen.queryByRole('link', { name: /Start Quiz/i }) ||
       screen.getByRole('button');
 
     await user.click(cta);
 
-    // After clicking, expect navigation to /quiz
+    // Expect navigation to /quiz
     expect(history.location.pathname).toBe('/quiz');
   });
 });

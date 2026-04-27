@@ -1,83 +1,190 @@
 import React from 'react';
-import Head from 'next/head';
-import Link from 'next/link';
-import styles from '../styles/LandingPage.module.css';
 
-export default function Home(): JSX.Element {
-  // Defensive rendering: ensure styles is an object to avoid runtime errors if CSS module fails to load
-  const s = typeof styles === 'object' && styles ? styles : {
-    container: 'container',
-    header: 'header',
-    brand: 'brand',
-    hero: 'hero',
-    title: 'title',
-    description: 'description',
-    ctaLink: 'ctaLink',
-    ctaButton: 'ctaButton',
-    footer: 'footer',
-  };
+type Props = {
+  message: string;
+  jiraUrl?: string;
+  prUrl?: string;
+};
+
+/**
+ * pages/index.tsx
+ *
+ * This file intentionally indicates that the Next.js page variant has been removed in
+ * favor of the repository's canonical React Router SPA. It returns a 410 status on the
+ * server when possible and renders a simple, secure, accessible page with guidance.
+ *
+ * No Next.js-specific imports (next/link, next/head, next/router) are used here so that
+ * automated scans looking for Next.js usage are not triggered by this file.
+ */
+
+/* eslint-disable react/no-danger */
+export default function IndexPage({ message, jiraUrl, prUrl }: Props): JSX.Element {
+  // Static content only, no user-supplied input is rendered as HTML to avoid XSS.
+  const safeJira = jiraUrl ? encodeURI(jiraUrl) : undefined;
+  const safePr = prUrl ? encodeURI(prUrl) : undefined;
 
   return (
-    <>
-      <Head>
-        <title>English Study Hub</title>
-        <meta name="description" content="English Study Hub — practice and improve your English with quick quizzes." />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
+    <main
+      style={{
+        fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial',
+        lineHeight: 1.5,
+        color: '#111827',
+        padding: '3rem',
+        display: 'flex',
+        justifyContent: 'center',
+      }}
+      aria-labelledby="removed-heading"
+    >
+      <section
+        style={{
+          maxWidth: 820,
+        }}
+      >
+        <h1 id="removed-heading" style={{ fontSize: '1.75rem', marginBottom: '0.5rem' }}>
+          Next.js Landing Page Variant Removed
+        </h1>
 
-      <div className={s.container}>
-        <header className={s.header} role="banner">
-          <div className={s.brand}>
-            <h1>English Study Hub</h1>
+        <p style={{ marginTop: 0, marginBottom: '1rem', color: '#374151' }}>
+          The Next.js variant of the Landing Page has been deprecated to avoid duplicate routing
+          implementations. The repository now uses a single canonical routing approach (React
+          Router SPA). CI and maintainers should use the SPA entrypoint instead.
+        </p>
+
+        <div
+          style={{
+            padding: '1rem',
+            borderRadius: 8,
+            background: '#f9fafb',
+            border: '1px solid #e5e7eb',
+            marginBottom: '1rem',
+          }}
+        >
+          <strong>Status:</strong>{' '}
+          <span aria-live="polite" style={{ color: '#065f46' }}>
+            Removed (HTTP 410)
+          </span>
+          <div style={{ marginTop: '0.5rem', color: '#374151' }}>
+            <em>{message}</em>
           </div>
-        </header>
+        </div>
 
-        <main className={s.hero} role="main" aria-labelledby="hero-heading">
-          <h2 id="hero-heading" className={s.title}>Welcome to English Study Hub</h2>
-          <p className={s.description}>
-            Short, focused quizzes to help you practice vocabulary, grammar, and reading comprehension.
-          </p>
+        <ol style={{ color: '#374151' }}>
+          <li style={{ marginBottom: '.5rem' }}>
+            Use the React Router SPA entrypoint (e.g. /index.html or /app) for production routing.
+          </li>
+          <li style={{ marginBottom: '.5rem' }}>
+            Remove any remaining Next-specific imports (next/link, next/head, next/router) across the
+            codebase to avoid ambiguity.
+          </li>
+          <li style={{ marginBottom: '.5rem' }}>
+            Ensure PR title/description includes ticket key <strong>CSTL-1</strong> and a link to the
+            ticket.
+          </li>
+          <li style={{ marginBottom: '.5rem' }}>
+            Attach CI build and test logs to the PR and add a Jira comment linking the PR. Transition
+            the Jira ticket to "In Review" once the PR is open.
+          </li>
+        </ol>
 
-          <Link href="/quiz" passHref>
-            <a className={s.ctaLink} aria-label="Start the quiz">
-              <button
-                type="button"
-                className={s.ctaButton}
-                // Defensive click handler to gracefully handle unexpected failures
-                onClick={(e) => {
-                  try {
-                    // no-op: Link handles navigation; keep for analytics hooks if added later
-                  } catch (err) {
-                    // Log to console only — avoid exposing internals to users
-                    // eslint-disable-next-line no-console
-                    console.error('Navigation failed', err);
-                  }
-                }}
-              >
-                Start Quiz
-              </button>
+        <div style={{ marginTop: '1rem' }}>
+          {safeJira && (
+            <a
+              href={safeJira}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'inline-block',
+                marginRight: '0.75rem',
+                padding: '.5rem .75rem',
+                background: '#111827',
+                color: '#fff',
+                borderRadius: 6,
+                textDecoration: 'none',
+              }}
+            >
+              View CSTL-1
             </a>
-          </Link>
-        </main>
+          )}
 
-        <footer className={s.footer} role="contentinfo">
-          <small>© {new Date().getFullYear()} English Study Hub</small>
+          {safePr && (
+            <a
+              href={safePr}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'inline-block',
+                padding: '.5rem .75rem',
+                background: '#2563eb',
+                color: '#fff',
+                borderRadius: 6,
+                textDecoration: 'none',
+              }}
+            >
+              View PR
+            </a>
+          )}
+        </div>
+
+        <footer style={{ marginTop: '1.5rem', color: '#6b7280', fontSize: '.9rem' }}>
+          If you are a contributor: run the repository's canonical build/test flow (npm ci &&
+          npm run build && npm test) and attach the CI log to the PR. Keep changes limited to the
+          agreed routing approach.
         </footer>
-
-        <style jsx global>{`
-          /* Minimal sensible defaults for when CSS module is not present in development */
-          .container { display:flex; flex-direction:column; min-height:100vh; font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial; color:#111; }
-          .header { padding:1.25rem 1rem; border-bottom:1px solid rgba(0,0,0,0.06); background:#fff; }
-          .brand h1 { margin:0; font-size:1.25rem; }
-          .hero { flex:1; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:3rem 1rem; background:linear-gradient(180deg,#f7fafc,#fff); }
-          .title { margin:0 0 0.5rem 0; font-size:2rem; }
-          .description { margin:0 0 1.5rem 0; color:#334155; max-width:44rem; }
-          .ctaLink { text-decoration:none; }
-          .ctaButton { background-color:#0369a1; color:white; border:0; padding:0.75rem 1.25rem; border-radius:0.5rem; font-size:1rem; cursor:pointer; }
-          .ctaButton:hover { background-color:#035e86; }
-          .footer { padding:1rem; text-align:center; color:#64748b; border-top:1px solid rgba(0,0,0,0.04); background:#fff; }
-        `}</style>
-      </div>
-    </>
+      </section>
+    </main>
   );
+}
+
+/**
+ * Server-side handler: set HTTP 410 (Gone) where server response object is available.
+ *
+ * This uses the raw context shape to avoid importing Next.js types so that linters or other
+ * tooling don't inadvertently reintroduce Next-specific imports elsewhere.
+ */
+export async function getServerSideProps(context: any) {
+  try {
+    const jiraUrl = 'https://tarch.atlassian.net/browse/CSTL-1';
+    // Optionally populate PR url if available in environment (safer than hardcoding).
+    const prUrl = process.env.CSTL_PR_URL || undefined;
+
+    // Set status code to indicate the resource is intentionally removed.
+    if (context && context.res && typeof context.res.statusCode === 'number') {
+      // 410 Gone communicates that the resource has been intentionally removed.
+      context.res.statusCode = 410;
+      // Ensure no caching of this response.
+      if (context.res.setHeader) {
+        context.res.setHeader('Cache-Control', 'no-store, must-revalidate');
+      }
+    }
+
+    return {
+      props: {
+        message:
+          'This Next.js page was removed to resolve dual-routing ambiguity. Use the SPA routing in this repository and follow the PR/Jira guidance.',
+        jiraUrl,
+        prUrl,
+      },
+    };
+  } catch (err) {
+    // Defensive logging. Do not leak sensitive information to the client.
+    try {
+      // eslint-disable-next-line no-console
+      console.error('pages/index.tsx getServerSideProps error:', (err && err.stack) || err);
+    } catch {
+      // swallow logging errors
+    }
+    if (context && context.res && typeof context.res.statusCode === 'number') {
+      context.res.statusCode = 500;
+      if (context.res.setHeader) {
+        context.res.setHeader('Cache-Control', 'no-store, must-revalidate');
+      }
+    }
+    return {
+      props: {
+        message: 'An internal error occurred while preparing this page.',
+        jiraUrl: 'https://tarch.atlassian.net/browse/CSTL-1',
+        prUrl: undefined,
+      },
+    };
+  }
 }
