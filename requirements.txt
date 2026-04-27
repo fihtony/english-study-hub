@@ -1,0 +1,4 @@
+Flask>=2.3,<3
+pytest>=7.0,<8
+pytest-flask>=1.2,<2
+coverage>=6.0,<7

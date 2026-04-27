@@ -1,0 +1,200 @@
+/*
+  static/css/styles.css
+  Minimal, responsive styles for the landing page (hero, layout, typography, colours).
+  Design reference: Stitch design URL (if exact colors/fonts are provided later, update this file).
+  Chosen palette:
+    --color-primary: #1a73e8 (Google blue)
+    --color-hero-bg: #f4f8ff
+    --color-text: #202124
+*/
+
+:root{
+  --color-primary: #1a73e8;
+  --color-primary-700: #1664c8; /* darker for hover */
+  --color-hero-bg: #f4f8ff;
+  --color-text: #202124;
+  --color-muted: #5f6368;
+  --color-white: #ffffff;
+  --max-width: 1100px;
+  --radius: 10px;
+  --container-padding: 1rem;
+  --shadow-sm: 0 6px 18px rgba(32,33,36,0.08);
+  --shadow-xs: 0 2px 6px rgba(32,33,36,0.06);
+  --transition-fast: 180ms ease;
+}
+
+/* Reset & box-sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Baseline typography using system font stack with Arial/Helvetica fallback */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  color: var(--color-text);
+  background-color: #ffffff;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Utility container */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+}
+
+/* Header */
+header.site-header {
+  padding: 28px 0;
+  text-align: center;
+  background: transparent;
+}
+
+header.site-header h1 {
+  margin: 0;
+  color: var(--color-text);
+  font-weight: 600;
+  line-height: 1.05;
+  font-size: 32px; /* mobile default */
+  letter-spacing: -0.01em;
+}
+
+/* Hero section */
+.hero {
+  background-color: var(--color-hero-bg);
+  padding: 56px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero .container {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+/* Hero content */
+.hero .hero-content {
+  max-width: 720px;
+}
+
+.hero .lead {
+  margin-top: 18px;
+  margin-bottom: 28px;
+  color: var(--color-muted);
+  font-size: 18px;
+}
+
+/* CTA (button-like link) */
+a.cta {
+  display: inline-block;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  text-decoration: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  box-shadow: var(--shadow-xs);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast);
+  border: 1px solid rgba(0,0,0,0.04);
+  -webkit-tap-highlight-color: transparent;
+}
+
+a.cta:hover,
+a.cta:active {
+  background-color: var(--color-primary-700);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+a.cta:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(26,115,232,0.14);
+}
+
+/* Subtle card for hero actions or additional info */
+.card {
+  background: var(--color-white);
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow: var(--shadow-xs);
+}
+
+/* Footer */
+footer.site-footer {
+  margin-top: auto;
+  padding: 24px 0;
+  text-align: center;
+  color: var(--color-muted);
+  font-size: 13px;
+}
+
+/* Accessibility & reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  a.cta { transition: none; transform: none; }
+}
+
+/* Responsive typography and layout */
+@media (min-width: 640px) {
+  header.site-header h1 {
+    font-size: 40px;
+  }
+  .hero {
+    padding: 72px 0;
+  }
+  .hero .container {
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 900px) {
+  header.site-header h1 {
+    font-size: 48px; /* desktop target */
+  }
+  .hero {
+    padding: 96px 0;
+  }
+  .hero .container {
+    flex-direction: row;
+    text-align: left;
+  }
+  .hero .hero-content {
+    max-width: 60%;
+  }
+}
+
+/* Small helpers */
+.hint {
+  color: var(--color-muted);
+  font-size: 13px;
+}
+
+/* Ensure static resources are referenced relatively by the HTML (e.g., /static/css/styles.css).
+   No absolute URLs are included here so assets resolve correctly in different deployments. */
