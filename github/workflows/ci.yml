@@ -1,0 +1,65 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - feature/CSTL-1-landing-page
+      - main
+  pull_request:
+    branches:
+      - feature/CSTL-1-landing-page
+      - main
+
+jobs:
+  test:
+    name: Run tests (Python 3.12)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Cache pip
+        uses: actions/cache@v4
+        id: pip-cache
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Upgrade pip and install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install --require-hashes -r requirements.txt || pip install -r requirements.txt
+        shell: bash
+
+      - name: Run pytest and save output
+        run: |
+          # ensure pipeline returns pytest exit code even when piping to tee
+          set -o pipefail
+          pytest -q | tee pytest-output.txt
+        shell: bash
+
+      - name: Upload pytest output artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pytest-output
+          path: pytest-output.txt
+
+      - name: Show pytest output in logs
+        if: always()
+        run: |
+          echo "===== pytest output (start) ====="
+          if [ -f pytest-output.txt ]; then
+            sed -n '1,500p' pytest-output.txt || true
+          else
+            echo "pytest-output.txt not found"
+          fi
+          echo "===== pytest output (end) ====="
+        shell: bash

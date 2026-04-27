@@ -5,22 +5,26 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>English Study Hub</title>
   <meta name="referrer" content="no-referrer">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'none'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self';">
   <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
-  <header role="banner">
-    <h1>English Study Hub</h1>
+  <a class="skip-link" href="#main" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">Skip to main content</a>
+
+  <header role="banner" class="site-header" aria-labelledby="site-title">
+    <h1 id="site-title">English Study Hub</h1>
   </header>
 
-  <main role="main">
-    <p class="description">Short, focused reading practice to build comprehension and vocabulary.</p>
-    <p>
-      <a class="cta" href="#" role="button" aria-label="Start Reading">Start Reading</a>
-    </p>
+  <main id="main" role="main" class="site-main">
+    <section class="hero" aria-label="Landing">
+      <p class="description">Short, focused reading practice to build comprehension and vocabulary.</p>
+      <p>
+        <a class="cta" href="/reading" role="button" aria-label="Start Reading">Start Reading</a>
+      </p>
+    </section>
   </main>
 
-  <footer role="contentinfo">
+  <footer role="contentinfo" class="site-footer">
     <small>&copy; 2026 English Study Hub</small>
   </footer>
 </body>
