@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="English Study Hub — practice reading, vocabulary, and comprehension with focused lessons and tools." />
+  <title>English Study Hub</title>
+  <link rel="stylesheet" href="/static/css/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="site-header" role="banner" aria-labelledby="site-title">
+    <div class="container header-inner">
+      <h1 id="site-title" class="site-title">English Study Hub</h1>
+      <nav class="site-nav" role="navigation" aria-label="Primary">
+        <ul class="nav-list">
+          <li><a href="/" class="nav-link" aria-current="page">Home</a></li>
+          <li><a href="/lessons" class="nav-link">Lessons</a></li>
+          <li><a href="/about" class="nav-link">About</a></li>
+          <li><a href="/login" class="nav-link">Log in</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" class="site-main" role="main">
+    <section class="hero" aria-labelledby="hero-heading" role="region">
+      <div class="container hero-inner">
+        <div class="hero-content">
+          <h2 id="hero-heading" class="hero-title">Practice English with confidence</h2>
+          <p class="hero-subtitle" id="hero-desc">
+            Short, focused lessons and curated reading material to build vocabulary and comprehension — at your pace.
+          </p>
+          <p class="hero-cta">
+            <a class="btn btn-primary" href="/get-started" role="button" aria-describedby="hero-desc">Get Started</a>
+            <a class="btn btn-ghost" href="/lessons" role="button">Browse Lessons</a>
+          </p>
+        </div>
+
+        <figure class="hero-visual" aria-hidden="true">
+          <!-- Decorative illustration; kept semantic and hidden from assistive tech -->
+          <svg width="480" height="320" viewBox="0 0 480 320" fill="none" xmlns="http://www.w3.org/2000/svg" focusable="false" role="img" aria-hidden="true">
+            <rect width="480" height="320" rx="16" fill="#F3F7FF"/>
+            <circle cx="360" cy="80" r="36" fill="#E6F0FF"/>
+            <rect x="56" y="96" width="320" height="160" rx="8" fill="#FFFFFF" stroke="#E1E8FF"/>
+            <path d="M80 128h240" stroke="#D0D9FF" stroke-width="4" stroke-linecap="round"/>
+            <path d="M80 160h200" stroke="#D0D9FF" stroke-width="4" stroke-linecap="round"/>
+            <path d="M80 192h120" stroke="#D0D9FF" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+        </figure>
+      </div>
+    </section>
+
+    <section class="features" aria-labelledby="features-heading">
+      <div class="container">
+        <h3 id="features-heading" class="sr-only">Key features</h3>
+        <ul class="feature-list">
+          <li class="feature-item">
+            <h4 class="feature-title">Short lessons</h4>
+            <p class="feature-desc">5–10 minute lessons focused on vocabulary, grammar, and reading comprehension.</p>
+          </li>
+          <li class="feature-item">
+            <h4 class="feature-title">Curated readings</h4>
+            <p class="feature-desc">Engaging passages with helpful annotations and practice questions.</p>
+          </li>
+          <li class="feature-item">
+            <h4 class="feature-title">Progress tracking</h4>
+            <p class="feature-desc">See your improvement over time and pick the right next lesson.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-inner">
+      <nav class="footer-nav" aria-label="Footer">
+        <ul class="footer-list">
+          <li><a href="/privacy" class="footer-link">Privacy</a></li>
+          <li><a href="/terms" class="footer-link">Terms</a></li>
+          <li><a href="/contact" class="footer-link">Contact</a></li>
+        </ul>
+      </nav>
+      <p class="copyright">© English Study Hub — <time datetime="2026">2026</time>. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <style>
+    /* Minimal in-template fallback styles to ensure readable page if stylesheet fails to load */
+    :root{
+      --primary:#1f6feb;
+      --muted:#6b7280;
+      --bg:#ffffff;
+      --container-width:1100px;
+      --radius:10px;
+      --gap:1.25rem;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:#0f1724;line-height:1.45}
+    .container{max-width:var(--container-width);margin:0 auto;padding:1rem}
+    .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+    .skip-link:focus{position:static;width:auto;height:auto;padding:.5rem;background:#000;color:#fff;z-index:1000}
+    .site-header{border-bottom:1px solid #eef2ff;background:linear-gradient(180deg,#ffffff,#fbfdff)}
+    .header-inner{display:flex;align-items:center;justify-content:space-between;padding:1rem 0}
+    .site-title{font-size:1.25rem;margin:0;color:var(--primary)}
+    .nav-list{list-style:none;margin:0;padding:0;display:flex;gap:0.75rem}
+    .nav-link{color:var(--muted);text-decoration:none;font-weight:600}
+    .nav-link[aria-current="page"]{color:#0b1220}
+    .hero{padding:3rem 0}
+    .hero-inner{display:flex;gap:2rem;align-items:center;justify-content:space-between}
+    .hero-content{max-width:52%}
+    .hero-title{font-size:2rem;margin:0 0 .5rem}
+    .hero-subtitle{margin:0 0 1rem;color:var(--muted)}
+    .hero-cta{margin-top:1rem}
+    .btn{display:inline-block;padding:.75rem 1.25rem;border-radius:8px;text-decoration:none;font-weight:700}
+    .btn-primary{background:var(--primary);color:#fff}
+    .btn-ghost{background:transparent;color:var(--primary);border:1px solid rgba(31,111,235,.12)}
+    .feature-list{list-style:none;padding:0;margin:2rem 0 0;display:flex;gap:1rem;flex-wrap:wrap}
+    .feature-item{flex:1 1 220px;background:#fff;border:1px solid #f1f5ff;padding:1rem;border-radius:8px}
+    .feature-title{margin:.25rem 0;font-size:1rem}
+    .feature-desc{margin:0;color:var(--muted);font-size:.95rem}
+    .site-footer{border-top:1px solid #eef2ff;padding:1rem 0;margin-top:2rem;background:#fafcff}
+    .footer-inner{display:flex;align-items:center;justify-content:space-between;gap:.5rem}
+    .footer-list{list-style:none;margin:0;padding:0;display:flex;gap:.75rem}
+    .footer-link{color:var(--muted);text-decoration:none;font-size:.9rem}
+    @media (max-width:800px){
+      .hero-inner{flex-direction:column;align-items:flex-start}
+      .hero-content{max-width:100%}
+      .hero-visual{width:100%}
+      .feature-list{flex-direction:column}
+    }
+  </style>
+</body>
+</html>

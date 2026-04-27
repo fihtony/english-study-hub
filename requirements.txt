@@ -1,0 +1,8 @@
+# requirements.txt — pinned runtime and test dependencies for reproducible installs
+# Target Python: 3.12
+# Runtime
+Flask==2.3.3
+
+# Testing / Dev
+pytest==7.4.0
+pytest-cov==4.0.0
