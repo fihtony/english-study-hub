@@ -1,95 +1,93 @@
-from flask import Blueprint, render_template, current_app, make_response, abort, Request
+from flask import render_template, make_response, current_app, request
+from werkzeug.exceptions import HTTPException
 import logging
-from typing import Any, Dict
+from . import app
 
 logger = logging.getLogger(__name__)
+logger.addHandler(logging.NullHandler())
 
-bp = Blueprint('main', __name__, template_folder='templates')
 
-
-@bp.route('/', methods=('GET',))
-def index() -> Any:
+def _apply_security_headers(resp):
     """
-    Render the landing page (index.html) with basic context variables.
-
-    Returns:
-        A Flask response containing the rendered template.
+    Apply a set of conservative security headers to HTML responses.
+    These follow OWASP guidance (CSP, X-Frame-Options, etc.).
     """
-    title = 'English Study Hub'
-    description = (
-        "English Study Hub is a lightweight learning portal offering curated lessons "
-        "and exercises to help learners improve reading, writing, and comprehension. "
-        "Start with short, focused modules designed for steady progress."
+    # Prevent MIME sniffing
+    resp.headers.setdefault("X-Content-Type-Options", "nosniff")
+    # Prevent clickjacking
+    resp.headers.setdefault("X-Frame-Options", "DENY")
+    # Modern browsers use CSP; keep X-XSS-Protection for legacy
+    resp.headers.setdefault("X-XSS-Protection", "1; mode=block")
+    # Minimal referrer policy
+    resp.headers.setdefault("Referrer-Policy", "no-referrer-when-downgrade")
+    # Content Security Policy: restrict everything to same-origin; allow styles from self
+    resp.headers.setdefault(
+        "Content-Security-Policy",
+        "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;"
     )
-    cta_label = 'Get Started'
-    cta_href = '/learn'
-
-    context: Dict[str, Any] = {
-        'title': title,
-        'description': description,
-        'cta_label': cta_label,
-        'cta_href': cta_href,
-    }
-
-    try:
-        rendered = render_template('index.html', **context)
-        response = make_response(rendered, 200)
-        return response
-    except Exception as exc:  # Broad catch to ensure graceful error handling for template errors
-        # Log details server-side but do not leak internals to clients
-        logger.exception("Failed to render landing page template: %s", exc)
-        # Use a generic message and proper status code
-        abort(500)
+    # Recommend HSTS when served over HTTPS in production
+    if request.is_secure:
+        resp.headers.setdefault("Strict-Transport-Security", "max-age=31536000; includeSubDomains; preload")
+    # Do not cache error pages
+    resp.headers.setdefault("Cache-Control", "no-store")
+    return resp
 
 
-@bp.after_app_request
-def set_security_headers(response):
+@app.route("/", methods=("GET",))
+def landing():
     """
-    Apply a set of conservative security headers to responses produced by the application.
+    Landing page route for the application.
 
-    These headers follow common OWASP recommendations:
-    - Prevent clickjacking with X-Frame-Options
-    - Disable content sniffing with X-Content-Type-Options
-    - Apply a restrictive Content-Security-Policy that allows only same-origin resources
-    - Set Referrer-Policy and Permissions-Policy for privacy
-    - (Optional) HSTS for production deployments served over HTTPS
+    Renders app/templates/index.html. On unexpected errors returns a safe,
+    minimal error page without leaking internal details.
     """
     try:
-        # Prevent the page from being embedded in iframes on other sites
-        response.headers.setdefault('X-Frame-Options', 'DENY')
-
-        # Prevent MIME type sniffing which can cause security issues
-        response.headers.setdefault('X-Content-Type-Options', 'nosniff')
-
-        # Keep referrer information minimal when navigating away
-        response.headers.setdefault('Referrer-Policy', 'strict-origin-when-cross-origin')
-
-        # Basic Permissions-Policy (formerly Feature-Policy) — deny sensitive features by default
-        response.headers.setdefault('Permissions-Policy', 'geolocation=(), microphone=(), camera=()')
-
-        # Content Security Policy: conservative policy allowing only same-origin scripts/styles/images,
-        # permitting inline styles to support minimal templates that may include small inline rules.
-        csp = (
-            "default-src 'self'; "
-            "script-src 'self'; "
-            "style-src 'self' 'unsafe-inline'; "
-            "img-src 'self' data:; "
-            "object-src 'none'; "
-            "base-uri 'self'; "
-            "frame-ancestors 'none';"
-        )
-        response.headers.setdefault('Content-Security-Policy', csp)
-
-        # HSTS: only apply if the app is served over HTTPS in production. This header is safe to set but
-        # has effect only over secure connections. It's recommended for production deployments.
-        response.headers.setdefault('Strict-Transport-Security', 'max-age=63072000; includeSubDomains; preload')
-
-        # Encourage caching rules for static responses could be added here as needed
-        return response
+        html = render_template("index.html")
+        resp = make_response(html, 200)
+        # Prefer caching landing page in production; here keep conservative defaults
+        resp.headers.setdefault("Content-Type", "text/html; charset=utf-8")
+        resp.headers.setdefault("Cache-Control", "public, max-age=60")
+        return _apply_security_headers(resp)
+    except HTTPException as he:
+        # Let Werkzeug HTTPExceptions bubble as they are proper responses
+        logger.warning("HTTP exception serving landing page: %s", he)
+        resp = make_response(str(he), he.code or 500)
+        return _apply_security_headers(resp)
     except Exception:
-        # If header setting fails for any reason, log and return the original response
-        logger.exception("Failed to apply security headers to response")
-        return response
+        # Log full stack trace server-side; return generic message client-side
+        logger.exception("Unexpected error while rendering landing page")
+        safe_html = (
+            "<!doctype html>"
+            "<html lang='en'>"
+            "<head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'>"
+            "<title>English Study Hub</title></head>"
+            "<body><main style='font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,sans-serif;"
+            "margin:4rem auto;max-width:40rem;padding:1rem;text-align:center;'>"
+            "<h1>Service temporarily unavailable</h1>"
+            "<p>Please try again later.</p>"
+            "</main></body></html>"
+        )
+        resp = make_response(safe_html, 503)
+        # Ensure we do not cache the error
+        resp.headers["Cache-Control"] = "no-store, must-revalidate"
+        return _apply_security_headers(resp)
 
 
-__all__ = ['bp']
+# Lightweight health-check endpoint useful for monitoring and automated tests.
+@app.route("/healthz", methods=("GET",))
+def healthz():
+    """
+    Basic health endpoint for liveness checks. Returns 200 when the process
+    is up. Keep the response body minimal and JSON-free to prevent content sniffing.
+    """
+    try:
+        resp = make_response("ok", 200)
+        resp.headers.setdefault("Content-Type", "text/plain; charset=utf-8")
+        # Do not cache health checks
+        resp.headers.setdefault("Cache-Control", "no-store, must-revalidate")
+        return _apply_security_headers(resp)
+    except Exception:
+        logger.exception("Unexpected error in healthz")
+        resp = make_response("unavailable", 503)
+        resp.headers["Cache-Control"] = "no-store"
+        return _apply_security_headers(resp)
