@@ -1,9 +1,9 @@
 import os
 import logging
 import secrets
-from typing import Optional, Mapping, Any
+from typing import Optional, Dict, Any
 
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify, request, Response
 
 # Expose create_app for tests and runtime imports
 __all__ = ["create_app"]
@@ -12,7 +12,7 @@ _logger = logging.getLogger(__name__)
 _logger.addHandler(logging.NullHandler())
 
 
-def _configure_app(app: Flask, config: Optional[Mapping[str, Any]] = None) -> None:
+def _configure_app(app: Flask, config: Optional[Dict[str, Any]] = None) -> None:
     """
     Apply minimal, secure defaults to the Flask app configuration.
     Uses environment variables where appropriate and falls back to safe defaults.
@@ -41,6 +41,9 @@ def _configure_app(app: Flask, config: Optional[Mapping[str, Any]] = None) -> No
 
     # Allow user-supplied dict to override defaults
     if config:
+        # Only accept dict-like mappings to avoid surprises
+        if not isinstance(config, dict):
+            raise TypeError("create_app config must be a dict if provided")
         app.config.update(config)
 
 
@@ -54,12 +57,12 @@ def _register_blueprints(app: Flask) -> None:
         # Import inside function to avoid circular imports at module import time.
         from app import routes  # type: ignore
     except Exception as exc:  # pragma: no cover - logging path
-        _logger.warning("Could not import app.routes: %s", exc)
+        _logger.debug("Could not import app.routes: %s", exc)
         return
 
-    # Expect routes module to expose one or more blueprints; prefer `main_bp`.
+    # Prefer the common 'bp' name first, then other common names
     registered = False
-    for attr in ("main_bp", "bp", "main", "blueprint"):
+    for attr in ("bp", "main_bp", "main", "blueprint"):
         bp = getattr(routes, attr, None)
         if bp:
             try:
@@ -80,7 +83,7 @@ def _register_blueprints(app: Flask) -> None:
                 _logger.exception("Failed to register blueprint from routes.blueprints: %s", exc)
 
     if not registered:
-        _logger.warning("No blueprints were registered from app.routes; ensure a blueprint named 'main_bp' exists.")
+        _logger.debug("No blueprints were registered from app.routes; ensure a blueprint named 'bp' or 'main_bp' exists.")
 
 
 def _register_error_handlers(app: Flask) -> None:
@@ -108,37 +111,57 @@ def _register_error_handlers(app: Flask) -> None:
             return jsonify({"error": "Internal Server Error"}), 500
 
 
-def create_app(config: Optional[Mapping[str, Any]] = None) -> Flask:
+def _apply_security_headers(response: Response) -> Response:
+    """
+    Apply a minimal set of security headers to responses (OWASP-aligned).
+    Keep policies conservative and compatible with typical apps.
+    """
+    # Prevent MIME type sniffing
+    response.headers.setdefault("X-Content-Type-Options", "nosniff")
+    # Clickjacking protection
+    response.headers.setdefault("X-Frame-Options", "SAMEORIGIN")
+    # Referrer policy
+    response.headers.setdefault("Referrer-Policy", "no-referrer-when-downgrade")
+    # Basic CSP: restrict everything by default, allow same-origin scripts/styles/images.
+    # Note: Applications that need external resources should extend this per-route or via config.
+    response.headers.setdefault(
+        "Content-Security-Policy",
+        "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;"
+    )
+    # HSTS only when served over HTTPS (Flask dev server is HTTP so do not set by default)
+    return response
+
+
+def create_app(config: Optional[Dict[str, Any]] = None) -> Flask:
     """
     Application factory for the Flask app.
 
     - Ensures templates resolve regardless of working directory by using the package directory.
     - Applies minimal secure defaults.
     - Registers blueprints from app.routes if available.
-    - Registers basic error handlers.
+    - Registers basic error handlers and security headers.
 
     Returns:
         A configured Flask application instance.
     """
     # Ensure template_folder resolves relative to this file
-    package_dir = os.path.dirname(__file__)
-    template_folder = os.path.join(package_dir, "templates")
+    template_folder = os.path.join(os.path.dirname(__file__), "templates")
 
+    # Create app using package relative templates directory (as required).
     app = Flask(__name__, template_folder=template_folder)
 
     # Configure app (env, secret, cookie settings, etc.)
     _configure_app(app, config=config)
 
-    # Setup logging for app if not already configured
+    # Setup basic logging for app if not already configured by environment/hosting.
     if not app.logger.handlers:
-        # Basic fallback logging configuration suitable for small apps and tests
         handler = logging.StreamHandler()
         formatter = logging.Formatter(
             "[%(asctime)s] %(levelname)s in %(module)s: %(message)s"
         )
         handler.setFormatter(formatter)
         app.logger.addHandler(handler)
-        app.logger.setLevel(logging.DEBUG if app.config["DEBUG"] else logging.INFO)
+        app.logger.setLevel(logging.DEBUG if app.config.get("DEBUG") else logging.INFO)
 
     # Register blueprints and error handlers
     _register_blueprints(app)
@@ -149,15 +172,9 @@ def create_app(config: Optional[Mapping[str, Any]] = None) -> Flask:
     def _healthz():
         return jsonify({"status": "ok"}), 200
 
+    # Global after-request to add security headers
+    @app.after_request
+    def _after_request(response: Response) -> Response:
+        return _apply_security_headers(response)
+
     return app
-
-
-# Provide a convenience app instance for quick interactive use while still supporting the factory pattern.
-# Avoid creating this at import-time in test suites that prefer to control app creation; create default only if explicitly requested.
-if os.environ.get("FLASK_CREATE_DEFAULT", "0") in ("1", "true", "True"):
-    try:
-        _logger.info("Creating default Flask application instance via create_app() (FLASK_CREATE_DEFAULT set).")
-        app = create_app()
-    except Exception:  # pragma: no cover - defensive
-        _logger.exception("Failed to create default Flask application instance.")
-        raise

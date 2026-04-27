@@ -2,30 +2,20 @@
 
 Project: English Study Hub — CSTL-1 (Landing Page - Bare-bones)
 
-This file documents exact, repeatable commands to set up a Python 3.12 virtual environment, install dependencies, run the Flask application, run tests, and validate the landing page locally. It also contains brief implementation/CI guidance, changed-files list, sample validation output, and residual risks.
+This document contains exact, repeatable commands and the templates reviewers need to reproduce the local run and test outputs required for code review and PR creation.
 
----
-
-## Prerequisites
-
+Prerequisites
 - Python 3.12 installed and available as `python3.12`
-- Git (for branching/commits)
-- Unix-like shell (Linux / macOS) or Windows (PowerShell or cmd)
-- Network access for pip install (or ensure `requirements.txt` is available locally)
+- Git
+- Unix-like shell (Linux / macOS) or Windows (PowerShell / cmd)
+- Network access for pip (or ensure requirements.txt is present locally)
 
-The repo includes:
-- run.py
-- app/__init__.py
-- app/routes.py
-- app/templates/index.html
-- static/ (optional)
-- requirements.txt
-- tests/test_landing.py
-- .gitignore
+Ensure requirements.txt includes at least:
+- Flask
+- pytest
+(Consider pinning exact versions for CI reproducibility, e.g. Flask==3.0.0 pytest==7.4.0)
 
----
-
-## 1) Create and activate a Python 3.12 venv
+1) Create and activate a Python 3.12 virtual environment
 
 Unix / macOS:
 ```bash
@@ -33,92 +23,81 @@ python3.12 -m venv .venv
 source .venv/bin/activate
 ```
 
-Windows (PowerShell):
+Windows PowerShell:
 ```powershell
 python3.12 -m venv .venv
 .venv\Scripts\Activate.ps1
 ```
 
-Windows (cmd.exe):
+Windows cmd.exe:
 ```cmd
 python3.12 -m venv .venv
 .venv\Scripts\activate
 ```
 
-Security note: create the venv in the repository root and do not run pip as root. Ensure `.venv` is in `.gitignore`.
+Security note: create the venv in the repo root, do not pip install as root, ensure `.venv` is in `.gitignore`.
 
----
+2) Install dependencies
 
-## 2) Install dependencies
-
-From the repository root (after activating the venv):
+From repo root (with venv active):
 ```bash
-pip install --upgrade pip
+python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-requirements.txt must include at least:
-- Flask>=3.0
-- pytest
+3) Run the application locally (development server)
 
-(If dependency resolution fails on your environment, pin compatible versions for Python 3.12.)
-
----
-
-## 3) Run the application locally
-
-Start the app with the provided entrypoint:
+Start the app:
 ```bash
 python run.py
 ```
-
-- The app listens on 127.0.0.1:5000 by default.
-- Do not run in production using `python run.py`. For production use a WSGI server (Gunicorn/uvicorn) behind a reverse proxy.
-
-To run in background on Unix for quick local check:
+- Default listen: 127.0.0.1:5000
+- For quick background run on Unix:
 ```bash
 python run.py & disown
 ```
+Stop: `kill <PID>`
 
-To stop the process, run:
-```bash
-kill <PID>
-```
+4) Run tests (pytest)
 
----
-
-## 4) Run tests (pytest)
-
-Activate the venv (if not active) and run:
+With venv active:
 ```bash
 pytest -q
 ```
 
-Tests are written to use Flask testing utilities:
-- tests import create_app from `app` (app.create_app)
-- tests set `app.testing = True` and use `app.test_client()`
-- No external network access in tests; no live server required
+Tests must:
+- Import create_app() from app or import app and set `app.testing = True`
+- Use `app.test_client()` (no network access required)
 
-Expected successful pytest output (example):
+Sample pytest output placeholder (copy actual output into PR body or attach as artifact):
 ```
 $ pytest -q
 .                                                                 1 passed in 0.12s
 ```
+Replace the above with the actual console output produced locally.
 
----
+5) Runtime verification with curl (exact commands reviewers will use)
 
-## 5) Quick verification (curl)
+After `python run.py` is running, run these exact commands in another shell:
 
-After `python run.py` is running, verify the landing page with curl:
-
+Get response headers (should show 200 status line):
 ```bash
-curl -sS http://127.0.0.1:5000/ | head -n 20
+curl -s -D - http://127.0.0.1:5000/ -o /dev/null
 ```
+Expected snippet to paste into PR (example):
+```
+HTTP/1.1 200 OK
+Date: Mon, 27 Apr 2026 15:53:20 GMT
+Server: Werkzeug/3.0.0 Python/3.12
+...
+```
+Note: some environments may use HTTP/2; ensure the response status is 200 OK in that case.
 
-Expected output contains the landing page HTML and specifically the headline:
-- Somewhere in the output: <h1>English Study Hub</h1>
-
-Example snippet:
+Get page body and verify headline:
+```bash
+curl -s http://127.0.0.1:5000/
+```
+Expected minimal HTML snippet to paste into PR (must include the headline):
 ```html
 <!doctype html>
 <html lang="en">
@@ -132,124 +111,138 @@ Example snippet:
 </body>
 </html>
 ```
+PR reviewers should verify the body returned by curl contains `<h1>English Study Hub</h1>`.
 
-If the curl output does not show `<h1>English Study Hub</h1>`, stop the server and check run.py and app/templates/index.html.
+6) Git branching, commit SHAs, PR creation template
 
----
-
-## 6) Git, branching, PR (developer + CI maintainers)
-
-Create the feature branch consistent with ticket:
+Create branch, commit, push:
 ```bash
 git checkout -b feature/CSTL-1-landing-page
 git add .
-git commit -m "CSTL-1: add bare-bones landing page (Flask) and tests"
+git commit -m "CSTL-1: add landing page, tests, and RUNNING.md"
 git push -u origin feature/CSTL-1-landing-page
 ```
 
-Open a PR against `main` (examples):
-
-Using GitHub CLI:
+Collect recent commit SHAs to include in PR description:
 ```bash
-gh pr create --base main --head feature/CSTL-1-landing-page --title "CSTL-1: Landing page" --body "Implements bare-bones landing page. Includes tests; run `pytest -q`."
+git log -n 5 --pretty=format:"%h %s"
+```
+Copy the relevant commit short SHAs (e.g., abc1234, def5678) into the PR description.
+
+Create PR using GitHub CLI (example):
+```bash
+gh pr create --base main --head feature/CSTL-1-landing-page --title "CSTL-1: Landing page - bare-bones" --body-file ./RUNNING_PR_BODY.txt
 ```
 
-Or manually open a PR in the GitHub UI. In the PR description include:
-- Commands used to run & test locally (copy from this file)
-- pytest output
-- curl output used to validate server
-- Branch name and commit SHA(s)
+PR description template (create RUNNING_PR_BODY.txt from the template below and pass to gh or paste into GitHub UI):
 
 ---
+Implements CSTL-1: landing page.
 
-## 7) CI suggestions (example job steps)
+Jira: https://tarch.atlassian.net/browse/CSTL-1
 
-A minimal CI job for GitHub Actions should:
-- Use Python 3.12 runner
-- Create venv and install requirements
-- Run pytest
-- Optionally run a basic smoke test by spinning up the app and curling `/` (or rely on tests which use test_client)
+Summary:
+- Adds minimal Flask app with app factory, landing route `/` rendering `index.html` containing `<h1>English Study Hub</h1>`
+- Adds tests using Flask test_client(), requirements.txt, and RUNNING.md with reproduction instructions
 
-Example steps (YAML pseudocode):
-- uses: actions/setup-python@v4
-  with: python-version: '3.12'
-- run: python -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt
-- run: pytest -q
+Commits:
+- <commit-sha-1>
+- <commit-sha-2>
 
-Ensure the CI runner's environment matches Python 3.12.
-
----
-
-## 8) Implementation summary (concise)
-
-- Implemented a minimal Flask app (app factory pattern) exposing `/` which renders server-side template `index.html`.
-- run.py runs the app on 127.0.0.1:5000 for local development.
-- Tests exercise the factory with Flask `test_client()` and assert response `200` and presence of `<h1>English Study Hub</h1>`.
-- Added `.gitignore` entries for `.venv`, `__pycache__`, and `*.pyc`.
-
----
-
-## 9) Changed / created files (for PR & reviewer)
-
+Changed files:
 - run.py
 - app/__init__.py
 - app/routes.py
 - app/templates/index.html
-- static/style.css (optional)
 - requirements.txt
 - tests/test_landing.py
 - .gitignore
-- RUNNING.md (this file)
+- RUNNING.md
 
-Include these files in the single commit for CSTL-1.
+Test run (paste actual pytest console output here):
+```
+<PASTE ACTUAL pytest -q OUTPUT HERE>
+```
 
+Runtime verification (paste curl outputs captured from local run here):
+
+Headers (from: curl -s -D - http://127.0.0.1:5000/ -o /dev/null):
+```
+<PASTE ACTUAL HEADER OUTPUT HERE - should include "HTTP/1.1 200 OK">
+```
+
+Body (from: curl -s http://127.0.0.1:5000/):
+```
+<PASTE ACTUAL HTML BODY HERE - should contain "<h1>English Study Hub</h1>">
+```
+
+Jira comment (copy and paste into CSTL-1 to request transition to In Review):
+```
+PR for CSTL-1: feature/CSTL-1-landing-page -> main
+PR URL: <PASTE PR URL HERE>
+Summary: Adds a minimal landing page and tests. See PR description for commands and artifacts.
+Requested action: Please transition CSTL-1 to "In Review" and assign reviewers.
+Test artifacts: pytest output and curl verification are attached/pasted in the PR description.
+Commits: <commit-sha-1>, <commit-sha-2>
+```
 ---
 
-## 10) Validation evidence (paste into PR or artifacts)
+7) CI / artifacts guidance
 
-Example local commands and expected outputs to include in PR body:
+- Ensure CI uses Python 3.12.
+- CI step examples (GitHub Actions):
+  - checkout
+  - setup-python@v4 (python-version: '3.12')
+  - python -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt
+  - pytest -q
+- Optionally spin server and curl `/` for a smoke test (or rely on unit tests using test_client).
 
-- Create venv & install:
+8) Tests - expected conventions
+
+- tests/test_landing.py must import the app via `from app import create_app` or `from app import app`
+- If using create_app():
+```python
+app = create_app()
+app.testing = True
+client = app.test_client()
+resp = client.get('/')
+assert resp.status_code == 200
+assert b'English Study Hub' in resp.data
 ```
-$ python3.12 -m venv .venv
-$ source .venv/bin/activate
-(.venv) $ pip install -r requirements.txt
+- Tests must not require network access.
+
+9) Changed / created files (for PR and reviewer)
+- run.py
+- app/__init__.py
+- app/routes.py
+- app/templates/index.html
+- requirements.txt
+- tests/test_landing.py
+- .gitignore
+- RUNNING.md
+
+10) Checklist for PR reviewers (ensure these are present in PR description)
+- [ ] Branch: feature/CSTL-1-landing-page -> main
+- [ ] Commits listed with SHAs
+- [ ] pytest console output pasted (or CI artifact linked)
+- [ ] curl header output pasted (contains 200 status line)
+- [ ] curl body output pasted (contains `<h1>English Study Hub</h1>`)
+- [ ] Jira comment text present in PR for easy copy/paste
+
+11) Troubleshooting tips
+- If curl headers show HTTP/2, confirm the status code 200 is present and paste the header block.
+- If pytest fails, run `pytest -q -k <testname> -vv` to get more detail.
+- If the landing page does not render `<h1>English Study Hub</h1>`, confirm templates are in `app/templates/index.html` and the app factory uses:
+```python
+app = Flask(__name__, template_folder=os.path.join(os.path.dirname(__file__), 'templates'))
 ```
 
-- Run tests:
-```
-(.venv) $ pytest -q
-.                                                                 1 passed in 0.12s
-```
+12) Residual risks / follow-ups
+- Development server (`python run.py`) is not for production. Use Gunicorn/uvicorn behind TLS for production.
+- Pin dependencies in requirements.txt for reproducible CI builds.
+- Add accessibility and i18n improvements for production readiness.
 
-- Run server and curl:
-```
-(.venv) $ python run.py
- * Running on http://127.0.0.1:5000
-# in another terminal:
-$ curl -sS http://127.0.0.1:5000/ | head -n 20
-<!doctype html>
-<html lang="en">
-...
-  <h1>English Study Hub</h1>
-...
-```
-
-Attach these logs to the PR (or paste them in the PR description).
-
----
-
-## 11) Residual risks / follow-ups
-
-- Production deployment: this project uses the development server. For production, deploy with a WSGI server (Gunicorn, uWSGI) and configure TLS/HTTPS, proper host binding, and process supervision.
-- Dependency pinning: consider pinning exact dependency versions for reproducible CI.
-- Accessibility & i18n: the landing page is bare-bones; follow a11y guidelines and add translations as needed.
-- Security: no user input or data storage is present in this scope. If adding user input later, validate and escape all inputs.
-
----
-
-## 12) Metadata (for traceability)
-
+13) Metadata (for traceability)
 - taskId: CSTL-1
 - branch: feature/CSTL-1-landing-page
 - recommended PR title: "CSTL-1: Landing page - bare-bones"
@@ -258,4 +251,4 @@ Attach these logs to the PR (or paste them in the PR description).
 
 ---
 
-If anything in the environment (Python path, CI runner image, or required tooling) differs, adapt the commands above accordingly.
+If any environment differences exist (python binary, CI runner image), adapt the commands above accordingly.

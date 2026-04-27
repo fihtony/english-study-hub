@@ -1,4 +1,5 @@
 import logging
+import datetime
 from typing import Any
 
 from flask import Blueprint, make_response, render_template, jsonify, Response
@@ -23,11 +24,12 @@ def _secure_headers(resp: Response) -> Response:
     # Very restrictive content security policy: only allow same-origin resources.
     # If the site needs to load external scripts/styles, relax this deliberately.
     resp.headers.setdefault(
-        "Content-Security-Policy", "default-src 'self'; img-src 'self' data:; frame-ancestors 'none'; base-uri 'self';"
+        "Content-Security-Policy",
+        "default-src 'self'; img-src 'self' data:; script-src 'self'; style-src 'self'; frame-ancestors 'none'; base-uri 'self';",
     )
     # Don't send referrer to other origins
     resp.headers.setdefault("Referrer-Policy", "no-referrer")
-    # Basic XSS protection hint
+    # Basic XSS protection hint (legacy browsers)
     resp.headers.setdefault("X-XSS-Protection", "1; mode=block")
     return resp
 
@@ -43,7 +45,8 @@ def landing() -> Response:
     is returned without exposing internal details (avoids leaking stack traces).
     """
     try:
-        html: str = render_template("index.html", title="English Study Hub")
+        current_year = datetime.datetime.utcnow().year
+        html: str = render_template("index.html", current_year=current_year)
         resp: Response = make_response(html, 200)
         resp.headers["Content-Type"] = "text/html; charset=utf-8"
         return _secure_headers(resp)
