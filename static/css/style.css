@@ -1,0 +1,130 @@
+:root{
+  --bg:#f7fafc;
+  --surface:#ffffff;
+  --text:#0f1720;
+  --muted:#4b5563;
+  --primary:#0b5fff; /* vivid blue for CTA */
+  --primary-contrast:#ffffff;
+  --container-max:1100px;
+  --radius:10px;
+  --gap:1rem;
+}
+
+/* Box-sizing reset and sensible defaults */
+*,*::before,*::after{box-sizing:border-box}
+html,body{height:100%}
+html{
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  background:var(--bg);
+  color:var(--text);
+  font-size:16px;
+  line-height:1.4;
+}
+
+/* Centered page container */
+.container{
+  max-width:var(--container-max);
+  margin-left:auto;
+  margin-right:auto;
+  padding-inline:clamp(1rem, 4vw, 2rem);
+  width:100%;
+}
+
+/* Hero: visually ~80–120px tall on most viewports */
+.hero{
+  background:linear-gradient(180deg, rgba(11,95,255,0.05), transparent 70%);
+  border-radius:var(--radius);
+  min-height:80px; /* lower bound */
+  padding-block:clamp(16px, 6vw, 40px); /* responsive padding pushes visual height toward 80–120px */
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  gap:var(--gap);
+  box-shadow:0 1px 2px rgba(15,23,32,0.04);
+}
+
+/* Headline and description */
+.hero h1{
+  margin:0;
+  font-size:clamp(1.375rem, 2.4vw, 2rem);
+  line-height:1.1;
+  color:var(--text);
+  word-break:break-word;
+}
+
+.hero p{
+  margin:0.5rem 0 0;
+  color:var(--muted);
+  font-size:clamp(0.95rem, 1.6vw, 1.0625rem);
+  max-width:60ch;
+}
+
+/* CTA styled as prominent button-like anchor */
+.cta{
+  display:inline-block;
+  margin-top:0.75rem;
+  background-color:var(--primary);
+  color:var(--primary-contrast);
+  padding:0.55rem 1rem;
+  border-radius:8px;
+  text-decoration:none;
+  font-weight:600;
+  font-size:1rem;
+  line-height:1;
+  border:1px solid rgba(0,0,0,0.04);
+  box-shadow:0 6px 18px rgba(11,95,255,0.12);
+  transition:transform .12s ease, box-shadow .12s ease, background-color .12s ease;
+}
+
+/* Hover and active affordances */
+.cta:hover{ transform:translateY(-2px); box-shadow:0 10px 24px rgba(11,95,255,0.14) }
+.cta:active{ transform:translateY(0); box-shadow:0 6px 18px rgba(11,95,255,0.10) }
+
+/* Strong, visible focus ring for keyboard users */
+.cta:focus{ outline:none }
+.cta:focus-visible{
+  box-shadow:
+    0 0 0 4px rgba(11,95,255,0.12),
+    0 2px 6px rgba(2,6,23,0.08);
+  border-color:rgba(11,95,255,0.6);
+  border-width:2px;
+}
+
+/* Footer alignment */
+.footer{
+  margin-top:1.5rem;
+  padding-block:1rem;
+  text-align:center;
+  font-size:0.875rem;
+  color:var(--muted);
+}
+
+/* Small utility spacing for vertical layout inside container */
+.stack{ display:flex; flex-direction:column; gap:calc(var(--gap) * 0.6); align-items:center }
+
+/* Responsive adjustments for narrow screens */
+@media (max-width:600px){
+  :root{ --container-max:900px }
+  .hero{
+    padding-block:clamp(14px, 8vw, 28px);
+    border-radius:8px;
+  }
+  .hero h1{ font-size:1.25rem }
+  .hero p{ font-size:0.98rem; max-width:42ch }
+  .cta{
+    width:auto;
+    padding:0.7rem 1.1rem;
+    font-size:1rem;
+    border-radius:10px;
+  }
+  .container{ padding-inline:1rem }
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion:reduce){
+  .cta, .hero{ transition:none; transform:none }
+}

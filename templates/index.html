@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="English Study Hub — practice and improve English reading and vocabulary">
+  <title>English Study Hub</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    :root{
+      --bg:#f7f8fa;
+      --card:#ffffff;
+      --text:#0f1724;
+      --muted:#6b7280;
+      --primary:#2563eb;
+      --primary-contrast:#fff;
+      --max-width:920px;
+      --radius:12px;
+    }
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;line-height:1.4;color:var(--text);background:var(--bg);}
+    .skip-link{position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden;}
+    .skip-link:focus{left:8px;top:8px;width:auto;height:auto;padding:8px 12px;background:#111;color:#fff;border-radius:6px;text-decoration:none;z-index:1000;}
+    .site-header{padding:1rem 1.25rem;background:transparent;display:flex;justify-content:space-between;align-items:center;}
+    .brand{font-weight:700;color:var(--text);text-decoration:none;font-size:1rem;}
+    .container{max-width:var(--max-width);margin:0 auto;padding:2rem 1rem;box-sizing:border-box;}
+    .hero{background:linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.8));border-radius:var(--radius);padding:3.5rem 2rem;text-align:center;box-shadow:0 6px 18px rgba(15,23,36,0.06);min-height:180px;display:flex;flex-direction:column;justify-content:center;align-items:center;}
+    h1{margin:0 0 .5rem;font-size:clamp(1.5rem, 3.5vw, 2.25rem);}
+    .subtitle{margin:0 0 1rem;color:var(--muted);max-width:56ch;}
+    .cta{display:inline-block;background:var(--primary);color:var(--primary-contrast);padding:.75rem 1.25rem;border-radius:8px;text-decoration:none;font-weight:600;margin-top:1rem;border:2px solid transparent;}
+    .cta:focus, .cta:focus-visible{outline:3px solid rgba(37,99,235,0.18);box-shadow:0 0 0 4px rgba(37,99,235,0.08);border-color:rgba(255,255,255,0.05);}
+    .meta{margin-top:1rem;color:var(--muted);font-size:.95rem;}
+    footer.site-footer{margin-top:2rem;padding:1rem 0;color:var(--muted);font-size:.9rem;text-align:center;}
+    footer.site-footer a{color:inherit;text-decoration:underline;}
+    @media (min-width:720px){
+      .hero{padding:4rem 3rem;}
+      h1{font-size:clamp(1.75rem, 2.8vw, 2.75rem);}
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <header class="site-header" role="banner" aria-label="Site header">
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;padding:0;">
+      <a class="brand" href="/" aria-label="English Study Hub home">English Study Hub</a>
+    </div>
+  </header>
+
+  <main id="main" class="container" role="main" aria-labelledby="hero-heading">
+    <section class="hero" role="region" aria-labelledby="hero-heading" aria-describedby="hero-desc">
+      <h1 id="hero-heading">English Study Hub — Landing Page (Bare-bones)</h1>
+      <p id="hero-desc" class="subtitle">Practice and improve English reading and vocabulary with short, focused lessons. Start with a simple reading exercise or explore vocabulary lists tailored to your level.</p>
+      <a class="cta" href="{{ cta_href | default('/learn') }}" role="button" aria-label="Primary action: {{ cta_label | default('Get Started') }}">{{ cta_label | default('Get Started') }}</a>
+      <p class="meta" aria-hidden="true">No account required — lightweight, privacy-friendly testing ground.</p>
+    </section>
+
+    <section aria-label="Additional information" style="margin-top:1.25rem;text-align:center;">
+      <p style="color:var(--muted);margin:0;">Built for quick iteration. Accessible, responsive, and minimal.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer" role="contentinfo" aria-label="Footer">
+    <div class="container">
+      <p style="margin:.25rem 0;">
+        <a href="https://github.com/your-org/english-study-hub" target="_blank" rel="noopener noreferrer">GitHub repository</a>
+      </p>
+      <p style="margin:.25rem 0;color:var(--muted);font-size:.85rem;">&copy; <span id="current-year">{{ current_year if current_year is defined else "" }}</span> English Study Hub</p>
+    </div>
+  </footer>
+
+  <noscript>
+    <div style="position:fixed;bottom:8px;left:8px;background:#111;color:#fff;padding:8px 12px;border-radius:6px;font-size:.85rem;">JavaScript disabled — core content remains available.</div>
+  </noscript>
+
+  <script>
+    // Ensure footer year shows current year if not provided by server context
+    (function(){
+      var el = document.getElementById('current-year');
+      if(el && (!el.textContent || el.textContent.trim()==='')){
+        el.textContent = new Date().getFullYear();
+      }
+    })();
+  </script>
+</body>
+</html>

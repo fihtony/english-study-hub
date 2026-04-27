@@ -1,0 +1,68 @@
+# Python / Flask / project-level gitignore
+# Purpose: exclude virtualenvs, caches, env files, test artifacts, and OS/editor cruft.
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+
+# Byte-compiled / caches
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*$py.class
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+
+# Installed Python artifacts
+*.egg
+*.whl
+
+# Environment / secret files
+.env
+.env.*              # local env variants (e.g. .env.local)
+instance/           # Flask instance folder (contains secrets/config)
+
+# Test / coverage
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# Editors and IDEs
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs and runtime files
+*.log
+*.pid
+*.sock
+
+# Temporary and swap files
+*.swp
+*.tmp
+*.bak
+*.orig
+
+# Static build outputs (if any front-end tooling gets added)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# End of gitignore
