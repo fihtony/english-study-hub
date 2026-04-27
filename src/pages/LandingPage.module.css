@@ -1,0 +1,120 @@
+:root{
+  --bg: #ffffff;
+  --text: #0f1724;
+  --muted: #6b7280;
+  --primary: #0b7cff;
+  --primary-600: #065fd6;
+  --radius: 10px;
+  --max-width: 920px;
+  --gutter: 1.25rem;
+}
+
+.container{
+  box-sizing: border-box;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: calc(var(--gutter) * 2);
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* Hero block centers content and constrains width for legibility */
+.hero{
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: calc(var(--gutter) * 1.5);
+  text-align: center;
+  display: block;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Responsive, accessible title sizing */
+.title{
+  margin: 0 0 0.5rem 0;
+  font-weight: 700;
+  line-height: 1.05;
+  color: var(--text);
+  font-size: clamp(1.6rem, 3.6vw + 1rem, 2.6rem);
+  letter-spacing: -0.01em;
+}
+
+/* Subtle subtitle for supporting text */
+.subtitle{
+  margin: 0 0 1.5rem 0;
+  color: var(--muted);
+  font-size: clamp(1rem, 1.2vw + 0.8rem, 1.125rem);
+  line-height: 1.5;
+  max-width: 52ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Prominent CTA button with accessible states */
+.ctaButton{
+  display: inline-block;
+  text-decoration: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: var(--primary);
+  color: #fff;
+  padding: 0.9rem 1.4rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  border-radius: var(--radius);
+  border: 0;
+  box-shadow: 0 8px 20px rgba(11,124,255,0.18);
+  cursor: pointer;
+  transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Hover / focus / active states */
+.ctaButton:hover{
+  background-color: var(--primary-600);
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px rgba(6,95,214,0.18);
+}
+
+.ctaButton:active{
+  transform: translateY(0);
+  box-shadow: 0 6px 14px rgba(6,95,214,0.12);
+}
+
+.ctaButton:focus{
+  outline: none;
+}
+
+/* Visible focus ring for keyboard users */
+.ctaButton:focus-visible{
+  box-shadow: 0 0 0 4px rgba(11,124,255,0.14), 0 10px 24px rgba(6,95,214,0.12);
+  border-radius: calc(var(--radius) - 1px);
+}
+
+/* Small screens: tighten paddings and scale down spacing */
+@media (max-width: 540px){
+  .hero{
+    padding: calc(var(--gutter) * 1);
+  }
+  .title{
+    font-size: clamp(1.4rem, 6vw + 0.2rem, 2.1rem);
+  }
+  .ctaButton{
+    width: 100%;
+    padding: 0.85rem 1rem;
+    font-size: 1rem;
+  }
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce){
+  .ctaButton, .ctaButton:hover, .ctaButton:active{
+    transition: none;
+    transform: none;
+    box-shadow: none;
+  }
+}
