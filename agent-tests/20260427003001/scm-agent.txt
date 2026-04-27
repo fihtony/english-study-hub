@@ -1,0 +1,4 @@
+# SCM Agent Integration Test
+branch: agent/test/20260427003001
+timestamp: 20260427003001
+line-3: This line will receive the inline PR comment.
