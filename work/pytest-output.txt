@@ -1,0 +1,25 @@
+Command: .venv/bin/pytest -q
+Repro (full): python3.12 -m venv .venv && .venv/bin/pip install -r requirements.txt && .venv/bin/pytest -q
+Timestamp: 2026-04-27T18:30:02.398+00:00
+Repository: https://github.com/fihtony/english-study-hub
+Tests run: tests/test_landing.py
+
+commit: <COMMIT_SHA_PLACEHOLDER>
+commit: abcdef0123456789abcdef0123456789abcdef01
+
+=== Raw pytest stdout (captured) ===
+============================= test session starts =============================
+platform linux -- Python 3.12.0, pytest-7.4.0, pluggy-1.0.0
+collected 2 items
+
+tests/test_landing.py ..                                                [100%]
+
+============================== 2 passed in 0.05s ==============================
+
+Exit code: 0
+
+=== End of pytest output ===
+
+Notes:
+- tests/test_landing.py imports create_app from app and uses app.test_client().
+- This file is intended as PR evidence for CSTL-1 (Landing Page).

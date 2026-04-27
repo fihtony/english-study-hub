@@ -1,0 +1,37 @@
+{
+  "taskId": "CSTL-1",
+  "target_repo_url": "https://github.com/fihtony/english-study-hub",
+  "stage": "A - Inspect & plan",
+  "branches_checked": [
+    "main",
+    "develop",
+    "feature/CSTL-1-landing-page",
+    "feature/CSTL-1_task-0001_1"
+  ],
+  "pr_links": [
+    "https://github.com/fihtony/english-study-hub/pull/12",
+    "https://github.com/fihtony/english-study-hub/pull/13"
+  ],
+  "pr_summaries": [
+    {
+      "url": "https://github.com/fihtony/english-study-hub/pull/12",
+      "title": "CSTL-1: initial landing page scaffold",
+      "status": "open",
+      "notes": "Contains an initial scaffold for landing page and templates."
+    },
+    {
+      "url": "https://github.com/fihtony/english-study-hub/pull/13",
+      "title": "CSTL-1: CI/test fixes and static asset support",
+      "status": "open",
+      "notes": "Adjusts tests and static asset paths; complementary to PR #12."
+    }
+  ],
+  "planned_branch": "feature/CSTL-1-landing-page",
+  "notes": "Stage A capture of branches and PRs related to CSTL-1. If repo is sparse, plan is to scaffold a minimal Flask app (app/, run.py, requirements.txt, templates/, static/) and add pytest tests validating GET / and static asset serving. Will run local pytest and record outputs to .work/pytest-output.txt and .work/cstl-1-test-evidence.json. PR description will reference CSTL-1, include changed files, run instructions and pytest output.",
+  "evidence_paths": [
+    ".work/cstl-1-test-evidence.json",
+    ".work/pytest-output.txt"
+  ],
+  "discovered_commit_shas": [],
+  "timestamp": "2026-04-27T18:29:33.096+00:00"
+}

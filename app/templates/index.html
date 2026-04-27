@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>English Study Hub</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+  <main role="main" class="container">
+    <header>
+      <h1>English Study Hub</h1>
+    </header>
+
+    <p>Landing Page (Bare-bones)</p>
+
+    {% if stitch_screen_id %}
+      <div id="stitch-screen-id" class="stitch-id" role="status" aria-live="polite">
+        Stitch screen id: {{ stitch_screen_id }}
+      </div>
+    {% else %}
+      <div id="stitch-screen-id" class="stitch-id stitch-id--placeholder" aria-hidden="true">
+        <!-- no stitch screen id available -->
+      </div>
+    {% endif %}
+  </main>
+</body>
+</html>
