@@ -1,0 +1,31 @@
+# Git ignore for this repository — ignore virtualenvs and Python build/cache artifacts
+venv/
+.venv/
+.venv
+__pycache__/
+*.pyc
+.pytest_cache/
+.env
+
+# Pytest / coverage / test artifacts
+.coverage
+htmlcov/
+
+# Build / packaging
+build/
+dist/
+*.egg-info/
+
+# Python tooling caches
+.mypy_cache/
+.Python
+
+# Flask instance folder
+instance/
+
+# SQLite DBs (common for local dev)
+*.sqlite3
+
+# OS files
+.DS_Store
+Thumbs.db

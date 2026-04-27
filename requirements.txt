@@ -1,0 +1,13 @@
+# English Study Hub - pinned dependencies (compatible with Python 3.12)
+# Runtime
+Flask>=2.2,<3
+
+# Optional production WSGI server
+gunicorn>=20.1,<21
+
+# Testing
+pytest>=7.2,<8
+pytest-cov>=4.0,<5
+
+# Dev / convenience
+python-dotenv>=1.0,<2

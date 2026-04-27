@@ -1,0 +1,118 @@
+:root{
+  --bg: #f7f7f7;
+  --surface: #ffffff;
+  --text: #111827; /* dark gray for readable contrast */
+  --muted: #6b7280;
+  --accent: #2563eb;
+  --card-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
+  --radius: 10px;
+  --max-width: 720px;
+  --padding: 2rem;
+}
+
+/* Simple reset and sensible defaults */
+*,
+*::before,
+*::after{
+  box-sizing: border-box;
+}
+
+html,body{
+  height:100%;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--bg);
+  color:var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.5;
+  padding:1rem; /* small breathing room on very small viewports */
+}
+
+/* Centered card container */
+.container{
+  width:clamp(280px, 90%, var(--max-width));
+  max-width:var(--max-width);
+  text-align:center;
+  padding:var(--padding);
+  background:var(--surface);
+  border-radius:var(--radius);
+  box-shadow:var(--card-shadow);
+  border:1px solid rgba(15,23,42,0.03);
+}
+
+/* Branding */
+h1{
+  margin:0 0 0.5rem 0;
+  font-weight:700;
+  font-size:clamp(1.4rem, 3vw, 2rem);
+  line-height:1.05;
+  color:var(--text);
+  word-wrap:break-word;
+}
+
+.lead,
+p{
+  margin:0;
+  margin-bottom:0.75rem;
+  color:var(--muted);
+  font-size:clamp(0.95rem, 1.3vw, 1rem);
+  max-width:48rem;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+/* Footer text */
+footer{
+  margin-top:1rem;
+  font-size:0.9rem;
+  color:var(--muted);
+}
+
+/* Links */
+a{
+  color:var(--accent);
+  text-decoration:none;
+  font-weight:600;
+}
+
+a:hover,
+a:focus{
+  text-decoration:underline;
+  outline:none;
+}
+
+/* Accessible focus styles */
+:focus-visible{
+  outline:3px solid rgba(37,99,235,0.16);
+  outline-offset:3px;
+  border-radius:4px;
+}
+
+/* Reduce motion preference */
+@media (prefers-reduced-motion: reduce){
+  *{
+    transition:none !important;
+    animation:none !important;
+  }
+}
+
+/* Slightly larger padding on wider screens */
+@media (min-width:720px){
+  .container{
+    padding:2.5rem;
+  }
+}
+
+/* Print-friendly */
+@media print{
+  body{background:white;}
+  .container{box-shadow:none;border:1px solid #e5e7eb;}
+}
