@@ -1,81 +1,56 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
-*$py.class
-
-# C extensions
-*.so
-
-# Distribution / packaging
-.Python
-build/
-dist/
-downloads/
-eggs/
-.eggs/
-*.egg-info/
-.installed.cfg
-*.egg
-pip-wheel-metadata/
-wheels/
-share/python-wheels/
+*.pyc
+*.pyo
+*.pyd
 
 # Virtual environments
 .venv/
-.venv
 venv/
 env/
 ENV/
-venv.bak/
-.env/venv/
 
-# Pytest / test output / coverage
+# Environment files
+.env
+.env.*      # local env variants
+
+# Flask / instance folder
+instance/
+*.sqlite3
+*.db
+
+# Distribution / packaging
+build/
+dist/
+.eggs/
+*.egg-info/
+.installed.cfg
+pip-delete-this-directory.txt
+
+# Pytest
 .pytest_cache/
-pytest_cache/
-.coverage
-.coverage.*
-coverage.xml
-htmlcov/
 
-# Type checking caches
-.mypy_cache/
-.pytype/
-.pyre/
-
-# IDE and editor directories
-.idea/
+# IDEs and editors
 .vscode/
-*.sublime-workspace
+.idea/
 *.sublime-project
+*.sublime-workspace
 
-# OS generated files
+# OS files
 .DS_Store
 Thumbs.db
 
-# Environment and secrets
-.env
-.env.*
-instance/
-secrets.json
-
 # Logs and runtime files
 *.log
-logs/
-pip-log.txt
-pip-delete-this-directory.txt
+*.pid
+*.seed
 
-# PyInstaller
-*.manifest
-*.spec
-
-# Bytecode caches and temp
-*.pyc
-__pypackages__/
-profile_default/
-ipynb_checkpoints/
-
-# Misc
-.cache/
-coverage/
+# Coverage
 htmlcov/
-coverage-report/
+.coverage
+.coverage.*
+.cache
+
+# Installer / wheel directory
+wheelhouse/

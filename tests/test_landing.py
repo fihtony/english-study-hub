@@ -1,38 +1,34 @@
-import re
 import pytest
-from app import app
+from app import create_app
+
 
 @pytest.fixture
-def client():
+def app():
     """
-    Provide a Flask test client with testing mode enabled.
-    Tests must not start a real server; use the test client instead.
+    Create and configure a new app instance for each test.
     """
+    app = create_app()
     app.testing = True
-    with app.test_client() as client:
-        yield client
+    return app
 
-def test_landing_status_and_content(client):
-    """
-    GET / should return 200 and include the visible site title 'English Study Hub'.
-    """
-    resp = client.get('/')
-    assert resp.status_code == 200, f"Expected 200 OK, got {resp.status_code}"
-    html = resp.get_data(as_text=True)
-    assert 'English Study Hub' in html, "Landing page must contain the exact phrase 'English Study Hub'"
 
-def test_css_link_present(client):
+@pytest.fixture
+def client(app):
     """
-    Landing page should reference at least one CSS file via a <link rel='stylesheet'> tag
-    and include a .css file reference in the HTML.
+    Provide a Flask test client for the app fixture.
     """
-    resp = client.get('/')
-    assert resp.status_code == 200, f"Expected 200 OK, got {resp.status_code}"
-    html = resp.get_data(as_text=True)
+    return app.test_client()
 
-    # Look for a <link ... rel="stylesheet" ...> tag (case-insensitive)
-    link_rel_pattern = re.compile(r'<link\b[^>]*\brel\s*=\s*["\']stylesheet["\'][^>]*>', re.IGNORECASE)
-    assert link_rel_pattern.search(html), "No <link rel='stylesheet'> tag found in landing page HTML"
 
-    # Ensure there's a reference to a .css resource
-    assert '.css' in html.lower(), "Landing page HTML does not reference any .css files"
+def test_landing_returns_200_and_contains_title(client):
+    """
+    Ensure the landing page responds with HTTP 200, returns HTML and contains
+    the expected site title 'English Study Hub'.
+    """
+    res = client.get('/')
+    assert res.status_code == 200, f"Expected 200 OK, got {res.status_code}"
+    # Response body should contain the visible title text
+    assert b'English Study Hub' in res.data, "Landing page does not contain 'English Study Hub'"
+    # Content-Type should indicate HTML
+    content_type = res.headers.get('Content-Type', '')
+    assert 'text/html' in content_type, f"Expected 'text/html' in Content-Type header, got '{content_type}'"

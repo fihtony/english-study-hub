@@ -1,125 +1,163 @@
 import os
 import logging
 import secrets
-from typing import Any
-from flask import Flask, render_template, request, jsonify, Response
+from typing import Optional, Mapping, Any
 
-# REQUIRED: use this exact template_folder pattern so tests resolve templates correctly
-app = Flask(__name__, template_folder=os.path.join(os.path.dirname(__file__), "templates"))
+from flask import Flask, render_template, jsonify, request
 
-# Basic logging setup (non-invasive)
-logger = logging.getLogger(__name__)
-if not logging.getLogger().handlers:
-    logging.basicConfig(level=logging.INFO)
+# Expose create_app for tests and runtime imports
+__all__ = ["create_app"]
 
-# Security-focused default configuration
-_env = os.environ.get("FLASK_ENV", "production").lower()
-app.config.setdefault("ENV", _env)
-app.config.setdefault("DEBUG", _env == "development")
+_logger = logging.getLogger(__name__)
+_logger.addHandler(logging.NullHandler())
 
-# Allow explicit TESTING override (useful for pytest)
-if "TESTING" in os.environ:
-    app.config["TESTING"] = os.environ.get("TESTING", "0") in ("1", "true", "True")
 
-# Session / cookie security
-# Secret key: prefer environment variable; if absent generate ephemeral key (safe for tests/dev)
-app.config.setdefault("SECRET_KEY", os.environ.get("SECRET_KEY") or secrets.token_urlsafe(32))
+def _configure_app(app: Flask, config: Optional[Mapping[str, Any]] = None) -> None:
+    """
+    Apply minimal, secure defaults to the Flask app configuration.
+    Uses environment variables where appropriate and falls back to safe defaults.
+    """
+    # Base config
+    app.config.setdefault("ENV", os.environ.get("FLASK_ENV", "production"))
+    app.config.setdefault("DEBUG", os.environ.get("FLASK_DEBUG", "0") in ("1", "true", "True"))
+    # Secret key: prefer env var, otherwise generate ephemeral secret for local/testing use.
+    secret = os.environ.get("SECRET_KEY")
+    if not secret:
+        # Generate a runtime-only secret; tests/dev will still work. Do not persist.
+        secret = secrets.token_urlsafe(32)
+        _logger.warning("Using ephemeral SECRET_KEY (not for production). Set SECRET_KEY env var to override.")
+    app.config.setdefault("SECRET_KEY", secret)
 
-if app.config.get("DEBUG"):
-    app.config.setdefault("SESSION_COOKIE_SECURE", False)
-else:
-    app.config.setdefault("SESSION_COOKIE_SECURE", True)
+    # Secure session cookie settings (OWASP recommendations)
+    is_dev = app.config["ENV"] in ("development", "dev")
+    app.config.setdefault("SESSION_COOKIE_HTTPONLY", True)
+    app.config.setdefault("SESSION_COOKIE_SAMESITE", "Lax")
+    # Only enable Secure cookies when not in development (requires TLS in production).
+    app.config.setdefault("SESSION_COOKIE_SECURE", not is_dev)
 
-app.config.setdefault("SESSION_COOKIE_HTTPONLY", True)
-app.config.setdefault("SESSION_COOKIE_SAMESITE", "Lax")
+    # Small sensible defaults
+    app.config.setdefault("JSON_SORT_KEYS", False)
+    app.config.setdefault("PROPAGATE_EXCEPTIONS", False)
 
-# Optionally adjust static folder to project-level static/ if present
-_project_static = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "static"))
-if os.path.isdir(_project_static):
-    # Point Flask to the repository-level static/ for convenience.
-    app.static_folder = _project_static
+    # Allow user-supplied dict to override defaults
+    if config:
+        app.config.update(config)
 
-    # import locally to avoid importing send_from_directory when static not present
-    from flask import send_from_directory  # type: ignore
-    from werkzeug.exceptions import NotFound
 
-    @app.route("/static/<path:filename>")
-    def _static(filename: str) -> Any:
-        """
-        Serve files from the project-level static/ directory. Uses send_from_directory
-        which defends against path traversal attacks.
-        """
-        try:
-            return send_from_directory(app.static_folder, filename)
-        except NotFound:
-            logger.info("Static file not found: %s", filename)
-            return ("Not Found", 404)
-        except Exception as exc:  # pragma: no cover - defensive
-            logger.exception("Failed to serve static file %s: %s", filename, exc)
-            return ("Not Found", 404)
-
-# Security headers applied to all responses
-@app.after_request
-def set_security_headers(response: Response) -> Response:
-    # Prevent MIME-type sniffing
-    response.headers.setdefault("X-Content-Type-Options", "nosniff")
-    # Basic clickjacking protection
-    response.headers.setdefault("X-Frame-Options", "SAMEORIGIN")
-    # Minimal CSP: only allow resources from self, permit inline styles for a simple landing page
-    response.headers.setdefault(
-        "Content-Security-Policy",
-        "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;"
-    )
-    # Referrer policy
-    response.headers.setdefault("Referrer-Policy", "no-referrer-when-downgrade")
-    # HSTS only in non-debug environments
-    if not app.config.get("DEBUG"):
-        response.headers.setdefault(
-            "Strict-Transport-Security",
-            "max-age=63072000; includeSubDomains; preload"
-        )
-    return response
-
-# Error handlers with safe, user-facing messages
-@app.errorhandler(404)
-def not_found(error) -> Any:
-    logger.info("404 Not Found: %s %s", request.method, request.path)
+def _register_blueprints(app: Flask) -> None:
+    """
+    Dynamically import and register blueprints from app.routes.
+    If the module or blueprint is absent, log a warning but do not raise,
+    so the factory remains usable in testing contexts where routes may be stubbed.
+    """
     try:
-        return render_template("404.html"), 404
-    except Exception:
-        return jsonify({"error": "Not Found"}), 404
+        # Import inside function to avoid circular imports at module import time.
+        from app import routes  # type: ignore
+    except Exception as exc:  # pragma: no cover - logging path
+        _logger.warning("Could not import app.routes: %s", exc)
+        return
 
-@app.errorhandler(500)
-def internal_error(error) -> Any:
-    logger.exception("500 Internal Server Error at %s %s", request.method, request.path)
-    try:
-        return render_template("500.html"), 500
-    except Exception:
-        return jsonify({"error": "Internal Server Error"}), 500
+    # Expect routes module to expose one or more blueprints; prefer `main_bp`.
+    registered = False
+    for attr in ("main_bp", "bp", "main", "blueprint"):
+        bp = getattr(routes, attr, None)
+        if bp:
+            try:
+                app.register_blueprint(bp)
+                _logger.debug("Registered blueprint '%s' from app.routes", attr)
+                registered = True
+            except Exception as exc:  # pragma: no cover - defensive
+                _logger.exception("Failed to register blueprint '%s': %s", attr, exc)
 
-# Import routes to register endpoints. If import fails, provide a safe fallback route so
-# `from app import app` succeeds and tests can use app.test_client().
-try:
-    from . import routes  # type: ignore
-except Exception as exc:  # pragma: no cover - import failure fallback
-    logger.exception("Failed to import app.routes: %s", exc)
+    # Also allow a collection named `blueprints` (list/tuple)
+    bps = getattr(routes, "blueprints", None)
+    if bps:
+        for bp in bps:
+            try:
+                app.register_blueprint(bp)
+                registered = True
+            except Exception as exc:  # pragma: no cover - defensive
+                _logger.exception("Failed to register blueprint from routes.blueprints: %s", exc)
 
-    @app.route("/")
-    def _fallback_index() -> Any:
-        """
-        Minimal fallback landing page used only if app.routes failed to import.
-        Ensures tests and simple health checks work.
-        """
+    if not registered:
+        _logger.warning("No blueprints were registered from app.routes; ensure a blueprint named 'main_bp' exists.")
+
+
+def _register_error_handlers(app: Flask) -> None:
+    """
+    Register minimal error handlers that safely render responses.
+    Prefer HTML when the client accepts it; otherwise return JSON.
+    """
+
+    @app.errorhandler(404)
+    def _not_found(err):
+        _logger.debug("404 for path: %s", request.path)
+        # Try to render template if available; otherwise return JSON
         try:
-            # Prefer rendering project template if present
-            return render_template("index.html")
+            return render_template("404.html"), 404
         except Exception:
-            # Minimal safe HTML output (keeps tests simple and avoids XSS vectors)
-            return (
-                "<!doctype html>"
-                "<html lang='en'><head><meta charset='utf-8'><title>English Study Hub</title></head>"
-                "<body><h1>English Study Hub</h1><p>Welcome — landing page is initializing.</p></body></html>"
-            )
+            return jsonify({"error": "Not Found"}), 404
 
-# Expose only the Flask app for easier imports in tests and other modules
-__all__ = ["app"]
+    @app.errorhandler(500)
+    def _internal_error(err):
+        # Log with stack trace
+        _logger.exception("Internal server error: %s", err)
+        try:
+            return render_template("500.html"), 500
+        except Exception:
+            return jsonify({"error": "Internal Server Error"}), 500
+
+
+def create_app(config: Optional[Mapping[str, Any]] = None) -> Flask:
+    """
+    Application factory for the Flask app.
+
+    - Ensures templates resolve regardless of working directory by using the package directory.
+    - Applies minimal secure defaults.
+    - Registers blueprints from app.routes if available.
+    - Registers basic error handlers.
+
+    Returns:
+        A configured Flask application instance.
+    """
+    # Ensure template_folder resolves relative to this file
+    package_dir = os.path.dirname(__file__)
+    template_folder = os.path.join(package_dir, "templates")
+
+    app = Flask(__name__, template_folder=template_folder)
+
+    # Configure app (env, secret, cookie settings, etc.)
+    _configure_app(app, config=config)
+
+    # Setup logging for app if not already configured
+    if not app.logger.handlers:
+        # Basic fallback logging configuration suitable for small apps and tests
+        handler = logging.StreamHandler()
+        formatter = logging.Formatter(
+            "[%(asctime)s] %(levelname)s in %(module)s: %(message)s"
+        )
+        handler.setFormatter(formatter)
+        app.logger.addHandler(handler)
+        app.logger.setLevel(logging.DEBUG if app.config["DEBUG"] else logging.INFO)
+
+    # Register blueprints and error handlers
+    _register_blueprints(app)
+    _register_error_handlers(app)
+
+    # Health check endpoint (useful for tests and simple runtime checks)
+    @app.route("/healthz", methods=["GET"])
+    def _healthz():
+        return jsonify({"status": "ok"}), 200
+
+    return app
+
+
+# Provide a convenience app instance for quick interactive use while still supporting the factory pattern.
+# Avoid creating this at import-time in test suites that prefer to control app creation; create default only if explicitly requested.
+if os.environ.get("FLASK_CREATE_DEFAULT", "0") in ("1", "true", "True"):
+    try:
+        _logger.info("Creating default Flask application instance via create_app() (FLASK_CREATE_DEFAULT set).")
+        app = create_app()
+    except Exception:  # pragma: no cover - defensive
+        _logger.exception("Failed to create default Flask application instance.")
+        raise

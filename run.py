@@ -1,48 +1,85 @@
+import logging
 import os
 import sys
-import logging
-from app import app
+from typing import Tuple
 
+# Configure basic logging for visibility when running locally
+LOG_LEVEL = os.environ.get("LOG_LEVEL", "INFO").upper()
 logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s %(levelname)s %(name)s - %(message)s"
+    level=LOG_LEVEL,
+    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
 )
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("run")
 
+def _read_host_port() -> Tuple[str, int]:
+    """
+    Read host and port from environment variables with safe defaults.
+    PORT is validated to be an integer in the ephemeral port range.
+    """
+    host = os.environ.get("HOST", "127.0.0.1")
+    port_str = os.environ.get("PORT", "5000")
+    try:
+        port = int(port_str)
+        if not (1 <= port <= 65535):
+            raise ValueError("port out of range")
+    except Exception:
+        logger.warning("Invalid PORT value %r, falling back to 5000", port_str)
+        port = 5000
+    return host, port
+
+def _create_app_instance():
+    """
+    Import create_app from the app package and instantiate the Flask application.
+    Provides clear error messages if the app package is missing or create_app fails.
+    """
+    try:
+        # Import here to provide a clear error message if package is missing
+        from app import create_app  # type: ignore
+    except Exception as exc:
+        logger.exception(
+            "Failed to import 'create_app' from package 'app'. Ensure 'app/__init__.py' "
+            "defines create_app() and that the package is on PYTHONPATH."
+        )
+        raise SystemExit(1) from exc
+
+    try:
+        app = create_app()
+    except Exception as exc:
+        logger.exception("create_app() raised an exception during app creation.")
+        raise SystemExit(1) from exc
+
+    # Basic runtime sanity checks
+    if app is None:
+        logger.error("create_app() returned None instead of a Flask application.")
+        raise SystemExit(1)
+
+    # Confirm the object looks like a Flask app
+    if not hasattr(app, "run"):
+        logger.error("Returned object from create_app() does not appear to be a Flask app.")
+        raise SystemExit(1)
+
+    return app
 
 def main() -> None:
     """
-    CLI entrypoint to run the Flask app locally.
-
-    - Refuses to start if environment indicates production.
-    - Reads HOST and PORT from environment with sensible defaults.
-    - Ensures debug mode is explicitly disabled for manual runs.
+    Entrypoint for running the Flask development server locally.
+    Uses sensible defaults and environment overrides for HOST/PORT/DEBUG.
     """
-    # Production guard: refuse to run the dev server when environment indicates production
-    env = os.environ.get("FLASK_ENV", os.environ.get("ENV", "")).strip().lower()
-    if env == "production":
-        logger.error(
-            "Refusing to run development server in production environment (FLASK_ENV/ENV=production)."
-        )
-        sys.exit(1)
+    host, port = _read_host_port()
+    debug_env = os.environ.get("DEBUG", os.environ.get("FLASK_DEBUG", "True"))
+    debug = str(debug_env).lower() not in ("0", "false", "no", "")
 
-    host = os.environ.get("HOST", "0.0.0.0")
+    app = _create_app_instance()
+
+    # Show basic startup information
+    logger.info("Starting Flask development server for app=%r", getattr(app, "name", None))
+    logger.info("Host: %s  Port: %s  Debug: %s", host, port, debug)
     try:
-        port = int(os.environ.get("PORT", "5000"))
-        if not (0 <= port <= 65535):
-            raise ValueError("port out of range")
-    except (TypeError, ValueError):
-        logger.warning("Invalid PORT environment variable; falling back to 5000")
-        port = 5000
-
-    logger.info("Starting Flask development server at http://%s:%d/ (debug disabled)", host, port)
-    try:
-        # Explicitly disable debug and reloader for safety in manual launches
-        app.run(host=host, port=port, debug=False, use_reloader=False)
-    except Exception:
-        logger.exception("Unhandled exception while running the Flask server")
-        sys.exit(1)
-
+        # debug True enables the reloader and interactive debugger (for local dev only)
+        app.run(host=host, port=port, debug=debug)
+    except Exception as exc:
+        logger.exception("Failed to start Flask server.")
+        raise SystemExit(1) from exc
 
 if __name__ == "__main__":
     main()

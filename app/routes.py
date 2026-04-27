@@ -1,96 +1,86 @@
-from flask import render_template, make_response, request
-from werkzeug.exceptions import HTTPException
 import logging
-from . import app
+from typing import Any
+
+from flask import Blueprint, make_response, render_template, jsonify, Response
+from jinja2 import TemplateNotFound
 
 logger = logging.getLogger(__name__)
-logger.addHandler(logging.NullHandler())
+
+bp = Blueprint("main", __name__)
 
 
-def _apply_security_headers(resp):
+def _secure_headers(resp: Response) -> Response:
     """
-    Apply conservative security headers following OWASP guidance.
-    These headers are always set for responses produced by public routes.
+    Apply a minimal set of security headers to mitigate common web risks.
+    These are conservative defaults that should be compatible with a simple
+    server-side-rendered landing page. Templates that rely on inline scripts
+    or external resources may need header adjustments.
     """
-    try:
-        # Prevent MIME type sniffing
-        resp.headers["X-Content-Type-Options"] = "nosniff"
-        # Prevent clickjacking
-        resp.headers["X-Frame-Options"] = "DENY"
-        # Legacy XSS filter (kept for older user-agents)
-        resp.headers["X-XSS-Protection"] = "1; mode=block"
-        # Minimal referrer policy to avoid leaking origin on cross-origin requests
-        resp.headers["Referrer-Policy"] = "no-referrer-when-downgrade"
-        # Content Security Policy - restrict to same-origin; allow inline styles for simple templates
-        resp.headers["Content-Security-Policy"] = (
-            "default-src 'self'; "
-            "script-src 'self'; "
-            "style-src 'self' 'unsafe-inline'; "
-            "img-src 'self' data:; "
-            "font-src 'self' data:;"
-        )
-        # HSTS only when request is secure
-        if request.is_secure:
-            resp.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains; preload"
-        # Do not cache responses served to clients (keeps tests deterministic)
-        resp.headers["Cache-Control"] = "no-store"
-    except Exception:
-        # Never let header application raise to callers; log and return response unmodified
-        logger.exception("Failed to apply security headers")
+    # Prevent MIME-type sniffing
+    resp.headers.setdefault("X-Content-Type-Options", "nosniff")
+    # Prevent clickjacking
+    resp.headers.setdefault("X-Frame-Options", "DENY")
+    # Very restrictive content security policy: only allow same-origin resources.
+    # If the site needs to load external scripts/styles, relax this deliberately.
+    resp.headers.setdefault(
+        "Content-Security-Policy", "default-src 'self'; img-src 'self' data:; frame-ancestors 'none'; base-uri 'self';"
+    )
+    # Don't send referrer to other origins
+    resp.headers.setdefault("Referrer-Policy", "no-referrer")
+    # Basic XSS protection hint
+    resp.headers.setdefault("X-XSS-Protection", "1; mode=block")
     return resp
 
 
-@app.route("/", methods=("GET",))
-def landing():
+@bp.route("/", methods=("GET",))
+def landing() -> Response:
     """
-    Landing page route.
+    Landing page route. Renders the index.html template from the application's
+    templates directory. Returns a Response with explicit HTML content-type
+    and security headers applied.
 
-    Returns the rendered index.html wrapped in a Response, with security headers applied.
+    If the template is missing or rendering fails, a generic 500 HTML response
+    is returned without exposing internal details (avoids leaking stack traces).
     """
     try:
-        resp = make_response(render_template("index.html"))
-        # Ensure correct content type for HTML responses
-        resp.headers.setdefault("Content-Type", "text/html; charset=utf-8")
-        return _apply_security_headers(resp)
-    except HTTPException as he:
-        # Werkzeug HTTPExceptions are safe to expose their HTTP semantics
-        logger.warning("HTTP exception while rendering landing: %s", he)
-        resp = make_response(str(he), he.code or 500)
-        resp.headers.setdefault("Content-Type", "text/plain; charset=utf-8")
-        return _apply_security_headers(resp)
-    except Exception:
-        # Log full stack trace server-side; return a generic, safe HTML message client-side
-        logger.exception("Unexpected error while rendering landing page")
-        safe_html = (
-            "<!doctype html>"
-            "<html lang='en'>"
-            "<head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'>"
-            "<title>Service Unavailable</title></head>"
-            "<body><main style='font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,sans-serif;"
-            "margin:4rem auto;max-width:40rem;padding:1rem;text-align:center;'>"
-            "<h1>Service temporarily unavailable</h1>"
-            "<p>Please try again later.</p>"
-            "</main></body></html>"
-        )
-        resp = make_response(safe_html, 503)
+        html: str = render_template("index.html", title="English Study Hub")
+        resp: Response = make_response(html, 200)
         resp.headers["Content-Type"] = "text/html; charset=utf-8"
-        resp.headers["Cache-Control"] = "no-store, must-revalidate"
-        return _apply_security_headers(resp)
+        return _secure_headers(resp)
+    except TemplateNotFound:
+        logger.exception("Template 'index.html' not found for landing page.")
+        safe_body = (
+            "<!doctype html><html><head><meta charset='utf-8'><title>Service Unavailable</title></head>"
+            "<body><h1>Service unavailable</h1><p>The site is temporarily unavailable. Please try again later.</p></body></html>"
+        )
+        resp = make_response(safe_body, 500)
+        resp.headers["Content-Type"] = "text/html; charset=utf-8"
+        return _secure_headers(resp)
+    except Exception:
+        # Catch-all: log for diagnostics but return a minimal safe message to clients.
+        logger.exception("Unexpected error while rendering landing page.")
+        safe_body = (
+            "<!doctype html><html><head><meta charset='utf-8'><title>Service Error</title></head>"
+            "<body><h1>Service error</h1><p>An unexpected error occurred.</p></body></html>"
+        )
+        resp = make_response(safe_body, 500)
+        resp.headers["Content-Type"] = "text/html; charset=utf-8"
+        return _secure_headers(resp)
 
 
-@app.route("/healthz", methods=("GET",))
-def healthz():
+@bp.route("/health", methods=("GET",))
+def health() -> Response:
     """
-    Simple health check endpoint used by tests and monitoring.
+    Simple health endpoint intended for readiness/liveness checks.
+    Returns JSON with a non-sensitive status and applies security headers.
     """
     try:
-        resp = make_response("ok", 200)
-        resp.headers.setdefault("Content-Type", "text/plain; charset=utf-8")
-        resp.headers["Cache-Control"] = "no-store"
-        return _apply_security_headers(resp)
+        body: Any = {"status": "ok"}
+        resp: Response = make_response(jsonify(body), 200)
+        resp.headers["Content-Type"] = "application/json; charset=utf-8"
+        return _secure_headers(resp)
     except Exception:
-        logger.exception("Unexpected error in healthz")
-        resp = make_response("unavailable", 503)
-        resp.headers["Content-Type"] = "text/plain; charset=utf-8"
-        resp.headers["Cache-Control"] = "no-store"
-        return _apply_security_headers(resp)
+        logger.exception("Health check failed.")
+        resp = make_response(jsonify({"status": "error"}), 500)
+        resp.headers["Content-Type"] = "application/json; charset=utf-8"
+        return _secure_headers(resp)
