@@ -1,0 +1,7 @@
+# Requirements pinned as ranges compatible with Python 3.12
+# Runtime
+Flask>=3.0,<4.0
+
+# Testing
+pytest>=7.4,<8.0
+pytest-cov>=4.0,<5.0

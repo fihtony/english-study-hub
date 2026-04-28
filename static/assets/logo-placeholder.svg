@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="120" height="40" viewBox="0 0 120 40" role="img"
+     aria-labelledby="logoTitle logoDesc">
+  <title id="logoTitle">English Study Hub - Logo Placeholder</title>
+  <desc id="logoDesc">Stylized mark with the letters ESH: rounded blue mark with teal accent and dark logotype.</desc>
+
+  <!-- Background rounded badge -->
+  <rect x="1" y="1" rx="8" ry="8" width="38" height="38" fill="#0a66c2"/>
+
+  <!-- Accent circle -->
+  <circle cx="30" cy="10" r="5" fill="#00c2a8" opacity="0.95"/>
+
+  <!-- Stylized 'E' inside badge created with paths for crispness -->
+  <g transform="translate(6,6)" fill="#ffffff" stroke="none" aria-hidden="true">
+    <rect x="0" y="0" width="14" height="3" rx="1" />
+    <rect x="0" y="5.5" width="12" height="3" rx="1" />
+    <rect x="0" y="11" width="14" height="3" rx="1" />
+  </g>
+
+  <!-- Logotype 'ESH' to the right -->
+  <text x="52" y="26" font-family="Segoe UI, Roboto, Arial, sans-serif"
+        font-weight="700" font-size="18" fill="#0b2447">ESH</text>
+
+  <!-- Subtle underline / baseline graphic -->
+  <rect x="52" y="29" width="42" height="2" rx="1" fill="#e6eef9" />
+
+  <!-- Ensure viewBox scales nicely when embedded inline -->
+</svg>
