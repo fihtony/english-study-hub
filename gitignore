@@ -1,0 +1,52 @@
+# Python artifacts
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Environment config
+.env
+.env.local
+.env.*.local
+
+# Testing and packaging
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+pip-wheel-metadata/
+
+# macOS
+.DS_Store
+
+# Editor/IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Logs and runtime files
+*.log
+instance/
+.webassets-cache
+
+# Artifacts directory: ignore caches but commit screenshots required by ticket.
+# Ignore only the artifacts cache folder if created
+artifacts/.cache/
+
+# IMPORTANT: Do NOT ignore artifacts/screenshots — screenshots must be committed per ticket.
+# Keep landing page evidence files like artifacts/screenshots/landing_desktop.png and landing_mobile.png
+!artifacts/screenshots/
+!artifacts/screenshots/landing_*.png
+
+# Optional: system-specific swap/temp files
+*~
+*.swp
+*.tmp
+*.bak

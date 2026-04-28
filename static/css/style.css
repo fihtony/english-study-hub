@@ -1,0 +1,299 @@
+/* static/css/style.css
+   Purpose: Landing page styling matching Stitch-like design for desktop (1366x768) and close mobile layout.
+   Deliberate simplification: Using system font stack instead of custom licensed fonts for portability and performance.
+   Author: Generated for CSTL-1
+*/
+
+/* ---------------------------
+   Design tokens (CSS variables)
+   --------------------------- */
+:root{
+  /* Color palette */
+  --bg: #f6f7fb;               /* Page background */
+  --surface: #ffffff;          /* Card / hero surface */
+  --muted: #6b7280;            /* Secondary text */
+  --text: #0f1724;             /* Primary text */
+  --primary: #5b6cff;          /* Primary CTA color (accessible, saturated) */
+  --primary-strong: #4350e6;   /* Slightly darker for focus/active */
+  --accent: #00c2a8;           /* Accent for subtle elements */
+  --shadow: rgba(16,24,40,0.06);
+
+  /* Typography */
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --base-font-size: 16px;
+  --scale-ratio: 1.22;
+
+  /* Spacing */
+  --space-xs: 6px;
+  --space-sm: 12px;
+  --space-md: 20px;
+  --space-lg: 32px;
+  --space-xl: 56px;
+
+  /* Component */
+  --radius: 12px;
+  --btn-radius: 10px;
+  --container-max: 980px;
+
+  /* Accessibility */
+  --focus-ring: 3px;
+}
+
+/* ---------------------------
+   Global and reset
+   --------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  font-family: var(--font-sans);
+  font-size: var(--base-font-size);
+  color: var(--text);
+  background-color: var(--bg);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height: 1.45;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  padding: var(--space-lg) min(6%, 48px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+/* Remove default link styles but keep accessibility */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ---------------------------
+   Layout: centered hero
+   --------------------------- */
+.site {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+  align-items: center;
+}
+
+/* Surface card (hero) */
+.hero {
+  background: linear-gradient(180deg, rgba(255,255,255,0.95), var(--surface));
+  border-radius: calc(var(--radius) + 4px);
+  box-shadow: 0 10px 30px var(--shadow);
+  padding: clamp(24px, 6vw, 64px);
+  display: flex;
+  gap: var(--space-lg);
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+/* Constrain inner content for readable measure */
+.hero .hero-inner {
+  max-width: 65ch;
+}
+
+/* Branding / site title (small) */
+.site-title {
+  display: inline-block;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.2px;
+  color: var(--primary-strong);
+  margin-bottom: var(--space-sm);
+}
+
+/* Main heading */
+.hero-heading {
+  margin: 0 0 var(--space-md) 0;
+  font-weight: 700;
+  font-size: clamp(28px, calc(24px + 3.5vw), 56px); /* large on desktop */
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  text-wrap: balance;
+}
+
+/* Supporting paragraph */
+.hero-subtext {
+  margin: 0 0 var(--space-lg) 0;
+  color: var(--muted);
+  font-size: 1.05rem;
+  max-width: 58ch;
+}
+
+/* CTA group */
+.cta-row {
+  display: flex;
+  gap: var(--space-md);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* Primary CTA */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 20px;
+  border-radius: var(--btn-radius);
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  transition: transform 170ms ease, box-shadow 170ms ease, background-color 170ms ease;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Filled primary button */
+.btn-primary {
+  background-color: var(--primary);
+  color: #ffffff;
+  box-shadow: 0 6px 16px rgba(91,108,255,0.18);
+  min-width: 160px;
+}
+
+/* Hover / active states */
+.btn-primary:hover {
+  transform: translateY(-2px);
+  background-color: var(--primary-strong);
+  box-shadow: 0 10px 30px rgba(67,80,230,0.16);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Secondary link-style button */
+.btn-ghost {
+  background: transparent;
+  color: var(--text);
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid rgba(15,23,36,0.06);
+}
+
+/* Focus styles for keyboard users */
+.btn-primary:focus,
+.btn-ghost:focus,
+a:focus {
+  outline: none;
+  box-shadow: 0 0 0 var(--focus-ring) rgba(91,108,255,0.18), 0 6px 18px var(--shadow);
+  border-radius: calc(var(--btn-radius) + 2px);
+}
+
+/* Small visual helper for subtle illustrations / image placeholders */
+.hero-visual {
+  flex: 0 0 360px;
+  height: 240px;
+  background: linear-gradient(135deg, rgba(91,108,255,0.12), rgba(0,194,168,0.06));
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-strong);
+  font-weight: 700;
+  font-size: 1.6rem;
+  user-select: none;
+}
+
+/* ---------------------------
+   Responsive: mobile adjustments
+   --------------------------- */
+@media (max-width: 880px) {
+  .hero {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: clamp(20px, 6vw, 36px);
+  }
+  .hero-visual {
+    width: 100%;
+    height: 160px;
+    order: 2;
+  }
+  .hero .hero-inner {
+    max-width: 100%;
+  }
+  .cta-row {
+    width: 100%;
+    justify-content: flex-start;
+  }
+  .btn-primary {
+    min-width: 140px;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: var(--space-md) min(4%, 20px);
+  }
+  .hero-heading {
+    font-size: clamp(22px, 5.5vw, 34px);
+  }
+  .hero-subtext {
+    font-size: 1rem;
+  }
+  .hero-visual {
+    height: 140px;
+  }
+  .btn {
+    padding: 12px 14px;
+    font-size: 0.98rem;
+  }
+}
+
+/* ---------------------------
+   Utility and accessibility
+   --------------------------- */
+.visually-hidden {
+  position: absolute !important;
+  height: 1px; width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .btn,
+  .hero,
+  .hero-visual {
+    transition: none !important;
+  }
+}
+
+/* ---------------------------
+   Print-friendly adjustments
+   --------------------------- */
+@media print {
+  body {
+    background: white;
+    color: black;
+  }
+  .hero {
+    box-shadow: none;
+    background: white;
+    border: 1px solid #eee;
+  }
+}
+
+/* ---------------------------
+   End of stylesheet
+   --------------------------- */

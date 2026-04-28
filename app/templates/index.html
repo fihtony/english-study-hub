@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>English Study Hub</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+  <meta name="description" content="English Study Hub — practice reading and comprehension with curated materials and interactive exercises.">
+</head>
+<body>
+  <!--
+    Stitch design reference:
+    project_id:13629074018280446337
+    screen_id:45ac4478a1b7455f861d7377f92105e6
+
+    Intentional deviations:
+    - System/UI-safe fonts used instead of a proprietary/specific webfont for a smaller asset footprint and privacy (can be swapped in later).
+    - Color and spacing tuned for accessible contrast and responsive scaling while remaining faithful to the Stitch raster.
+  -->
+
+  <header class="site-header" role="banner">
+    <div class="container header-inner">
+      <a href="/" class="site-title" aria-label="English Study Hub home">English Study Hub</a>
+      <nav class="main-nav" role="navigation" aria-label="Primary">
+        <ul>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="content" role="main">
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="container hero-inner">
+        <div class="hero-copy">
+          <h1 id="hero-heading">Strengthen your English reading and comprehension</h1>
+          <p class="hero-lead">Short stories, guided exercises, and spaced practice to build vocabulary and confidence—designed for learners at every level.</p>
+          <p class="hero-cta">
+            <a class="btn btn-primary" href="#" role="button" aria-label="Get started with English Study Hub">Get Started</a>
+            <a class="btn btn-secondary" href="#features" aria-label="See features">See Features</a>
+          </p>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <!-- Decorative placeholder to mirror Stitch layout (illustration/card area) -->
+          <div class="visual-card">
+            <div class="visual-card__line visual-card__line--short"></div>
+            <div class="visual-card__line visual-card__line--long"></div>
+            <div class="visual-card__box"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="features container" aria-labelledby="features-heading">
+      <h2 id="features-heading" class="sr-only">Features</h2>
+      <ul class="feature-list">
+        <li>
+          <h3>Curated readings</h3>
+          <p>Short passages with progressive difficulty and comprehension questions.</p>
+        </li>
+        <li>
+          <h3>Interactive quizzes</h3>
+          <p>Immediate feedback and spaced repetition to reinforce learning.</p>
+        </li>
+        <li>
+          <h3>Progress tracking</h3>
+          <p>Easy-to-read metrics to celebrate milestones and guide study plans.</p>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-inner">
+      <p>&copy; <span id="year"></span> English Study Hub. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Small progressive enhancement: set current year
+    (function(){ try { document.getElementById('year').textContent = new Date().getFullYear(); } catch(e) { /* noop */ } })();
+  </script>
+</body>
+</html>
