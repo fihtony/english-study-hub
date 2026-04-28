@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Constellation — CSTL-4</title>
+  <meta name="description" content="Constellation — UI prototype for CSTL-4. Precise layout implemented from Figma wireframes." />
+  <meta name="theme-color" content="#0b1221" />
+
+  <!-- Open Graph / Social -->
+  <meta property="og:title" content="Constellation — CSTL-4" />
+  <meta property="og:description" content="UI prototype implemented from the Figma CSTL-4 design." />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- Security: conservative Content Security Policy.
+       During development Vite's HMR may require 'unsafe-eval' or ws/wss connect; adjust tooling or env for stricter CSP in production.
+       This CSP aims to reduce XSS risk while allowing dev tooling. -->
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; connect-src 'self' ws: wss: https:; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https:; font-src 'self' https: data:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:;">
+  
+  <!-- Fallback icons / PWA -->
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+
+  <!-- Preload main module for faster startup -->
+  <link rel="modulepreload" href="/src/main.jsx" />
+
+  <!-- Perf: prefer-color-scheme support -->
+  <meta name="color-scheme" content="dark light" />
+
+  <!-- Helpful for mobile web apps -->
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+
+  <!-- Robots -->
+  <meta name="robots" content="index,follow" />
+</head>
+<body>
+  <div id="root" role="main" aria-label="Constellation application root"></div>
+
+  <noscript>
+    This application requires JavaScript to run. Please enable JavaScript in your browser settings and reload.
+  </noscript>
+
+  <!-- Vite entry: main module bootstraps the React app -->
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+</html>

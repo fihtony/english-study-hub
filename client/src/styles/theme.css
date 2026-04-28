@@ -1,0 +1,333 @@
+/* Global theme variables for Constellation (client/src/styles/theme.css)
+   - Colors, typography, spacing, and breakpoints
+   - Imported by client/src/main.jsx
+*/
+
+:root {
+  /* Palette */
+  --cstl-primary: #0b5fff;           /* primary brand blue */
+  --cstl-primary-700: #094fdb;
+  --cstl-accent: #ff7a59;            /* warm accent / CTA */
+  --cstl-accent-700: #e66345;
+  --cstl-bg: #f7fbff;                /* page background */
+  --cstl-surface: #ffffff;           /* cards / surfaces */
+  --cstl-border: #e6eef8;            /* subtle borders */
+  --cstl-muted: #64748b;             /* secondary text */
+  --cstl-text: #0f1724;              /* main text (high contrast) */
+  --cstl-success: #16a34a;
+  --cstl-error: #dc2626;
+  --cstl-warning: #f59e0b;
+  --cstl-focus: rgba(11, 95, 255, 0.18);
+
+  /* Typography */
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto,
+               "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji",
+               "Segoe UI Emoji", "Segoe UI Symbol";
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono",
+               "Courier New", monospace;
+
+  /* Base sizes (use rems for scalability) */
+  --cstl-font-size-base: 16px;       /* 1rem = 16px */
+  --cstl-font-size-body: 1rem;       /* 16px */
+  --cstl-font-size-h1: 2.25rem;      /* 36px */
+  --cstl-font-size-h2: 1.75rem;      /* 28px */
+  --cstl-font-size-h3: 1.25rem;      /* 20px */
+  --cstl-line-height-base: 1.5;
+  --cstl-heading-weight: 700;
+  --cstl-body-weight: 400;
+
+  /* Spacing scale */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+
+  /* Border radius & elevation */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --elevation-1: 0 1px 2px rgba(16,24,40,0.04), 0 1px 3px rgba(16,24,40,0.06);
+  --elevation-2: 0/* Global theme variables for Constellation (client/src/styles/theme.css)
+   - Color, typography, spacing, breakpoints
+   - Designed for accessibility (contrast, focus-visible) and responsive typography
+*/
+
+/* Root variables */
+:root {
+  /* Core brand colors */
+  --cstl-primary: #0B5FFF;      /* primary action color (blue) */
+  --cstl-accent:  #FF7A59;      /* accent / secondary CTA (coral/orange) */
+  --cstl-bg:      #F6F9FF;      /* page background (very light blue) */
+  --cstl-surface: #FFFFFF;      /* cards, surfaces */
+  --cstl-text:    #0F1724;      /* primary body text (near-black) */
+  --cstl-muted:   #6B7280;      /* secondary text / meta */
+  --cstl-border:  #E6E9F2;      /* neutral border */
+  --cstl-success: #12B76A;
+  --cstl-danger:  #EF4444;
+  --cstl-shadow:  0 6px 18px rgba(11, 91, 255, 0.08);
+
+  /* Font family stack (variable) */
+  --cstl-font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
+  /* Base font sizes and line heights */
+  --cstl-font-size-body: 1rem;            /* 16px */
+  --cstl-line-height-body: 1.6;
+  --cstl-font-size-h1: clamp(1.75rem, 2.5vw + 0.5rem, 2.5rem); /* responsive */
+  --cstl-line-height-h1: 1.08;
+  --cstl-font-size-h2: clamp(1.25rem, 1.6vw + 0.5rem, 1.75rem);
+  --cstl-line-height-h2: 1.18;
+  --cstl-font-weight-regular: 400;
+  --cstl-font-weight-semibold: 600;
+  --cstl-font-weight-bold: 700;
+
+  /* Spacing scale */
+  --cstl-space-xxs: 4px;
+  --cstl-space-xs: 8px;
+  --cstl-space-sm: 12px;
+  --cstl-space-md: 20px;
+  --cstl-space-lg: 32px;
+  --cstl-space-xl: 48px;
+
+  /* Breakpoints (can be used in media queries) */
+  --cstl-breakpoint-xs: 360px;
+  --cstl-breakpoint-sm: 640px;
+  --cstl-breakpoint-md: 768px;
+  --cstl-breakpoint-lg: 1024px;
+  --cstl-breakpoint-xl: 1280px;
+  --cstl-breakpoint-xxl: 1536px;
+
+  /* Layout */
+  --cstl-container-max-width: 1200px;
+  --cstl-border-radius: 10px;
+  --cstl-radius-sm: 6px;
+
+  /* Motion */
+  --cstl-duration-fast: 150ms;
+  --cstl-duration-medium: 300ms;
+  --cstl-easing: cubic-bezier(.2,.9,.2,1);
+}
+
+/* Box-sizing and base reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  margin: 0;
+  font-family: var(--cstl-font-sans);
+  font-size: var(--cstl-font-size-body);
+  line-height: var(--cstl-line-height-body);
+  color: var(--cstl-text);
+  background-color: var(--cstl-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  -webkit-tap-highlight-color: transparent;
+  min-height: 100%;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--cstl-text);
+  margin: 0 0 var(--cstl-space-md) 0;
+  font-weight: var(--cstl-font-weight-semibold);
+  line-height: 1.15;
+}
+
+h1 {
+  font-size: var(--cstl-font-size-h1);
+  line-height: var(--cstl-line-height-h1);
+  letter-spacing: -0.01em;
+}
+
+h2 {
+  font-size: var(--cstl-font-size-h2);
+  line-height: var(--cstl-line-height-h2);
+}
+
+/* Paragraphs and small text */
+p {
+  margin: 0 0 var(--cstl-space-md) 0;
+  color: var(--cstl-text);
+  font-size: var(--cstl-font-size-body);
+}
+
+small, .muted {
+  color: var(--cstl-muted);
+  font-size: 0.875rem;
+}
+
+/* Links */
+a {
+  color: var(--cstl-primary);
+  text-decoration: none;
+  transition: color var(--cstl-duration-fast) var(--cstl-easing);
+}
+a:hover,
+a:focus {
+  color: color-mix(in srgb, var(--cstl-primary) 80%, #000 20%);
+  text-decoration: underline;
+}
+
+/* Buttons */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--cstl-border-radius);
+  border: 0;
+  cursor: pointer;
+  font-weight: var(--cstl-font-weight-semibold);
+  transition: transform var(--cstl-duration-fast) var(--cstl-easing), box-shadow var(--cstl-duration-fast) var(--cstl-easing);
+}
+
+.button:active { transform: translateY(1px); }
+
+.button--primary {
+  background: linear-gradient(180deg, var(--cstl-primary), color-mix(in srgb, var(--cstl-primary) 85%, #000 15%));
+  color: #fff;
+  box-shadow: var(--cstl-shadow);
+}
+.button--primary:hover { filter: brightness(1.03); }
+
+.button--outline {
+  background: transparent;
+  border: 1px solid var(--cstl-border);
+  color: var(--cstl-text);
+}
+
+/* Card surface */
+.card {
+  background: var(--cstl-surface);
+  border: 1px solid var(--cstl-border);
+  border-radius: var(--cstl-radius-sm);
+  padding: var(--cstl-space-md);
+  box-shadow: 0 6px 18px rgba(11,91,255,0.04);
+}
+
+/* Container helper */
+.container {
+  width: 100%;
+  max-width: var(--cstl-container-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(16px, 4vw, 32px);
+  padding-right: clamp(16px, 4vw, 32px);
+}
+
+/* Grid utilities */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--cstl-space-lg);
+}
+.col {
+  flex: 1 1 0%;
+  min-width: 0;
+}
+
+/* Media query helpers using variables */
+@media (max-width: calc(var(--cstl-breakpoint-md) - 1px)) {
+  .row { gap: var(--cstl-space-md); }
+  .container { padding-left: 20px; padding-right: 20px; }
+}
+
+@media (min-width: var(--cstl-breakpoint-lg)) {
+  .container { padding-left: 40px; padding-right: 40px; }
+}
+
+/* Accessibility: visible focus outlines for keyboard users */
+:focus {
+  outline: none;
+}
+:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--cstl-primary) 50%, white 50%);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/* Utility classes */
+.text-center { text-align: center; }
+.mt-0 { margin-top: 0; }
+.mb-0 { margin-bottom: 0; }
+.mb-sm { margin-bottom: var(--cstl-space-sm); }
+.mb-md { margin-bottom: var(--cstl-space-md); }
+.p-sm { padding: var(--cstl-space-sm); }
+.p-md { padding: var(--cstl-space-md); }
+
+/* Form elements */
+input, textarea, select, button {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+input, textarea, select {
+  background: var(--cstl-surface);
+  border: 1px solid var(--cstl-border);
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--cstl-radius-sm);
+}
+input:focus, textarea:focus, select:focus {
+  border-color: var(--cstl-primary);
+  box-shadow: 0 4px 12px rgba(11,91,255,0.06);
+}
+
+/* Small responsive hero utilities (shared with components) */
+.hero {
+  padding: clamp(40px, 6vw, 96px) 0;
+  background: linear-gradient(180deg, transparent 0%, rgba(11,91,255,0.03) 100%);
+}
+.hero__title { font-size: var(--cstl-font-size-h1); margin-bottom: var(--cstl-space-md); }
+.hero__subtitle { color: var(--cstl-muted); font-size: 1.0625rem; margin-bottom: var(--cstl-space-lg); }
+
+/* Footer */
+.site-footer {
+  padding: var(--cstl-space-lg) 0;
+  background: transparent;
+  color: var(--cstl-muted);
+  font-size: 0.9375rem;
+  border-top: 1px solid rgba(11,91,255,0.03);
+}
+
+/* Ensure images and media are responsive */
+img, picture, video, svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Dark mode support (opt-in) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --cstl-bg: #071028;
+    --cstl-surface: #071428;
+    --cstl-text: #E6EEF8;
+    --cstl-muted: #9AA7B9;
+    --cstl-border: rgba(255,255,255,0.06);
+    --cstl-shadow: 0 6px 20px rgba(2,6,23,0.6);
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "name": "constellation-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Monorepo orchestrator for Constellation (client: React, server: Express) — scripts to run, build and test both packages",
+  "keywords": [
+    "monorepo",
+    "constellation",
+    "react",
+    "express"
+  ],
+  "author": "Constellation Team",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "dev": "concurrently -k \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:server": "npm --prefix server run dev",
+    "dev:client": "npm --prefix client run dev",
+    "start": "concurrently -k \"npm run start:server\" \"npm run start:client\"",
+    "start:server": "npm --prefix server start",
+    "start:client": "npm --prefix client start",
+    "install:all": "npm --prefix server install && npm --prefix client install",
+    "test:all": "concurrently --names \"server,client\" -k \"npm run test:server\" \"npm run test:client\"",
+    "test:server": "npm --prefix server test",
+    "test:client": "npm --prefix client test",
+    "build": "concurrently --names \"server,client\" -k \"npm run build:server\" \"npm run build:client\"",
+    "build:server": "npm --prefix server run build || echo \"No server build script defined\"",
+    "build:client": "npm --prefix client run build",
+    "lint": "concurrently \"npm --prefix server run lint || true\" \"npm --prefix client run lint || true\"",
+    "clean": "node -e \"const {execSync}=require('child_process'); execSync('rm -rf node_modules client/node_modules server/node_modules', {stdio:'inherit'})\"",
+    "validate-engines": "node -e \"const v=process.versions.node.split('.').map(Number); if(v[0]<18) throw new Error('Node >=18 is required'); console.log('Node OK:', process.version)\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0",
+    "cross-env": "^7.0.3"
+  }
+}

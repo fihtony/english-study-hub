@@ -1,0 +1,480 @@
+/* CSTL4.module.css
+   Figma source: https://www.figma.com/design/gxd2LNayM2hh3V3qTlcyPF/Website-Wireframes-UI-Kit--Community-?node-id=1-470&t=aEC6TlPdUDhDoSPm-0
+
+   Recorded Figma spacing/typography values (explicit):
+   - Header height: 72px
+   - Header horizontal padding (desktop): 48px
+   - Header horizontal padding (tablet): 32px
+   - Header horizontal padding (mobile): 16px
+   - Logo left margin: 0 (aligned to container)
+   - Hero padding-top: 96px
+   - Hero padding-bottom: 80px
+   - Hero inner max-width: 1200px
+   - Hero title desktop font-size: 48px; tablet: 36px; mobile: 28px
+   - Hero subtitle max-width: 720px; margin-top: 16px
+   - Primary CTA height: 52px; horizontal padding: 28px
+   - Content block vertical spacing: 64px between sections
+   - Content card gap (grid): 32px
+   - Content card padding: 24px
+   - Content card border-radius: 12px
+   - Footer padding: 56px 48px (desktop); tablet: 48px 32px; mobile: 32px 16px
+*/
+
+/* Import theme variables (colors, type, breakpoints) */
+@import './theme.css';
+
+/* Global module defaults */
+:local(*) {
+  box-sizing: border-box;
+}
+
+/* Container used internally to center content */
+:local(.container) {
+  width: 100%;
+  max-width: 1200px; /* matches hero inner max-width from Figma */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+/* Header */
+:local(.header) {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  width: 100%;
+  background: var(--color-surface, #ffffff);
+  box-shadow: 0 1px 0 rgba(16,24,40,0.04);
+  height: 72px; /* Figma */
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(16,24,40,0.04);
+}
+
+:local(.headerInner) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 48px; /* desktop padding from Figma */
+  padding-right: 48px;
+  gap: 24px;
+}
+
+/* Logo & nav */
+:local(.logo) {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--color-foreground, #0f172a);
+  font-weight: 700;
+  font-size: 18px;
+}
+
+:local(.nav) {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+:local(.navList) {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+:local(.navItem) {
+}
+
+:local(.navLink) {
+  color: var(--color-muted, #334155);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: background-color 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+:local(.navLink):hover,
+:local(.navLink):focus {
+  background: rgba(99,102,241,0.06);
+  color: var(--color-primary, #6366f1);
+  outline: none;
+  transform: translateY(-1px);
+}
+
+/* Mobile menu button (hidden on desktop) */
+:local(.mobileMenuButton) {
+  display: none;
+  background: none;
+  border: none;
+  padding: 8px;
+  border-radius: 8px;
+  color: var(--color-foreground, #0f172a);
+}
+
+/* Hero */
+:local(.hero) {
+  background: var(--color-bg, #ffffff);
+  padding-top: 96px; /* Figma */
+  padding-bottom: 80px; /* Figma */
+  width: 100%;
+  display: block;
+}
+
+:local(.heroInner) {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 48px;
+  padding-right: 48px;
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  align-items: center;
+  gap: 48px;
+}
+
+/* Left column: primary content */
+:local(.heroContent) {
+  max-width: 720px;
+}
+
+:local(.heroEyebrow) {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-primary, #6366f1);
+  letter-spacing: 0.02em;
+  margin-bottom: 12px;
+}
+
+/* Main title */
+:local(.heroTitle) {
+  margin: 0;
+  font-weight: 800;
+  color: var(--color-foreground, #0f172a);
+  line-height: 1.05;
+  font-size: 48px; /* desktop */
+}
+
+/* Subtitle / supporting copy */
+:local(.heroSubtitle) {
+  margin-top: 16px;
+  margin-bottom: 24px;
+  color: var(--color-muted, #475569);
+  font-size: 18px;
+  max-width: 720px;
+}
+
+/* CTAs */
+:local(.ctaRow) {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+:local(.ctaPrimary) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 52px; /* Figma */
+  padding: 0 28px;
+  border-radius: 12px;
+  background: var(--color-primary, #6366f1);
+  color: #fff;
+  font-weight: 700;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+:local(.ctaPrimary):hover,
+:local(.ctaPrimary):focus {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(99,102,241,0.16);
+  outline: none;
+}
+
+/* Secondary CTA */
+:local(.ctaSecondary) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 52px;
+  padding: 0 20px;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--color-foreground, #0f172a);
+  font-weight: 700;
+  font-size: 16px;
+  border: 1px solid rgba(15,23,42,0.06);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+/* Right column placeholder (e.g., hero illustration) */
+:local(.heroMedia) {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Decorative responsive image wrapper */
+:local(.heroImage) {
+  width: 100%;
+  max-width: 420px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(99,102,241,0.06), rgba(99,102,241,0.02));
+  min-height: 240px;
+}
+
+/* Content Block sections */
+:local(.contentBlock) {
+  padding-top: 64px; /* vertical spacing between sections from Figma */
+  padding-bottom: 64px;
+  width: 100%;
+  background: var(--color-surface, #ffffff);
+}
+
+:local(.contentBlockInner) {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 48px;
+  padding-right: 48px;
+}
+
+/* Grid for cards / features */
+:local(.contentGrid) {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* desktop */
+  gap: 32px; /* Figma */
+  align-items: stretch;
+}
+
+/* individual card */
+:local(.contentCard) {
+  background: var(--color-card, #ffffff);
+  border: 1px solid rgba(15,23,42,0.04);
+  padding: 24px; /* Figma */
+  border-radius: 12px; /* Figma */
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+:local(.contentCard):hover,
+:local(.contentCard):focus-within {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 36px rgba(2,6,23,0.08);
+}
+
+:local(.cardTitle) {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-foreground, #0f172a);
+}
+
+:local(.cardBody) {
+  margin: 0;
+  color: var(--color-muted, #475569);
+  font-size: 15px;
+  line-height: 1.5;
+  flex: 1 1 auto;
+}
+
+/* Footer */
+:local(.footer) {
+  width: 100%;
+  background: var(--color-surface, #f8fafc);
+  border-top: 1px solid rgba(15,23,42,0.04);
+  padding-top: 56px; /* Figma */
+  padding-bottom: 56px;
+}
+
+:local(.footerInner) {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 48px;
+  padding-right: 48px;
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+:local(.footerBrand) {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--color-foreground, #0f172a);
+  font-weight: 700;
+}
+
+:local(.footerLinks) {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+:local(.footerLink) {
+  color: var(--color-muted, #64748b);
+  text-decoration: none;
+  font-size: 14px;
+}
+
+/* Utilities */
+:local(.visuallyHidden) {
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
+}
+
+/* Focus ring for accessibility */
+:local(.focusRing) {
+  box-shadow: 0 0 0 4px rgba(99,102,241,0.14);
+  border-radius: 8px;
+  outline: none;
+}
+
+/* Responsive rules */
+
+/* <= 1280px (large laptop) adjustments */
+@media (max-width: 1280px) {
+  :local(.headerInner),
+  :local(.heroInner),
+  :local(.contentBlockInner),
+  :local(.footerInner) {
+    padding-left: 32px; /* Figma tablet/large adjustments */
+    padding-right: 32px;
+  }
+
+  :local(.contentGrid) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* <= 768px (tablet) */
+@media (max-width: 768px) {
+  :local(.header) {
+    height: 64px;
+  }
+
+  :local(.headerInner) {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
+  :local(.nav) {
+    display: none;
+  }
+
+  :local(.mobileMenuButton) {
+    display: inline-flex;
+  }
+
+  :local(.heroInner) {
+    grid-template-columns: 1fr;
+    padding-left: 32px;
+    padding-right: 32px;
+    gap: 24px;
+  }
+
+  :local(.heroTitle) {
+    font-size: 36px; /* Figma tablet */
+  }
+
+  :local(.heroSubtitle) {
+    font-size: 16px;
+  }
+
+  :local(.contentGrid) {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  :local(.footerInner) {
+    padding-left: 32px;
+    padding-right: 32px;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  :local(.footer) {
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+}
+
+/* <= 375px (small mobile / narrow) */
+@media (max-width: 375px) {
+  :local(.headerInner),
+  :local(.heroInner),
+  :local(.contentBlockInner),
+  :local(.footerInner) {
+    padding-left: 16px; /* mobile small */
+    padding-right: 16px;
+  }
+
+  :local(.header) {
+    height: 56px;
+  }
+
+  :local(.hero) {
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+
+  :local(.heroTitle) {
+    font-size: 28px; /* Figma mobile */
+  }
+
+  :local(.heroSubtitle) {
+    font-size: 15px;
+  }
+
+  :local(.ctaPrimary),
+  :local(.ctaSecondary) {
+    height: 48px;
+    padding-left: 16px;
+    padding-right: 16px;
+    font-size: 15px;
+  }
+
+  :local(.contentCard) {
+    padding: 18px;
+    border-radius: 10px;
+  }
+
+  :local(.footer) {
+    padding-top: 32px;
+    padding-bottom: 32px;
+  }
+}
+
+/* Motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  :local(.navLink),
+  :local(.ctaPrimary),
+  :local(.ctaSecondary),
+  :local(.contentCard) {
+    transition: none !important;
+  }
+}
