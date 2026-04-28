@@ -1,0 +1,10 @@
+# Requirements for Python 3.12 environment
+# Pinned runtime and minimal dev/test dependencies (compatible with Python 3.12)
+
+# Runtime
+Flask==2.3.3
+gunicorn==20.1.0
+
+# Testing / Development
+pytest==7.4.0
+pytest-cov==4.1.0
