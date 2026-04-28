@@ -1,0 +1,97 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+*.pyc
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+*.egg-info/
+*.egg
+.installed.cfg
+pip-wheel-metadata/
+share/python-wheels/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# dotenv / environment variables
+.env
+.env.*
+
+# Pytest
+.pytest_cache/
+.pytest_cache
+
+# Coverage reports
+.coverage
+.coverage.*
+.cache
+coverage.xml
+nosetests.xml
+*.cover
+htmlcov/
+
+# Type checkers / caches
+.mypy_cache/
+.pyre/
+
+# Flask instance folder
+instance/
+instance/*
+
+# Logs and databases
+*.log
+*.sqlite3
+*.db
+
+# Editor and OS files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+Thumbs.db
+
+# Static / build artifacts (frontend toolchains)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Translation / compiled message files
+*.mo
+*.pot
+
+# Secret or local config files
+secrets.yml
+credentials.json
+
+# Temporary files
+*.swp
+*.tmp
+*.bak
+*.old
+
+# JetBrains IDE caches
+.idea/
+*.iml
+
+# End of file

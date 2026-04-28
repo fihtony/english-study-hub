@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="English Study Hub — practice reading, vocabulary, and comprehension with curated lessons and quizzes.">
+  <title>English Study Hub</title>
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="site-header" role="banner" aria-label="Site header">
+    <div class="container header-inner" style="text-align:center;">
+      <h1 class="site-title" id="site-title">English Study Hub</h1>
+      <p class="site-tagline" id="site-tagline" aria-hidden="false">Grow your English skills with bite-sized lessons, reading practice, and quick quizzes.</p>
+    </div>
+  </header>
+
+  <main id="main-content" role="main">
+    <section class="hero" aria-labelledby="site-title site-tagline">
+      <div class="container hero-inner" style="max-width:900px;margin:0 auto;padding:3rem 1rem;text-align:center;">
+        <h2 class="visually-hidden">Welcome to English Study Hub</h2>
+        <p class="hero-lead" style="font-size:1.125rem;line-height:1.6;color:#333;margin:0 0 1.5rem;">
+          Practical exercises and curated reading to help learners build confidence every day. Start with a short lesson and track your progress.
+        </p>
+        <p>
+          <a href="/get-started" class="cta" role="button" aria-label="Get Started with English Study Hub">Get Started</a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container" style="max-width:900px;margin:0 auto;padding:2rem 1rem;text-align:center;color:#666;font-size:.9rem;">
+      <p style="margin:.25rem 0;">&copy; 2026 English Study Hub. All rights reserved.</p>
+      <p style="margin:.25rem 0;"><small>Built with accessibility and privacy in mind.</small></p>
+    </div>
+  </footer>
+
+  <style>
+    /* Minimal, safe in-template fallback styles to ensure layout integrity
+       Primary styling should live in /static/css/styles.css as required. */
+    :focus {
+      outline: 2px solid #005fcc;
+      outline-offset: 2px;
+    }
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      top: auto;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    }
+    .skip-link:focus {
+      left: 1rem;
+      top: 1rem;
+      width: auto;
+      height: auto;
+      padding: 0.5rem 0.75rem;
+      background: #fff;
+      border: 1px solid #ccc;
+      z-index: 1000;
+    }
+    .site-title {
+      font-weight:700;
+      font-size:2.25rem;
+      margin:0;
+      color:#0b2545;
+      letter-spacing: -0.5px;
+    }
+    .hero {
+      background: linear-gradient(180deg, #f7fbff 0%, #ffffff 100%);
+      padding: 3rem 0;
+    }
+    .cta {
+      display:inline-block;
+      background:#0b6efd;
+      color:#ffffff;
+      padding:0.75rem 1.25rem;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:600;
+      box-shadow: 0 6px 18px rgba(11,110,253,0.12);
+      transition: transform .12s ease, box-shadow .12s ease;
+    }
+    .cta:hover,
+    .cta:focus {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(11,110,253,0.16);
+    }
+    .visually-hidden {
+      position: absolute !important;
+      height: 1px; width: 1px;
+      overflow: hidden;
+      clip: rect(1px, 1px, 1px, 1px);
+      white-space: nowrap; /* added line */
+    }
+    @media (min-width: 768px) {
+      .site-title { font-size:2.75rem; }
+      .hero-inner { padding:4rem 1rem; }
+    }
+  </style>
+</body>
+</html>

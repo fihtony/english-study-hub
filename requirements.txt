@@ -1,0 +1,8 @@
+# Requirements for English Study Hub
+# Target Python: 3.12
+# Pin runtime and test dependencies for reproducible installs and CI.
+# Install with: python3.12 -m pip install -r requirements.txt
+
+Flask==2.3.*
+pytest==7.*
+coverage==7.*  # optional: run with `coverage run -m pytest` to collect coverage report
