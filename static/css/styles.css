@@ -1,0 +1,458 @@
+/*
+static/css/styles.css
+
+Design tokens inspired by Stitch (project: https://stitch.withgoogle.com/projects/13629074018280446337?pli=1, screen id 45ac4478a1b7455f861d7377f92105e6)
+- Tokens below attempt to mirror Stitch token names and values where available.
+- Approximations are noted for tokens not explicitly exported from Stitch.
+
+Tokens taken from Stitch (colors/typography approximated where needed):
+  --color-bg:        #0F1724  (deep indigo/charcoal background)
+  --color-surface:   #0B1220  (slightly lighter surface)
+  --color-text:      #E6EEF3  (muted white for body text)
+  --color-muted:     #9CA6B2  (subtle muted text)
+  --color-primary:   #7C5DFF  (primary brand violet)
+  --color-primary-700:#6847F0 (darker primary for hover)
+  --color-accent:    #00D1B2  (accent/cta secondary - approximated)
+  --color-success:   #18B17B
+  --color-error:     #FF6B6B
+
+Typography tokens:
+  --font-family-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial
+  --font-weight-regular: 400
+  --font-weight-medium: 500
+  --font-weight-bold: 700
+  --font-size-base: 16px
+  --line-height-base: 1.5
+
+Spacing tokens (Stitch-like scale, approximated in rem):
+  --space-xxs: 0.25rem; /* 4px */
+  --space-xs:  0.5rem;  /* 8px */
+  --space-sm:  0.75rem; /* 12px */
+  --space-md:  1rem;    /* 16px */
+  --space-lg:  1.5rem;  /* 24px */
+  --space-xl:  2rem;    /* 32px */
+  --space-xxl: 3rem;    /* 48px */
+
+Misc:
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --shadow-sm: 0 6px 18px rgba(2,6,23,0.55);
+*/
+
+/* -------------------------------
+   Root tokens
+   ------------------------------- */
+:root{
+  /* Colors */
+  --color-bg: #0F1724;
+  --color-surface: #0B1220;
+  --color-text: #E6EEF3;
+  --color-muted: #9CA6B2;
+  --color-primary: #7C5DFF;
+  --color-primary-700: #6847F0;
+  --color-accent: #00D1B2;
+  --color-success: #18B17B;
+  --color-error: #FF6B6B;
+
+  /* Typography */
+  --font-family-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+  --font-size-base: 16px;
+  --line-height-base: 1.5;
+
+  /* Spacing / scale */
+  --space-xxs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-xxl: 3rem;
+
+  /* Layout tokens */
+  --container-max-width: 1100px;
+
+  /* UI */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --shadow-sm: 0 6px 18px rgba(2,6,23,0.55);
+
+  /* Accessibility */
+  --focus-ring-color: rgba(124,93,255,0.25); /* softened primary */
+  --focus-ring-strong: 3px;
+}
+
+/* -------------------------------
+   Reduced motion preference
+   ------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-duration: 0ms;
+  }
+}
+:root { --motion-duration: 180ms; }
+
+/* -------------------------------
+   Base reset & sensible defaults
+   ------------------------------- */
+/* Box sizing */
+*, *::before, *::after { box-sizing: border-box; }
+
+/* Remove default margins/paddings */
+html, body, h1, h2, h3, h4, h5, h6, p, figure, blockquote, dl, dd {
+  margin: 0;
+}
+
+/* Root defaults */
+html {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-base);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  height: 100%;
+  background-color: var(--color-bg);
+  color-scheme: dark;
+}
+
+/* Body */
+body{
+  min-height: 100vh;
+  line-height: var(--line-height-base);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  -webkit-tap-highlight-color: transparent;
+  text-rendering: optimizeLegibility;
+}
+
+/* Remove list styles for nav/ul unless explicitly needed */
+ul { list-style: none; padding: 0; margin: 0; }
+
+/* Images and media */
+img, picture, svg, video { max-width: 100%; display: block; height: auto; }
+
+/* Links */
+a { color: inherit; text-decoration: none; }
+a:focus { outline: none; }
+
+/* Headings */
+h1, h2, h3 {
+  color: var(--color-text);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+/* Small utility */
+.sr-only {
+  position: absolute !important;
+  height: 1px; width: 1px;
+  overflow: hidden;
+  clip: rect(1px,1px,1px,1px);
+  white-space: nowrap; /* added line */
+}
+
+/* -------------------------------
+   Container / layout
+   ------------------------------- */
+.container {
+  max-width: var(--container-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--space-md);
+  padding-right: var(--space-md);
+}
+
+/* Section spacing */
+.section {
+  padding-top: var(--space-xxl);
+  padding-bottom: var(--space-xxl);
+}
+
+/* -------------------------------
+   Header
+   ------------------------------- */
+.header {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+.header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  padding-top: var(--space-sm);
+  padding-bottom: var(--space-sm);
+}
+
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+}
+.logo .logo-mark {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  border-radius: 8px;
+  box-shadow: var(--shadow-sm);
+  flex: 0 0 40px;
+}
+
+/* Navigation */
+.nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+}
+.nav a {
+  color: var(--color-muted);
+  font-weight: var(--font-weight-medium);
+  padding: calc(var(--space-xs) + 2px) var(--space-sm);
+  border-radius: var(--radius-sm);
+  transition: color var(--motion-duration) ease, background-color var(--motion-duration) ease;
+}
+.nav a:hover { color: var(--color-text); background: rgba(255,255,255,0.02); }
+.nav .cta-nav {
+  background: linear-gradient(90deg, var(--color-primary), var(--color-primary-700));
+  color: white;
+  padding: calc(var(--space-xs) + 2px) var(--space-md);
+  border-radius: var(--radius-md);
+  box-shadow: 0 6px 22px rgba(124,93,255,0.12);
+}
+.nav .cta-nav:focus,
+.nav .cta-nav:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 var(--focus-ring-strong) var(--focus-ring-color);
+}
+
+/* -------------------------------
+   Hero
+   ------------------------------- */
+.hero {
+  padding-top: var(--space-xxl);
+  padding-bottom: var(--space-xxl);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-xxl);
+}
+.hero .hero-inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+/* Large screens: two-column layout */
+@media (min-width: 900px) {
+  .hero .hero-inner {
+    grid-template-columns: 1fr 460px;
+    align-items: center;
+  }
+}
+
+/* Hero content */
+.hero-heading {
+  font-size: clamp(1.625rem, 3.5vw, 2.5rem); /* scales between 26px - 40px */
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-md);
+  color: var(--color-text);
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+}
+
+/* Subheading / lead */
+.hero-lead {
+  font-size: 1.125rem;
+  color: var(--color-muted);
+  margin-bottom: var(--space-lg);
+  max-width: 58ch;
+}
+
+/* CTA group */
+.cta-group {
+  display: flex;
+  gap: var(--space-md);
+  align-items: center;
+  flex-wrap: wrap;
+}
+.cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  padding: 0.6rem 1.1rem;
+  font-weight: var(--font-weight-medium);
+  border-radius: 12px;
+  cursor: pointer;
+  border: none;
+  color: white;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-primary-700));
+  box-shadow: 0 8px 30px rgba(124,93,255,0.18);
+  transition: transform var(--motion-duration) cubic-bezier(.2,.9,.2,1), box-shadow var(--motion-duration) ease, background-color var(--motion-duration) ease;
+  text-decoration: none;
+  -webkit-font-smoothing: antialiased;
+}
+.cta:hover { transform: translateY(-3px); }
+.cta:active { transform: translateY(-1px); background: var(--color-primary-700); }
+.cta:focus, .cta:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 var(--focus-ring-strong) var(--focus-ring-color), 0 8px 30px rgba(124,93,255,0.18);
+}
+
+/* Secondary CTA (ghost) */
+.cta-ghost {
+  background: transparent;
+  color: var(--color-text);
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: none;
+}
+.cta-ghost:hover {
+  background: rgba(255,255,255,0.02);
+}
+
+/* CTA small */
+.cta.small {
+  padding: 0.45rem 0.9rem;
+  font-size: 0.95rem;
+}
+
+/* -------------------------------
+   Card / panel (for right-side hero card)
+   ------------------------------- */
+.card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent), var(--color-surface);
+  padding: var(--space-lg);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(255,255,255,0.03);
+}
+
+/* -------------------------------
+   Features grid
+   ------------------------------- */
+.features {
+  margin-top: var(--space-xl);
+  display: grid;
+  gap: var(--space-lg);
+}
+@media (min-width: 720px) {
+  .features { grid-template-columns: repeat(3, 1fr); }
+}
+.feature {
+  background: rgba(255,255,255,0.02);
+  padding: var(--space-md);
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(255,255,255,0.02);
+}
+.feature h3 {
+  font-size: 1rem;
+  margin-bottom: var(--space-xs);
+  color: var(--color-text);
+}
+.feature p {
+  color: var(--color-muted);
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+/* -------------------------------
+   Footer
+   ------------------------------- */
+.footer {
+  padding-top: var(--space-xl);
+  padding-bottom: calc(var(--space-xl) / 2);
+  border-top: 1px solid rgba(255,255,255,0.02);
+  color: var(--color-muted);
+  font-size: 0.95rem;
+}
+.footer .legal {
+  display: flex;
+  gap: var(--space-md);
+  align-items: center;
+  justify-content: space-between;
+}
+@media (max-width: 720px) {
+  .footer .legal { flex-direction: column; align-items: flex-start; gap: var(--space-sm); }
+}
+
+/* -------------------------------
+   Forms & inputs (if used)
+   ------------------------------- */
+.input {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.04);
+  color: var(--color-text);
+  font-size: 1rem;
+}
+.input:focus {
+  outline: none;
+  box-shadow: 0 0 0 var(--focus-ring-strong) var(--focus-ring-color);
+  border-color: var(--color-primary);
+}
+
+/* -------------------------------
+   Utility classes
+   ------------------------------- */
+.text-muted { color: var(--color-muted); }
+.text-accent { color: var(--color-accent); }
+.kicker {
+  display: inline-block;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-accent);
+  background: rgba(0,209,178,0.06);
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+}
+
+/* -------------------------------
+   Accessibility & focus handling
+   ------------------------------- */
+/* Show focus only for keyboard navigation */
+:focus {
+  outline: none;
+}
+:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 var(--focus-ring-strong) var(--focus-ring-color);
+  border-radius: 8px;
+}
+
+/* -------------------------------
+   Small screens adjustments
+   ------------------------------- */
+@media (max-width: 720px) {
+  .nav { gap: var(--space-sm); }
+  .logo { gap: var(--space-xs); }
+  .hero { padding-top: var(--space-xl); padding-bottom: var(--space-xl); }
+  .cta-group { flex-direction: column; align-items: stretch; }
+  .cta { width: 100%; justify-content: center; }
+  .card { padding: var(--space-md); }
+}
+
+/* -------------------------------
+   Print styles (minimal)
+   ------------------------------- */
+@media print {
+  body { background: white; color: black; }
+  .header, .footer { display: none; }
+}
+
+/* -------------------------------
+   Notes:
+   - Colors and spacing are approximations of Stitch tokens where not explicitly available.
+   - Primary brand gradient uses --color-primary and --color-primary-700; adjust to exact tokens if Stitch exports differ.
+   - Fonts: 'Inter' is used as primary; if Inter isn't available locally, user-agent will fallback to system fonts. For production, include Inter via <link rel="stylesheet"> or host locally.
+   - All interactive elements include focus-visible styles to aid keyboard users and meet accessibility guidelines.
+   ------------------------------- */
