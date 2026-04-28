@@ -1,0 +1,44 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Express backend for CSTL-4 feature (health endpoint, static serving).",
+  "main": "index.js",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "NODE_ENV=${NODE_ENV:-production} node index.js",
+    "dev": "nodemon --watch . index.js",
+    "test": "jest --runInBand --coverage --reporters=default",
+    "server:start": "npm run start",
+    "server:dev": "npm run dev",
+    "server:test": "npm run test"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.1.4",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "jest": "^29.6.1",
+    "nodemon": "^2.0.22",
+    "supertest": "^6.3.3"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testMatch": [
+      "<rootDir>/test/**/*.test.js"
+    ],
+    "collectCoverageFrom": [
+      "index.js",
+      "routes/**/*.js"
+    ],
+    "coverageDirectory": "<rootDir>/coverage",
+    "coverageReporters": [
+      "text",
+      "lcov"
+    ]
+  },
+  "license": "MIT"
+}

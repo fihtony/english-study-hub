@@ -1,0 +1,56 @@
+# Node modules
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# Environment files
+.env
+.env.*
+!.env.example
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Build output
+.next/
+dist/
+build/
+out/
+dist-ssr/
+
+# Caches and coverage
+.cache/
+.parcel-cache/
+coverage/
+*.tsbuildinfo
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Logs / debug
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# Temporary artifacts — ignore only the tmp folder so artifacts/ stays committed
+/artifacts/tmp/
+artifacts/tmp/**
+
+# Misc
+pids/
+*.pid
+*.seed
+*.gz
+*.tgz
+node-repl-history

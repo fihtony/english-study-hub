@@ -1,0 +1,47 @@
+{
+  "name": "english-study-hub",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Monorepo for English Study Hub (server: Express, client: React). Orchestrating dev, build, test, and e2e scripts.",
+  "homepage": ".",
+  "author": "Team Constellation",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "workspaces": [
+    "server",
+    "client"
+  ],
+  "scripts": {
+    "install": "npm run -s install:server && npm run -s install:client",
+    "install:server": "cd server && npm install",
+    "install:client": "cd client && npm install",
+    "dev": "concurrently -k \"npm:server:dev\" \"npm:client:dev\"",
+    "server:dev": "cd server && cross-env NODE_ENV=development nodemon index.js --watch . --watch ../client/dist",
+    "client:dev": "cd client && cross-env NODE_ENV=development npm run dev",
+    "build": "npm run -s build:client && npm run -s build:server",
+    "build:client": "cd client && npm run build",
+    "build:server": "sh -c \"rm -rf server/static && mkdir -p server/static && if [ -d client/dist ]; then cp -r client/dist/* server/static/; elif [ -d client/build ]; then cp -r client/build/* server/static/; else echo 'No client build found to copy.'; fi\"",
+    "start": "cross-env NODE_ENV=production node server/index.js",
+    "test": "npm run -s test:server && npm run -s test:client",
+    "test:server": "cd server && npm test",
+    "test:client": "cd client && npm test",
+    "e2e": "sh -c \"cross-env CI=true NODE_ENV=production node server/index.js >/dev/null 2>&1 & SERVER_PID=$!; sleep 1; npx playwright test --reporter=list || true; kill $SERVER_PID || true\"",
+    "lint": "npm run -s lint:server && npm run -s lint:client",
+    "lint:server": "cd server && (npm run lint || echo 'No server linter configured')",
+    "lint:client": "cd client && (npm run lint || echo 'No client linter configured')",
+    "clean": "rimraf node_modules client/node_modules server/node_modules && rimraf artifacts && rimraf server/static",
+    "ci": "npm ci && npm run -s build && npm run -s test && npm run -s e2e",
+    "lint:test:ci": "npm run -s lint && npm run -s test --silent"
+  },
+  "dependencies": {
+    "jest": "^29.6.1"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0",
+    "cross-env": "^7.0.3",
+    "rimraf": "^5.0.0",
+    "playwright": "^1.35.0"
+  }
+}

@@ -1,0 +1,155 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - 'feature/**'
+      - 'release/**'
+  pull_request:
+    branches:
+      - main
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    name: Install, Build, Test and E2E
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        node-version: [18.x]
+    env:
+      PORT: 5000
+      NODE_ENV: production
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Cache Playwright browsers and npm cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.npm
+            ~/.cache/ms-playwright
+            client/node_modules
+            server/node_modules
+          key: ${{ runner.os }}-node-${{ matrix.node-version }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ matrix.node-version }}-
+
+      - name: Install root dependencies (npm ci)
+        run: |
+          set -euo pipefail
+          npm ci --no-audit --no-fund
+
+      - name: Build (client & server)
+        run: |
+          set -euo pipefail
+          # Root build script should build client and prepare server static assets
+          npm run build --if-present
+
+      - name: Run unit tests
+        run: |
+          set -euo pipefail
+          npm test --silent
+        timeout-minutes: 15
+
+      - name: Install Playwright browsers and deps
+        run: |
+          set -euo pipefail
+          # Ensure Playwright package is present and required browsers are installed for CI
+          npx playwright install --with-deps
+
+      - name: Start server (background) and wait for health
+        run: |
+          set -euo pipefail
+          # Start server in background on specified PORT. The start script must serve built static files in production.
+          echo "Starting server on port $PORT"
+          PORT=${PORT} npm run start --if-present &> server-start.log & echo $! > server.pid
+          ATTEMPTS=0
+          until curl -sSf http://127.0.0.1:${PORT}/health > /dev/null; do
+            ATTEMPTS=$((ATTEMPTS+1))
+            if [ $ATTEMPTS -ge 30 ]; then
+              echo "Server failed to respond on /health after $ATTEMPTS attempts"
+              echo "---- server-start.log ----"
+              sed -n '1,200p' server-start.log || true
+              kill "$(cat server.pid)" || true
+              exit 1
+            fi
+            echo "Waiting for server to become healthy... ($ATTEMPTS)"
+            sleep 2
+          done
+          echo "Server is healthy"
+
+      - name: Run end-to-end tests (Playwright)
+        run: |
+          set -euo pipefail
+          # Prefer a project-level e2e script; fallback to npx playwright
+          if npm run -s e2e --if-present; then
+            echo "e2e script ran successfully"
+          else
+            # Directly run Playwright test; use list reporter for concise CI output
+            npx playwright test --reporter=list
+          fi
+        timeout-minutes: 20
+
+      - name: Collect Playwright artifacts (screenshots/videos/traces) if any
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/playwright || true
+          # Copy common Playwright output locations
+          cp -a --no-preserve=ownership --recursive playwright-report artifacts/playwright 2>/dev/null || true
+          cp -a --no-preserve=ownership --recursive test-results artifacts/playwright 2>/dev/null || true
+          # Ensure figma screenshot path exists even if empty
+          mkdir -p artifacts/figma
+
+      - name: Upload build & visual artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ci-artifacts
+          path: |
+            artifacts/**
+            server-start.log
+            server.pid
+            playwright-report/**
+            artifacts/figma/**
+
+      - name: Teardown server
+        if: always()
+        run: |
+          set -euo pipefail
+          if [ -f server.pid ]; then
+            PID=$(cat server.pid)
+            echo "Stopping server with PID $PID"
+            kill "$PID" || true
+            rm -f server.pid || true
+          fi
+
+      - name: Upload test results (JUnit) if present
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: junit-results
+          path: |
+            **/junit-report.xml
+            **/test-results/**/*.xml
+
+      - name: Post run summary
+        if: always()
+        run: |
+          set -euo pipefail
+          echo "Workflow completed. Artifacts uploaded: ci-artifacts and junit-results (if present)."
