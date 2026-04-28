@@ -1,0 +1,64 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+venv.bak/
+
+# Environment variables / secrets
+.env
+instance/
+
+# Test & coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Packaging / distribution
+build/
+dist/
+*.egg-info/
+pip-wheel-metadata/
+wheelhouse/
+
+# Node / frontend
+node_modules/
+
+# Editor / IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Logs
+*.log
+logs/
+
+# Database
+*.sqlite3
+*.db
+
+# macOS / Windows
+.DS_Store
+Thumbs.db
+.AppleDouble
+.LSOverride
+
+# Python tooling caches
+.mypy_cache/
+.dmypy.json
+.pyre/
+.pytype/
+
+# Other
+pip-log.txt
+.python-version
+
+# Work artifacts produced by the agent / CI
+.work/

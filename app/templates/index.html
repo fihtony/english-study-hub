@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>English Study Hub</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f8fafc; color: #111827; }
+      header { background: #0f172a; color: white; padding: 2rem 1rem; text-align: center; }
+      main { max-width: 900px; margin: 2rem auto; padding: 1rem; }
+      .hero { background: white; border-radius: 8px; padding: 2rem; box-shadow: 0 2px 6px rgba(2,6,23,0.08); }
+      footer { text-align: center; padding: 1rem; color: #6b7280; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>English Study Hub</h1>
+      <p>Practice. Learn. Improve.</p>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h2>Welcome</h2>
+        <p>Welcome to English Study Hub — a minimal landing page for the project demo and tests.</p>
+        <p>Use the navigation and features to practice vocabulary, grammar, and reading.</p>
+      </section>
+
+      <section style="margin-top:1.5rem;">
+        <h3>Get started</h3>
+        <p>Sign up for free and begin short lessons tailored to your level.</p>
+      </section>
+    </main>
+
+    <footer>
+      <p>© {{ current_year if current_year is defined else "" }} English Study Hub. All rights reserved.</p>
+    </footer>
+  </body>
+</html>
