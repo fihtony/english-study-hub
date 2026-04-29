@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="English Study Hub — practice reading, vocabulary, and grammar.">
+  <title>English Study Hub</title>
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header role="banner" class="site-header" aria-label="Site header">
+    <div class="container header-inner">
+      <a href="/" class="brand" aria-label="English Study Hub home">English Study Hub</a>
+    </div>
+  </header>
+
+  <main id="main" role="main" class="page-main" aria-labelledby="site-title">
+    <section class="hero" role="region" aria-label="Landing hero">
+      <div class="hero-inner container">
+        <h1 id="site-title" class="hero-title">English Study Hub</h1>
+        <p class="subtitle">Short descriptive phrase</p>
+        <a class="cta" href="#" role="button" aria-label="Get Started">Get Started</a>
+      </div>
+    </section>
+  </main>
+
+  <footer role="contentinfo" class="site-footer" aria-label="Footer">
+    <div class="container footer-inner">
+      <p class="visually-hidden">© <span id="current-year">2026</span> English Study Hub</p>
+    </div>
+  </footer>
+
+  <script>
+    // Progressive enhancement: set current year in an accessible way.
+    (function(){
+      try {
+        var el = document.getElementById('current-year');
+        if (el) el.textContent = new Date().getFullYear();
+      } catch (e) { /* intentionally silent */ }
+    })();
+  </script>
+</body>
+</html>

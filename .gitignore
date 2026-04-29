@@ -1,0 +1,43 @@
+# Python-related ignores
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+
+# Virtual environments
+venv/
+.env/
+.venv/
+env/
+envs/
+venv.bak/
+
+# Environment variables
+.env
+
+# Pytest
+.pytest_cache/
+
+# Packaging / build artifacts
+*.egg-info/
+dist/
+build/
+pip-wheel-metadata/
+*.whl
+
+# Coverage and test reports
+.coverage
+coverage.*
+htmlcov/
+
+# Caches and tooling
+.cache/
+.mypy_cache/
+pip-log.txt
+
+# macOS
+.DS_Store
+
+# Editor directories and files (optional)
+.vscode/
+.idea/

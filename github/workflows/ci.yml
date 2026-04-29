@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - 'feature/**'
+  pull_request:
+    branches:
+      - main
+      - 'feature/**'
+
+jobs:
+  test:
+    name: Run tests (Python 3.12)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/pip
+            ~/.cache/pip/http
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then
+            pip install --prefer-binary --no-cache-dir -r requirements.txt
+          else
+            echo "requirements.txt not found, installing minimal test deps"
+            pip install --no-cache-dir pytest flask
+          fi
+
+      - name: Show Python info
+        run: |
+          python --version
+          pip --version
+
+      - name: Run tests
+        run: pytest -q
+        env:
+          PYTHONUNBUFFERED: 1
