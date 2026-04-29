@@ -1,0 +1,65 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - 'feature/**'
+  pull_request:
+    branches:
+      - main
+      - 'feature/**'
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Run tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python 3.12
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Upgrade pip
+        run: python -m pip install --upgrade pip
+
+      - name: Install dependencies
+        run: |
+          if [ -f requirements.txt ]; then
+            pip install -r requirements.txt
+          else
+            echo "requirements.txt not found; continuing without installing dependencies"
+          fi
+
+      - name: Run pytest
+        id: pytest
+        run: |
+          set -o pipefail
+          # Create a logs directory for artifacts
+          mkdir -p test-reports
+          # Run pytest, capture console output and junit xml for CI consumers
+          pytest --maxfail=1 -q --junitxml=test-reports/junit.xml 2>&1 | tee test-reports/pytest.log
+
+      - name: Upload pytest logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pytest-logs
+          path: test-reports/*.log
+
+      - name: Upload pytest junit xml
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pytest-junit
+          path: test-reports/junit.xml

@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="English Study Hub — practice reading, vocabulary, and listening with curated lessons and exercises.">
+  <title>English Study Hub</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body class="site-root">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="site-header" role="banner">
+    <div class="container header-inner">
+      <div class="brand" id="site-brand">
+        <a href="/" class="brand-link" aria-label="English Study Hub home">
+          <h1 class="brand-title">English Study Hub</h1>
+        </a>
+      </div>
+      <nav class="site-nav" role="navigation" aria-label="Primary navigation">
+        <ul class="nav-list">
+          <li class="nav-item"><a href="#features" class="nav-link">Features</a></li>
+          <li class="nav-item"><a href="#lessons" class="nav-link">Lessons</a></li>
+          <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" class="container main" role="main">
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="hero-inner">
+        <h2 id="hero-heading" class="hero-title">English Study Hub</h2>
+        <p class="hero-subtitle">
+          Build vocabulary, improve comprehension, and practice listening with short, focused lessons.
+        </p>
+        <div class="hero-cta">
+          <a class="cta-button" href="#get-started" role="button" aria-describedby="cta-desc">Get Started</a>
+          <p id="cta-desc" class="visually-hidden">Start learning with a short diagnostic lesson</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="get-started" class="content-block">
+      <h3 class="section-title">Quick Start</h3>
+      <p class="lead">Choose a lesson type and difficulty to begin. Content is optimized for progressive practice.</p>
+      <div class="feature-grid" role="list">
+        <article class="feature-card" role="listitem" aria-labelledby="f1">
+          <h4 id="f1" class="feature-title">Reading</h4>
+          <p class="feature-desc">Short passages with comprehension questions and vocabulary highlights.</p>
+        </article>
+        <article class="feature-card" role="listitem" aria-labelledby="f2">
+          <h4 id="f2" class="feature-title">Listening</h4>
+          <p class="feature-desc">Audio clips with transcripts and timed listening exercises.</p>
+        </article>
+        <article class="feature-card" role="listitem" aria-labelledby="f3">
+          <h4 id="f3" class="feature-title">Vocabulary</h4>
+          <p class="feature-desc">Spaced-repetition flashcards and contextual examples.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-inner">
+      <p class="footer-note">© {{ (2026) }} English Study Hub. All rights reserved.</p>
+      <ul class="footer-links" aria-label="Footer">
+        <li><a href="/privacy" class="footer-link">Privacy</a></li>
+        <li><a href="/terms" class="footer-link">Terms</a></li>
+        <li><a href="#contact" class="footer-link">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <noscript>
+    <div class="no-js-warning" role="alert">
+      JavaScript is disabled in your browser. Some features may not work as intended.
+    </div>
+  </noscript>
+</body>
+</html>

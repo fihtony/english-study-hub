@@ -1,0 +1,64 @@
+# Python cache and compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv/
+
+# Environment / secrets
+.env
+.env.*
+
+# Pytest cache
+.pytest_cache/
+
+# Coverage reports
+coverage.xml
+htmlcov/
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+
+# Static asset caches
+static/.cache/
+
+# Workspace / temporary artifacts
+.work/
+
+# Flask instance folder (runtime config)
+instance/
+
+# Database files
+*.sqlite3
+db.sqlite3
+
+# Logs
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# IDE/editor settings
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Type checkers / caches
+.mypy_cache/
+.pyre/
+typings/
+
+# Misc
+*.so
+*.egg
+pip-log.txt
