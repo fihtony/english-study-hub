@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{{ site_title | e }}</title>
+  <meta name="description" content="English Study Hub — practice reading, vocabulary and grammar with expert-curated lessons.">
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header role="banner" class="site-header">
+    <div class="container">
+      <h1 class="site-title">{{ site_title | e }}</h1>
+
+      <nav role="navigation" aria-label="Primary navigation" class="primary-nav">
+        <ul class="nav-list">
+          <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="/courses">Courses</a></li>
+          <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" role="main" class="site-main">
+    <section class="hero" aria-labelledby="hero-headline">
+      <div class="container hero-inner">
+        <h2 id="hero-headline" class="hero-title">{{ headline | e }}</h2>
+        <p class="hero-subhead">Brief subhead paragraph describing English Study Hub.</p>
+
+        <p class="hero-cta-wrap">
+          <a class="cta" href="#" role="button">Get started</a>
+        </p>
+
+        <!-- Decorative hero image (provide meaningful alt text when image conveys info) -->
+        <img class="hero-image" src="/static/images/hero.jpg" alt="Students studying English together" loading="lazy">
+      </div>
+    </section>
+
+    <section class="values" aria-labelledby="values-heading">
+      <div class="container">
+        <h3 id="values-heading" class="section-heading">What you'll get</h3>
+        <ul class="values-list">
+          <li><strong>Curated readings</strong> — leveled texts with comprehension guides.</li>
+          <li><strong>Practice drills</strong> — vocabulary and grammar exercises.</li>
+          <li><strong>Progress tracking</strong> — simple dashboards and milestones.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer role="contentinfo" class="site-footer">
+    <div class="container footer-inner">
+      <p class="copyright">&copy; {{ current_year | default("2026") }} {{ site_title | e }}. All rights reserved.</p>
+      <p class="asset-link">
+        <a href="/app/files/stitch/13629074018280446337/45ac4478a1b7455f861d7377f92105e6/assets/placeholder.txt" download>
+          Design asset (placeholder)
+        </a>
+      </p>
+    </div>
+  </footer>
+</body>
+</html>

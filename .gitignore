@@ -1,0 +1,93 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*/__pycache__/
+*.py[cod]
+*$py.class
+
+# Python virtual environments
+.venv/
+venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+
+# Environment files (keep .env.example tracked if present)
+.env
+!.env.example
+
+# Pytest cache
+.pytest_cache/
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+pip-wheel-metadata/
+wheelhouse/
+
+# Packaging artifacts
+*.egg
+*.whl
+
+# Unit test / coverage
+.coverage
+coverage.xml
+htmlcov/
+
+# Flask / Django static files (local build artifacts)
+staticfiles/
+media/
+
+# Database
+*.sqlite3
+db.sqlite3
+
+# Logs
+*.log
+logs/
+debug.log
+
+# IDEs and editors
+.vscode/
+.idea/
+*.iml
+*.sublime-workspace
+*.sublime-project
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Node / JS
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Next.js
+.next/
+
+# Compiled native modules
+*.so
+*.dylib
+
+# Misc
+*.pyc
+*.pyo
+
+# Work artifacts for CI, temp workspaces, and other ephemeral files
+.work/
+
+# Keep screenshots (visual evidence) under .work/screenshots/ tracked — exclude the rest of .work/.
+!.work/screenshots/
+!.work/screenshots/**
+
+# Security: ignore files that may contain credentials
+credentials.json
+secrets.json
+*.pem
+*.key
+
+# End of .gitignore — exceptions or policy notes should be recorded in the PR description if tracking files under .work/ is required.

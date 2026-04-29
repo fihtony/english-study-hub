@@ -1,0 +1,48 @@
+Stitch export assets placeholder
+Project: 13629074018280446337
+Screen: 45ac4478a1b7455f861d7377f92105e6
+Path (this file): app/files/stitch/13629074018280446337/45ac4478a1b7455f861d7377f92105e6/assets/placeholder.txt
+
+Purpose
+This file documents which raster/vector assets belong in this Stitch screen folder and how to reference them from the Flask app. If you have exported images, icons, or fonts for this screen, place them in this directory (or the project's top-level static/ directory) and update index.html to reference them.
+
+How to add assets
+- Preferred: copy assets to the project static folder so they are served from /static/.
+  Example destination (project root):
+    static/files/stitch/13629074018280446337/45ac4478a1b7455f861d7377f92105e6/assets/<filename>
+- Alternate (keeps assets with app package):
+    app/files/stitch/13629074018280446337/45ac4478a1b7455f861d7377f92105e6/assets/<filename>
+  Then reference via Flask's static endpoint in templates:
+    <img src="{{ url_for('static', filename='files/stitch/13629074018280446337/45ac4478a1b7455f861d7377f92105e6/assets/hero-bg.png') }}" alt="Hero background">
+
+Referencing rules and security
+- Always use url_for('static', filename=...) in Jinja templates to avoid hardcoding paths and to respect STATIC_URL configuration.
+- Validate and sanitize any user-supplied filenames before exposing them (do not append user input directly to static paths).
+- Serve only known safe file types (png, jpg, jpeg, webp, svg, ico, avif). Avoid serving arbitrary uploads from this folder.
+
+Suggested asset manifest (place files below and update index.html accordingly)
+- Asset ID: hero_image_01
+  Suggested filename: hero-bg.png
+  Purpose: Desktop hero background / banner (1920x1080, web-optimized PNG/WebP)
+
+- Asset ID: logo_primary
+  Suggested filename: logo.svg
+  Purpose: Site/brand logo (use SVG where possible for sharpness and accessibility)
+
+- Asset ID: illustration_main
+  Suggested filename: illustration-main.png
+  Purpose: Supporting illustration used in the hero/feature section (transparent PNG or WebP)
+
+- Asset ID: icon_study
+  Suggested filename: icon-study-24.png
+  Purpose: Small icon used in features list (24x24 or 48x48)
+
+If no assets are provided
+No raster/vector assets provided. Place downloaded assets here (or under the project static/ path) and update app/templates/index.html to reference them via url_for('static', filename=...).
+
+Notes for maintainers
+- Keep filenames lowercase, hyphen-separated, and without spaces.
+- Consider adding a checksum (SHA256) for each asset in a companion file if integrity verification is required.
+- When adding fonts, prefer using licensed webfont formats and list their license in this directory.
+
+End of placeholder.txt
