@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+
+{% block content %}
+<main>
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Master English with Confidence</h1>
+      <p class="hero-subtitle">Learn, practice, and excel in English through interactive lessons and real-world conversations</p>
+      <a href="#get-started" class="cta-button primary">Get Started Free</a>
+    </div>
+    <div class="hero-image">
+      <img src="{{ url_for('static', filename='images/hero-illustration.svg') }}" alt="Students learning English together in an interactive classroom" width="600" height="400">
+    </div>
+  </section>
+
+  <section id="features" class="features">
+    <h2>Why Choose English Study Hub?</h2>
+    <div class="features-grid">
+      <article class="feature-card">
+        <div class="feature-icon">
+          <img src="{{ url_for('static', filename='images/icon-interactive.svg') }}" alt="" width="64" height="64">
+        </div>
+        <h3>Interactive Lessons</h3>
+        <p>Engage with dynamic, bite-sized lessons designed to fit your learning pace. From grammar fundamentals to advanced vocabulary, we cover every skill level.</p>
+      </article>
+
+      <article class="feature-card">
+        <div class="feature-icon">
+          <img src="{{ url_for('static', filename='images/icon-practice.svg') }}" alt="" width="64" height="64">
+        </div>
+        <h3>Real-World Practice</h3>
+        <p>Practice through realistic scenarios and conversations. Improve speaking and listening skills with our AI-powered conversation partner system.</p>
+      </article>
+
+      <article class="feature-card">
+        <div class="feature-icon">
+          <img src="{{ url_for('static', filename='images/icon-progress.svg') }}" alt="" width="64" height="64">
+        </div>
+        <h3>Track Your Progress</h3>
+        <p>Detailed analytics and personalized feedback help you understand your strengths and areas for improvement at every step.</p>
+      </article>
+
+      <article class="feature-card">
+        <div class="feature-icon">
+          <img src="{{ url_for('static', filename='images/icon-community.svg') }}" alt="" width="64" height="64">
+        </div>
+        <h3>Community Support</h3>
+        <p>Connect with thousands of learners worldwide. Share tips, ask questions, and celebrate milestones together in our active community forums.</p>
+      </article>
+
+      <article class="feature-card">
+        <div class="feature-icon">
+          <img src="{{ url_for('static', filename='images/icon-certification.svg') }}" alt="" width="64" height="64">
+        </div>
+        <h3>Earn Certificates</h3>
+        <p>Complete level-based courses and earn recognized certificates to showcase your English proficiency to employers and institutions.</p>
+      </article>
+
+      <article class="feature-card">
+        <div class="feature-icon">
+          <img src="{{ url_for('static', filename='images/icon-flexible.svg') }}" alt="" width="64" height="64">
+        </div>
+        <h3>Learn Anytime, Anywhere</h3>
+        <p>Study on any device, at your own pace. Access lessons offline and sync progress across all your devices seamlessly.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="learning-levels">
+    <h2>Learn at Your Level</h2>
+    <div class="levels-container">
+      <div class="level-box">
+        <h3>Beginner</h3>
+        <p>A1 - A2</p>
+        <p class="level-description">Start from the basics with foundational vocabulary and simple grammar structures.</p>
+      </div>
+      <div class="level-box">
+        <h3>Intermediate</h3>
+        <p>B1 - B2</p>
+        <p class="level-description">Build conversational fluency and tackle more complex language patterns.</p>
+      </div>
+      <div class="level-box">
+        <h3>Advanced</h3>
+        <p>C1 - C2</p>
+        <p class="level-description">Master nuanced expression and prepare for professional or academic challenges.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonials">
+    <h2>Hear from Our Learners</h2>
+    <div class="testimonials-grid">
+      <blockquote class="testimonial">
+        <p>"English Study Hub transformed my learning journey. I went from struggling with basic conversations to confidently presenting at work within just 6 months!"</p>
+        <footer>
+          <strong>Maria S.</strong>
+          <span class="role">Marketing Professional</span>
+        </footer>
+      </blockquote>
+
+      <blockquote class="testimonial">
+        <p>"The interactive lessons and AI conversation partner are incredible. I finally feel like I'm making real progress instead of just memorizing words."</p>
+        <footer>
+          <strong>Ahmed K.</strong>
+          <span class="role">Student</span>
+        </footer>
+      </blockquote>
+
+      <blockquote class="testimonial">
+        <p>"The community support and structured curriculum make learning enjoyable. The certificate I earned helped me get my dream job!"</p>
+        <footer>
+          <strong>Sophie T.</strong>
+          <span class="role">Career Changer</span>
+        </footer>
+      </blockquote>
+    </div>
+  </section>
+
+  <section id="get-started" class="call-to-action">
+    <div class="cta-content">
+      <h2>Ready to Master English?</h2>
+      <p>Join thousands of successful learners. Start your free trial today—no credit card required.</p>
+      <a href="/signup" class="cta-button primary large">Start Your Free Trial</a>
+      <p class="cta-subtext">30 days unlimited access to all lessons and features</p>
+    </div>
+  </section>
+
+  <section class="faq">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-container">
+      <details class="faq-item">
+        <summary>
+          <span class="faq-question">How much does English Study Hub cost?</span>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </summary>
+        <p>We offer flexible pricing plans starting from free access to premium features. Choose what works best for your budget and goals.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>
+          <span class="faq-question">What if I'm a complete beginner?</span>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </summary>
+        <p>Absolutely! Our platform starts with absolute beginner lessons and progressively increases in difficulty as you advance.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>
+          <span class="faq-question">How long does it take to become fluent?</span>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </summary>
+        <p>Timeline depends on your starting level and commitment. Most learners see significant improvement within 3-6 months of consistent practice.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>
+          <span class="faq-question">Can I access lessons offline?</span>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </summary>
+        <p>Yes, premium members can download lessons to access offline. All progress syncs automatically when you reconnect.</p>
+      </details>
+    </div>
+  </section>
+</main>
+{% endblock %}
