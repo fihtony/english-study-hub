@@ -1,0 +1,61 @@
+name: Python Tests (pytest, Python 3.12)
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  test:
+    name: Run tests on Python 3.12
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+          # use built-in pip caching to speed up CI
+          cache: 'pip'
+
+      - name: Upgrade pip
+        run: python -m pip install --upgrade pip
+
+      - name: Install dependencies
+        run: |
+          if [ -f requirements.txt ]; then
+            pip install -r requirements.txt
+          else
+            echo "No requirements.txt found, skipping dependency install."
+          fi
+
+      # OPTIONAL: Playwright browser install is skipped in CI by default to reduce runtime.
+      # If you need to capture browser screenshots in CI uncomment the following step.
+      # Note: installing browsers increases workflow runtime and may require additional
+      # permissions / disk usage. For local developer screenshot capture prefer running
+      # `playwright install --with-deps` locally.
+      #
+      # - name: Install Playwright browsers (optional)
+      #   if: ${{ false }}
+      #   run: |
+      #     pip install playwright
+      #     playwright install --with-deps
+
+      - name: Run tests with pytest
+        run: |
+          pytest -q
+
+      - name: Show minimal environment info
+        if: always()
+        run: |
+          python -V
+          pip --version
+          echo "Actions runner: $RUNNER_OS"
+          echo "Workspace: $GITHUB_WORKSPACE"

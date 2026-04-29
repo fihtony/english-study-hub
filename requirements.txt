@@ -1,0 +1,11 @@
+# Requirements for English Study Hub
+# Target runtime: Python 3.12
+# Pin minimal runtime + test dependencies.
+Flask==2.3.*
+pytest==7.4.*
+pytest-cov==4.1.*
+playwright==1.45.*
+
+# Note: after installing Python packages, install Playwright browsers:
+#   playwright install
+# (In CI where browsers aren't needed, consider setting PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 during pip install)

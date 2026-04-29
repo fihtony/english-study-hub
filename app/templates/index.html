@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="English Study Hub — concise, accessible resources to practice reading, listening, and vocabulary." />
+  <title>English Study Hub</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <header role="banner" class="site-header" aria-label="Site header">
+    <div class="container">
+      <h1 id="site-title" class="site-title">English Study Hub</h1>
+      <nav role="navigation" aria-label="Primary">
+        <ul class="nav-list" aria-hidden="true">
+          <li><a href="#" class="nav-item">Features</a></li>
+          <li><a href="#" class="nav-item">About</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" role="main" aria-labelledby="site-title">
+    <section class="hero container" aria-label="Landing hero">
+      <div class="hero-content">
+        <p class="lead">
+          Improve English skills with short, focused lessons and real practice exercises — designed for steady progress.
+        </p>
+        <p>
+          <a class="cta" href="#" role="button" aria-label="Get Started with English Study Hub">Get Started</a>
+        </p>
+      </div>
+      <figure class="hero-illustration" aria-hidden="true">
+        <!-- Decorative illustration handled via CSS background for responsiveness -->
+      </figure>
+    </section>
+
+    <section class="features container" aria-label="Key features">
+      <h2 class="sr-only">Key features</h2>
+      <ul class="features-list">
+        <li>
+          <h3>Short lessons</h3>
+          <p>Micro-lessons that fit into busy schedules.</p>
+        </li>
+        <li>
+          <h3>Practice quizzes</h3>
+          <p>Instant feedback to reinforce learning.</p>
+        </li>
+        <li>
+          <h3>Progress tracking</h3>
+          <p>Simple milestones to keep motivation high.</p>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer role="contentinfo" class="site-footer" aria-label="Site footer">
+    <div class="container">
+      <p>&copy; English Study Hub — All rights reserved.</p>
+      <p class="small">
+        Design source: Stitch project (no concrete screen id available). Visual choices are conservative to remain accessible and responsive.
+      </p>
+    </div>
+  </footer>
+
+  <noscript>
+    <div class="noscript-warning" role="status" aria-live="polite">
+      JavaScript is disabled — core functionality remains available but interactive enhancements may be limited.
+    </div>
+  </noscript>
+</body>
+</html>

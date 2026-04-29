@@ -1,0 +1,42 @@
+# Python virtual environments
+.venv/
+venv/
+.venv
+.env
+
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.cache/
+
+# Packaging / build artifacts
+build/
+dist/
+pip-wheel-metadata/
+*.egg-info/
+.eggs/
+
+# Node / Next.js
+node_modules/
+.next/
+# Common frontend build dirs
+dist/
+build/
+
+# Editor / OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Test / Playwright evidence
+docs/evidence/*.png
+
+# Logs and temporary files
+*.log
+*.tmp
+~*

@@ -1,0 +1,233 @@
+/* static/css/styles.css
+   Basic Stitch-inspired styles for English Study Hub
+   Root variables, typographic rhythm, spacing, and accessible CTA styles.
+*/
+
+/* Root design tokens */
+:root{
+  --color-primary: #0b6efd;           /* primary brand color */
+  --color-primary-600: #0753c7;       /* darker for focus/active */
+  --color-bg: #ffffff;
+  --color-surface: #f7f9fb;
+  --color-text: #0f1724;
+  --color-muted: #556280;
+  --radius: 10px;
+  --spacing-xxs: 0.25rem;
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 0.75rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2.5rem;
+  --max-width: 1100px;
+  --font-stack: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  --shadow-sm: 0 1px 2px rgba(16,24,40,0.05);
+  --shadow-md: 0 6px 18px rgba(11,78,155,0.12);
+  --focus-ring: 3px solid rgba(11,110,253,0.18);
+}
+
+/* Base
+   Ensure the required system font stack is explicitly present as a rule
+*/
+html,body{
+  height:100%;
+}
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  font-family: var(--font-stack);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height:1.45;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  -webkit-text-size-adjust:100%;
+  text-rendering:optimizeLegibility;
+  -ms-overflow-style:-ms-autohiding-scrollbar;
+  -webkit-tap-highlight-color: transparent;
+  padding: 0;
+}
+
+/* Layout container */
+.container{
+  max-width: var(--max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: calc(var(--spacing-md) * 1.25);
+  padding-right: calc(var(--spacing-md) * 1.25);
+  box-sizing: border-box;
+}
+
+/* Header */
+header.site-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:var(--spacing-md);
+  padding: calc(var(--spacing-sm) + 0.25rem) var(--spacing-md);
+  background-color: transparent;
+  border-bottom: 1px solid rgba(15,23,36,0.04);
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap: calc(var(--spacing-sm));
+  text-decoration:none;
+  color:var(--color-text);
+}
+.brand .logo{
+  width:38px;
+  height:38px;
+  border-radius:8px;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-600));
+  box-shadow: var(--shadow-sm);
+  flex:0 0 38px;
+}
+.brand .title{
+  font-weight:700;
+  font-size:1.0625rem;
+  letter-spacing: -0.01em;
+}
+
+/* Hero / Landing */
+.hero{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  gap: var(--spacing-lg);
+  padding: calc(var(--spacing-xl)) var(--spacing-md) calc(var(--spacing-xl) + 1rem);
+  background-color: var(--color-surface);
+}
+.hero h1{
+  margin:0;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  line-height:1.05;
+  font-weight:800;
+  color:var(--color-text);
+  letter-spacing:-0.02em;
+}
+.hero p.lead{
+  margin:0;
+  max-width:68ch;
+  color:var(--color-muted);
+  font-size:1.0625rem;
+}
+
+/* CTA primary */
+.cta{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:0.6rem;
+  padding: 0.72rem 1.05rem;
+  font-size:1rem;
+  font-weight:600;
+  color:#fff;
+  background-color:var(--color-primary);
+  border: 0;
+  border-radius: calc(var(--radius) - 2px);
+  text-decoration:none;
+  cursor:pointer;
+  box-shadow: var(--shadow-md);
+  transition: transform .08s ease, box-shadow .12s ease, background-color .12s ease;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  line-height:1;
+  min-height:44px;
+}
+
+/* CTA interactions and accessibility */
+.cta:hover{
+  background-color: var(--color-primary-600);
+  transform: translateY(-1px);
+}
+.cta:active{
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+.cta:focus{
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(11,110,253,0.12);
+}
+.cta:focus-visible{
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(11,110,253,0.18);
+  border-radius: calc(var(--radius) - 2px);
+}
+
+/* Secondary CTA */
+.cta--ghost{
+  background: transparent;
+  color: var(--color-text);
+  border: 1px solid rgba(15,23,36,0.06);
+  box-shadow: none;
+}
+
+/* Utility: visually-hidden for accessibility */
+.sr-only{
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0,0,0,0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Footer simple */
+.site-footer{
+  padding: var(--spacing-md);
+  text-align:center;
+  color:var(--color-muted);
+  font-size:0.9rem;
+  border-top: 1px solid rgba(15,23,36,0.03);
+  background: transparent;
+}
+
+/* Responsive: ensure CTA centers on narrow viewports */
+@media (max-width: 720px){
+  header.site-header{
+    flex-direction:column;
+    align-items:center;
+    gap: var(--spacing-xs);
+    padding-top: calc(var(--spacing-sm) + 0.25rem);
+    padding-bottom: calc(var(--spacing-sm) + 0.25rem);
+  }
+  .container{
+    padding-left: var(--spacing-md);
+    padding-right: var(--spacing-md);
+  }
+  .hero{
+    padding-top: calc(var(--spacing-xl) - 0.5rem);
+    padding-bottom: calc(var(--spacing-xl) - 0.5rem);
+    gap: var(--spacing-md);
+  }
+  .cta{
+    width:100%;
+    max-width: 360px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* High-contrast / reduced motion considerations */
+@media (prefers-reduced-motion: reduce){
+  .cta, .brand .logo{
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+/* Print adjustments */
+@media print{
+  body{
+    background: white;
+    color: black;
+  }
+  .hero, header.site-header, .site-footer{
+    box-shadow:none;
+    border:none;
+  }
+}
