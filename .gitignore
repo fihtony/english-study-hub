@@ -1,0 +1,92 @@
+# Python artifacts
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+env.bak/
+
+# Environment/configs
+.env
+.env.*
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Pytest
+.pytest_cache/
+
+# Packaging
+*.egg-info/
+dist/
+build/
+wheelhouse/
+
+# Databases
+*.sqlite3
+*.db
+*.db-journal
+
+# Static macOS files
+.DS_Store
+static/.DS_Store
+
+# Node / frontend builds
+node_modules/
+.next/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Logs
+*.log
+
+# IDEs / Editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Coverage and reports
+htmlcov/
+.coverage
+.coverage.*
+.coverage-*.xml
+coverage.xml
+nosetests.xml
+pytest.xml
+*.prof
+
+# Sphinx build
+_docs/_build/
+docs/_build/
+
+# Editor backup files
+*~
+*.swp
+*.swo
+
+# Build artifacts
+.eggs/
+*.egg
+.cache/
+.mypy_cache/
+.pyre/
+
+# Artifacts: ignore everything but allow screenshots to be committed
+artifacts/**
+!artifacts/
+!artifacts/screenshots/
+!artifacts/screenshots/landing.png
+
+# Misc
+thumbs.db
+.DS_Store?
+desktop.ini
+npm-packages-offline-cache/
+*.tgz
+*.zip

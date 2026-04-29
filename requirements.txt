@@ -1,0 +1,11 @@
+# Requirements for English Study Hub (CSTL-1)
+# Target runtime: Python 3.12
+Flask>=2.3,<3
+pytest>=7.0,<8
+beautifulsoup4>=4.12.0,<5
+
+# Production WSGI server (optional; choose one for deployment)
+gunicorn>=20.1.0,<21
+
+# Environment variable support
+python-dotenv>=1.0,<2

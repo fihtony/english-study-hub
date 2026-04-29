@@ -1,0 +1,124 @@
+:root{
+  --brand:#0b6efd;
+  --bg:#f7fbff;
+  --text:#0f1724;
+  --muted:#6b7280;
+}
+
+/* sensible box-model */
+*,
+*::before,
+*::after{box-sizing:border-box}
+
+/* base */
+body{
+  font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  color:var(--text);
+  background:var(--bg);
+  margin:0;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.4;
+}
+
+/* header */
+header{
+  padding:24px;
+  text-align:left;
+  font-weight:700;
+  font-size:1.25rem;
+  color:var(--text);
+  background:transparent;
+}
+
+/* hero layout */
+.hero{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  justify-content:center;
+  padding:64px 24px;
+  max-width:960px;
+  margin:0 auto;
+  gap:12px;
+}
+
+.hero h1{
+  font-size:2.25rem;
+  margin:0 0 12px;
+  line-height:1.05;
+  color:var(--text);
+  font-weight:700;
+}
+
+.hero p{
+  color:var(--muted);
+  font-size:1.05rem;
+  margin:0 0 24px;
+  max-width:60ch;
+}
+
+/* primary call-to-action */
+.cta-primary{
+  background:var(--brand);
+  color:#fff;
+  padding:12px 20px;
+  border-radius:8px;
+  text-decoration:none;
+  display:inline-block;
+  font-weight:600;
+  border:0;
+  cursor:pointer;
+  transition:background .12s ease, transform .06s ease, box-shadow .12s ease;
+}
+
+/* hover / focus */
+.cta-primary:hover{ background:#095ce0; transform:translateY(-1px) }
+.cta-primary:active{ transform:translateY(0) scale(.998) }
+.cta-primary:focus{
+  outline: none;
+}
+.cta-primary:focus-visible{
+  box-shadow:0 0 0 4px rgba(11,110,253,0.14);
+  border-radius:8px;
+}
+
+/* footer */
+footer{
+  padding:18px;
+  text-align:center;
+  font-size:0.875rem;
+  color:var(--muted);
+  background:transparent;
+}
+
+/* responsive tweaks: smaller screens */
+@media (max-width:720px){
+  .hero{
+    padding:48px 18px;
+  }
+  .hero h1{
+    font-size:1.75rem;
+  }
+  header{ font-size:1.125rem }
+}
+
+@media (max-width:420px){
+  .hero{
+    padding:32px 14px;
+  }
+  .hero h1{
+    font-size:1.5rem;
+  }
+  .hero p{
+    font-size:1rem;
+  }
+  .cta-primary{
+    padding:10px 16px;
+    border-radius:10px;
+  }
+}
+
+/* small utility */
+.container{width:100%; padding:0 16px; margin:0 auto}
+.hidden{display:none !important}

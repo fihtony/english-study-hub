@@ -1,0 +1,107 @@
+<!--
+  Stitch screen reference:
+  Screen ID: f26700babdf44b4aa04826e7d3f37c28
+  URL: https://stitch.withgoogle.com/projects/13629074018280446337/screens/f26700babdf44b4aa04826e7d3f37c28
+-->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ title or 'English Study Hub' }}</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+      /* Minimal fallback styles to preserve layout if /static/css/style.css is missing.
+         Prefer the project's static/css/style.css for production styling. */
+      :root{
+        --bg:#f7fbff;
+        --primary:#0b74de;
+        --muted:#6b7280;
+        --max-width:1100px;
+        --radius:10px;
+        --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      }
+      html,body{height:100%;margin:0;font-family:var(--font-sans);background:var(--bg);color:#0b2540}
+      a{color:inherit}
+      .site-header{background:linear-gradient(90deg, rgba(11,116,222,0.06), transparent);border-bottom:1px solid rgba(11,116,222,0.06)}
+      .wrap{max-width:var(--max-width);margin:0 auto;padding:1rem 1.25rem}
+      header .brand{display:flex;align-items:center;gap:.75rem;padding:0.5rem 0}
+      .brand .logo{
+        width:44px;height:44px;border-radius:8px;background:var(--primary);display:inline-flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:1.05rem;
+        box-shadow:0 6px 18px rgba(11,116,222,0.12);
+      }
+      nav ul{list-style:none;margin:0;padding:0;display:flex;gap:0.75rem}
+      nav a{padding:.35rem .6rem;border-radius:6px;text-decoration:none;color:var(--primary);font-weight:600}
+      .hero{display:flex;flex-direction:column;align-items:flex-start;gap:1rem;padding:3.25rem 0}
+      .hero h1{font-size:2rem;margin:0;color:#07253a;line-height:1.05}
+      .hero p{margin:0;color:var(--muted);max-width:60ch}
+      .btn-primary{
+        display:inline-block;background:var(--primary);color:#fff;padding:.7rem 1.05rem;border-radius:8px;text-decoration:none;font-weight:700;
+        box-shadow:0 8px 24px rgba(11,116,222,0.18);border:0;
+      }
+      footer{padding:1.25rem 0;color:var(--muted);font-size:.9rem;border-top:1px solid rgba(11,116,222,0.04);background:transparent}
+      @media(min-width:768px){
+        .hero{flex-direction:row;align-items:center;justify-content:space-between}
+        .hero .content{max-width:58%}
+      }
+      .skip-link{position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden}
+      .skip-link:focus{left:0;top:0;width:auto;height:auto;padding:.5rem .75rem;background:#000;color:#fff;z-index:9999}
+    </style>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <header class="site-header" role="banner" aria-label="Site header">
+      <div class="wrap">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem">
+          <div class="brand" aria-hidden="false">
+            <div class="logo" aria-hidden="true">ESH</div>
+            <div>
+              <div style="font-weight:800;font-size:1.05rem">{{ title or 'English Study Hub' }}</div>
+              <div style="font-size:.875rem;color:var(--muted)">Practice. Read. Grow.</div>
+            </div>
+          </div>
+
+          <nav aria-label="Primary navigation">
+            <ul>
+              <li><a href="/" rel="nofollow">Home</a></li>
+              <li><a href="/courses">Courses</a></li>
+              <li><a href="/about">About</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main id="main-content" class="wrap" role="main" aria-labelledby="hero-heading">
+      <section class="hero" role="region" aria-label="Hero section">
+        <div class="content" style="flex:1">
+          <h1 id="hero-heading">{{ heading or "Level up your English — one lesson at a time" }}</h1>
+          <p>{{ description or "Structured reading, practice exercises, and progress tracking for learners of all levels. Build confidence in comprehension, vocabulary, and speaking through short, focused lessons." }}</p>
+          <p style="margin-top:1rem">
+            <a id="cta-get-started" class="btn-primary" role="button" href="/get-started" aria-label="Get started with English Study Hub">Get Started</a>
+          </p>
+        </div>
+
+        <div class="visual" style="min-width:260px;display:flex;align-items:center;justify-content:center">
+          <!-- Decorative illustration (inline SVG for accessibility; aria-hidden true since it's decorative) -->
+          <svg width="220" height="140" viewBox="0 0 220 140" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+            <rect x="0" y="0" width="220" height="140" rx="12" fill="#fff"/>
+            <g transform="translate(12,12)" fill="none" stroke="#e6f2ff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M0 100 C40 20 160 20 200 100"/>
+            </g>
+            <circle cx="60" cy="60" r="18" fill="#0b74de" opacity="0.92"/>
+            <rect x="105" y="40" width="82" height="56" rx="8" fill="#e8f4ff"/>
+          </svg>
+        </div>
+      </section>
+    </main>
+
+    <footer role="contentinfo" aria-label="Footer">
+      <div class="wrap" style="display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap">
+        <small>© {{ current_year or ('' ~ (now.year if now is defined else '') ) }} {{ title or 'English Study Hub' }}. All rights reserved.</small>
+        <small>Built with care — <a href="https://github.com/fihtony/english-study-hub" rel="noopener noreferrer">Project repo</a></small>
+      </div>
+    </footer>
+  </body>
+</html>
