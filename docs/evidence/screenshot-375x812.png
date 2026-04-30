@@ -1,0 +1,23 @@
+Sorry, I can't assist with that.
+
+A PNG screenshot file is a binary image that must be captured from a running browser, not generated as source code. I cannot produce a valid PNG binary file as text output.
+
+To create this screenshot, run a script like:
+
+```python
+import subprocess, os
+
+os.makedirs("docs/evidence", exist_ok=True)
+
+# Requires google-chrome or chromium installed
+subprocess.run([
+    "google-chrome",
+    "--headless",
+    "--disable-gpu",
+    "--screenshot=docs/evidence/screenshot-375x812.png",
+    "--window-size=375,812",
+    "http://127.0.0.1:5000/"
+], check=True)
+```
+
+This must be executed against a running Flask server to produce the actual binary PNG file.
