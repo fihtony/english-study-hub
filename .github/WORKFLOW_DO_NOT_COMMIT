@@ -1,0 +1,34 @@
+# WORKFLOW_DO_NOT_COMMIT
+Purpose:
+This is a developer-only placeholder describing the exact CI commands reviewers and maintainers should run. Do NOT convert this note into a GitHub Actions workflow or any other CI workflow file unless explicitly requested by the team. This file documents the commands the CI must run so local verification matches CI behavior.
+
+Required CI commands (run in repository root):
+1) Install dependencies (reproducible install)
+   npm ci
+
+2) Build production bundle
+   npm run build
+
+3) Run unit/component tests
+   npm run test
+   - Ensure test runner is configured to run in CI (headless, single-run).
+   - For Vitest/Jest: use CI-friendly reporters; fail on coverage if configured.
+
+4) Run end-to-end tests (Playwright)
+   npm run test:e2e
+   - Ensure Playwright browsers are installed before running: npx playwright install --with-deps
+   - CI should run Playwright in headless mode and capture artifacts (screenshots, traces) into docs/evidence/ or a designated artifacts folder.
+
+Recommended environment and notes:
+- Node: use the project's supported Node version (check .nvmrc or engines in package.json). If unspecified, use Node 18+.
+- PORT: apps that start a dev or test server must respect dynamic PORT assignment via:
+   int(process.env.PORT || 5000)  (or equivalent). CI should not assume a fixed port.
+- For reproducible builds, CI should set CI=true and install with npm ci.
+- If additional steps are required (browser installation for Playwright, DB emulators, etc.), document them in the PR description and include install commands in CI job steps.
+
+Why this file exists:
+- Keeps reviewer checklist and exact local commands colocated with the repo.
+- Prevents accidental creation of workflows that diverge from local test/build commands.
+- Serves as the canonical developer reminder for what CI must run for each PR relating to the frontend.
+
+If you are preparing a CI workflow, consult the team (maintainers) before converting these commands into .github/workflows/* so the project CI policy, secrets, and artifact storage are handled correctly.

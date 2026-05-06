@@ -1,0 +1,82 @@
+# Node modules
+node_modules/
+
+# Build outputs
+dist/
+build/
+.vite/
+out/
+
+# Vite specific
+.vite/
+
+# Environment variables
+.env
+.env.*.local
+.env.local
+.env.*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDEs and editors
+.idea/
+.vscode/
+.vscode/*
+
+# Test coverage and cache
+coverage/
+.nyc_output/
+coverage-final.json
+.vitest/
+jest.config.*.cache
+.cache/
+*.log
+
+# Dependency directories
+/.pnp
+.pnp.js
+
+# Optional npm cache directory
+.npm
+
+# Lockfiles for other package managers (do NOT ignore package-lock.json if this repo relies on it;
+# include other common lockfiles only if they are not used)
+.pnpm-store/
+pnpm-lock.yaml
+
+# TypeScript
+*.tsbuildinfo
+
+# Static site / service worker artifacts
+service-worker.js
+
+# Runtime files
+tmp/
+temp/
+
+# OS generated files
+*.swp
+*~
+
+# Docs evidence: ignore large or intermediate screenshots captured during local runs.
+# If specific evidence files must be committed, add an explicit exception (e.g., !docs/evidence/design-reference.png)
+docs/evidence/*.png
+
+# Optional: ignore local secrets or credential stores
+secrets/
+*.key
+*.pem
+
+# Ignore editor/project specific files
+/.idea/
+/.vscode/
+
+# End of file

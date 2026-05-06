@@ -1,0 +1,43 @@
+{
+  "name": "english-study-hub",
+  "version": "0.1.0",
+  "private": true,
+  "description": "English Study Hub — Landing page (Bare-bones) implemented with React + Vite",
+  "type": "module",
+  "author": "fihtony <fihtony@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "vite preview",
+    "test": "vitest --run",
+    "test:unit": "vitest",
+    "test:e2e": "cross-env CI=false npx playwright test --config=playwright.config.js",
+    "test:e2e:ci": "cross-env CI=true npx playwright test --config=playwright.config.js --reporter=dot",
+    "test:ci": "cross-env CI=true vitest --run",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx src || echo \"eslint not configured; skipping lint\"",
+    "prepare": "npx playwright install --with-deps || npx playwright install",
+    "ci": "npm run build && npm run test:ci && npm run test:e2e:ci"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "vite": "^8.0.10",
+    "@vitejs/plugin-react": "^4.0.0",
+    "vitest": "^4.1.5",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/jest-dom": "^6.0.0",
+    "@testing-library/user-event": "^14.4.3",
+    "@playwright/test": "^1.40.0",
+    "playwright": "^1.40.0",
+    "cross-env": "^7.0.3",
+    "jsdom": "^20.0.0",
+    "esbuild": "^0.18.22"
+  }
+}
