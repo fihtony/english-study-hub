@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>English Study Hub</title>
+
+    <!-- Description / Social -->
+    <meta name="description" content="English Study Hub — practice and improve your English skills with lessons, exercises, and progress tracking." />
+    <meta property="og:title" content="English Study Hub" />
+    <meta property="og:description" content="Practice and improve your English skills with lessons, exercises, and progress tracking." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Security: conservative CSP for production builds.
+         Note: during local Vite dev the dev server may require looser policies. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https: wss:; font-src 'self' https: data:; object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';" />
+
+    <!-- Performance / icons -->
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <meta name="theme-color" content="#f3f6fb" />
+  </head>
+  <body>
+    <div id="root" aria-live="polite"></div>
+
+    <!-- Vite entry: React app -->
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

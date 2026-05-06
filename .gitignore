@@ -1,0 +1,28 @@
+# Node and package manager
+node_modules/
+npm-debug.log
+yarn-error.log
+pnpm-debug.log
+
+# Vite / build output
+dist/
+.vite/
+
+# Environment files (do NOT commit -- contain secrets)
+.env
+.env.local
+.env.*.local
+
+# IDEs and editor settings
+.idea/
+.vscode/
+
+# macOS
+.DS_Store
+
+# Logs and runtime files
+logs/
+*.log
+
+# Optional: local build caches
+.cache/
