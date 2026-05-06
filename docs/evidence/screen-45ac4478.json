@@ -1,0 +1,67 @@
+{
+  "screen_id": "45ac4478a1b7455f861d7377f92105e6",
+  "project_id": "13629074018280446337",
+  "stitch_project_url": "https://stitch.withgoogle.com/projects/13629074018280446337",
+  "stitch_screen_view_url": "https://stitch.withgoogle.com/projects/13629074018280446337/screens/45ac4478a1b7455f861d7377f92105e6",
+  "stitch_api_screen_url": "https://api.stitch.google/v1/projects/13629074018280446337/screens/45ac4478a1b7455f861d7377f92105e6",
+  "fetched": false,
+  "fetched_at": null,
+  "fetch_attempts": 0,
+  "env_checked": true,
+  "last_checked_at": "2026-05-05T21:39:15.867-04:00",
+  "missing_env_var": "STITCH_TOKEN",
+  "fetch_status": "not_attempted_missing_env",
+  "fetch_log": [
+    {
+      "timestamp": "2026-05-05T21:28:23.099-04:00",
+      "action": "env_check",
+      "details": "STITCH_TOKEN was not set in the environment; fetch not attempted. To record the design reference, set STITCH_TOKEN and run the curl command in fetch_instructions from the repository root."
+    },
+    {
+      "timestamp": "2026-05-05T21:39:15.867-04:00",
+      "action": "test_artifact_verification",
+      "details": "Automated test/e2e run did not include the Stitch screen JSON (docs/evidence/screen-45ac4478.json) or the thumbnail. The PR must either commit the fetched JSON and thumbnail or explicitly document why fetching was not possible (e.g., missing STITCH_TOKEN or corporate network restrictions)."
+    }
+  ],
+  "fetch_instructions": {
+    "description": "If you have a valid STITCH_TOKEN in your environment, run the curl commands below from the repository root to fetch the Stitch screen JSON and thumbnail into docs/evidence/. After fetching, commit docs/evidence/screen-45ac4478.json and docs/evidence/screen-45ac4478-thumbnail.png and any referenced assets (download to src/assets/) before requesting final review.",
+    "env_var": "STITCH_TOKEN",
+    "command": "curl -H \"Authorization: Bearer $STITCH_TOKEN\" \"https://api.stitch.google/v1/projects/13629074018280446337/screens/45ac4478a1b7455f861d7377f92105e6\" > docs/evidence/screen-45ac4478.json",
+    "thumbnail_command": "curl -H \"Authorization: Bearer $STITCH_TOKEN\" \"https://api.stitch.google/v1/projects/13629074018280446337/screens/45ac4478a1b7455f861d7377f92105e6/thumbnail\" -o docs/evidence/screen-45ac4478-thumbnail.png",
+    "notes": "Run the two commands above from the repository root. If corporate networking blocks the request or STITCH_TOKEN cannot be provided in CI, run locally where STITCH_TOKEN is available and copy the resulting files into docs/evidence/. After committing the files, re-run the test/e2e workflow so screenshots and the fetch artifact are present in test output."
+  },
+  "thumbnail_local_path": "docs/evidence/screen-45ac4478-thumbnail.png",
+  "assets": [],
+  "asset_instructions": "If the fetched JSON references remote assets (images, fonts), download each asset to src/assets/ (create the directory if missing) and update src/pages/LandingBarebones.jsx to reference the local copies. Example: curl -L \"<asset_url>\" -o src/assets/<filename> && git add src/assets/<filename>",
+  "design_reference": {
+    "title": "Landing Page (Bare-bones)",
+    "screen_id": "45ac4478a1b7455f861d7377f92105e6",
+    "project_title": "Stitch project 13629074018280446337 (English Study Hub design)",
+    "project_url": "https://stitch.withgoogle.com/projects/13629074018280446337",
+    "screen_url": "https://stitch.withgoogle.com/projects/13629074018280446337/screens/45ac4478a1b7455f861d7377f92105e6"
+  },
+  "evidence_required": [
+    "docs/evidence/screen-45ac4478.json",
+    "docs/evidence/screen-45ac4478-thumbnail.png",
+    "src/assets/<downloaded assets referenced by the JSON>",
+    "docs/evidence/screenshot-1024x768.png",
+    "docs/evidence/screenshot-375x812.png",
+    "docs/evidence/test-summary.txt"
+  ],
+  "notes": "Design reference fetch was validated and recorded: STITCH_TOKEN was not present in the environment when checks ran, so the Stitch screen JSON was not fetched. The repository currently includes a recorded fetch_instructions and an explicit test_artifact_verification entry in fetch_log. To complete this item and provide the required evidence: (1) set STITCH_TOKEN in your shell (export STITCH_TOKEN=...), (2) run the curl commands in fetch_instructions from the repository root, (3) commit docs/evidence/screen-45ac4478.json and docs/evidence/screen-45ac4478-thumbnail.png, (4) download any referenced assets into src/assets/ and update src/pages/LandingBarebones.jsx to reference local copies, and (5) re-run unit and e2e tests to capture screenshots into docs/evidence/ and include docs/evidence/test-summary.txt that shows npm test and e2e results.",
+  "design_fetch_validation": {
+    "checked_env": true,
+    "can_fetch": false,
+    "reason": "STITCH_TOKEN not set in CI/workspace",
+    "how_to_reproduce": "From repository root: export STITCH_TOKEN=your_token_here && curl -H \"Authorization: Bearer $STITCH_TOKEN\" \"https://api.stitch.google/v1/projects/13629074018280446337/screens/45ac4478a1b7455f861d7377f92105e6\" > docs/evidence/screen-45ac4478.json && curl -H \"Authorization: Bearer $STITCH_TOKEN\" \"https://api.stitch.google/v1/projects/13629074018280446337/screens/45ac4478a1b7455f861d7377f92105e6/thumbnail\" -o docs/evidence/screen-45ac4478-thumbnail.png"
+  },
+  "test_evidence_inclusion": {
+    "screen_json_committed": false,
+    "thumbnail_committed": false,
+    "screenshots_present": false,
+    "test_summary_present": false,
+    "required_action": "Commit the fetched JSON and thumbnail and re-run tests. After doing so, ensure docs/evidence/test-summary.txt contains the npm test and e2e output and that screenshots are saved at docs/evidence/screenshot-1024x768.png and docs/evidence/screenshot-375x812.png."
+  },
+  "generated_by": "copilot-cli",
+  "generated_at": "2026-05-05T21:39:15.867-04:00"
+}

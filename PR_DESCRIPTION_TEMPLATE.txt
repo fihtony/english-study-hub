@@ -1,0 +1,150 @@
+CSTL-1: Landing Page (Bare-bones) — PR Description Template
+
+Summary
+- Ticket: CSTL-1
+- Short description: Implement "Landing Page (Bare-bones)" React page per Stitch design (screen id included below). Includes unit tests, e2e visual checks, and evidence artifacts.
+- Dependency (for reviewer): docs/evidence/test-summary.txt
+
+Stitch design reference
+- Stitch project (design): https://stitch.withgoogle.com/projects/13629074018280446337?pli=1
+- Stitch screen id: 45ac4478a1b7455f861d7377f92105e6
+
+Branch & commits
+- Feature branch: feat/CSTL-1/landing-page
+- Primary commit message (use exactly as the PR's primary commit message or when squashing):
+  CSTL-1: Add Landing Page (Bare-bones) component and tests
+
+  Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>
+
+Files changed (update to exactly match the committed diff)
+- src/pages/LandingBarebones.jsx
+- src/pages/LandingBarebones.css
+- src/App.jsx
+- src/assets/hero-placeholder.png
+- src/tests/unit/LandingBarebones.test.jsx
+- e2e/tests/landing.spec.js
+- e2e/playwright.config.js
+- docs/evidence/screenshot-1024x768.png
+- docs/evidence/screenshot-375x812.png
+- docs/evidence/test-summary.txt
+- docs/evidence/screen-45ac4478.json
+- docs/evidence/design-reference.png
+
+Please ensure the "Files changed" section above exactly matches the committed diff before creating the PR.
+
+Test summary and artifacts (required)
+- Required evidence files (must be committed under docs/evidence/):
+  - docs/evidence/test-summary.txt  (full stdout/stderr for the commands below)
+  - docs/evidence/screenshot-1024x768.png
+  - docs/evidence/screenshot-375x812.png
+  - docs/evidence/screen-45ac4478.json (if STITCH_TOKEN available and fetch succeeded)
+  - docs/evidence/design-reference.png (thumbnail from Stitch if fetched)
+- Commands to run and capture output (include these exact commands in test-summary.txt):
+  - npm ci
+  - npm run build      # if project supports build
+  - npm test           # unit tests (Jest / RTL)
+  - npm run test:e2e   # Playwright or Cypress (visual screenshots)
+  - Optional: npm run dev (local manual verification)
+- In docs/evidence/test-summary.txt include:
+  - Full stdout/stderr for each command above
+  - Pass / fail counts and any non-fatal warnings
+  - Playwright/Cypress artifact paths and sizes
+
+Visual evidence expectations
+- Desktop screenshot: docs/evidence/screenshot-1024x768.png (1024x768)
+- Mobile screenshot: docs/evidence/screenshot-375x812.png (375x812)
+- Design reference thumbnail (if fetched): docs/evidence/design-reference.png
+
+Stitch JSON / thumbnail fetch status
+- STITCH_FETCH_STATUS: [FILL: Fetched / Not fetched]
+- If fetched, files committed:
+  - docs/evidence/screen-45ac4478.json
+  - docs/evidence/design-reference.png
+- If not fetched, state reason (replace bracketed text):
+  - Reason: [e.g., STITCH_TOKEN not provided / network / permission 401/403]
+
+Reproducible fetch commands (run locally with STITCH_TOKEN set)
+- Fetch full screen JSON:
+  curl -H "Authorization: Bearer $STITCH_TOKEN" "https://api.stitch.google/v1/projects/13629074018280446337/screens/45ac4478a1b7455f861d7377f92105e6" -o docs/evidence/screen-45ac4478.json
+
+- Fetch screen thumbnail (PNG):
+  curl -H "Authorization: Bearer $STITCH_TOKEN" "https://api.stitch.google/v1/projects/13629074018280446337/screens/45ac4478a1b7455f861d7377f92105e6/thumbnail" -o docs/evidence/design-reference.png
+
+- Note: replace $STITCH_TOKEN with a valid token. If commands return 401/403, confirm token scope and project access.
+
+How to run and verify locally
+1. Install dependencies
+   - npm ci
+2. Run unit tests
+   - npm test
+3. Run e2e visual checks (Playwright/Cypress)
+   - npm run test:e2e
+   - Resulting screenshots should be saved to docs/evidence/ as:
+     - docs/evidence/screenshot-1024x768.png
+     - docs/evidence/screenshot-375x812.png
+4. Optional: build
+   - npm run build
+5. Quick manual verification
+   - npm run dev
+   - Open http://localhost:5173/ (or configured dev port) and navigate to the landing route ("/" or "/landing-barebones") to confirm layout and accessible CTA.
+
+Accessibility & design tokens
+- Ensure semantic landmarks (header, main), meaningful alt text on images, and keyboard-focusable CTA.
+- Color usage: hero/header/footer must use design surface tokens (e.g., --surface, --surface-container, --primary). Do NOT introduce hard-coded black backgrounds for full-width bands.
+
+Required checklist before creating PR (confirm and update)
+- [ ] All unit tests pass locally (npm test)
+- [ ] All e2e tests run and screenshots saved (npm run test:e2e)
+- [ ] Build succeeds (npm run build) if applicable
+- [ ] Screenshots added to docs/evidence/
+- [ ] docs/evidence/test-summary.txt contains test outputs and commands run
+- [ ] Stitch reference included (project URL + screen id)
+- [ ] If STITCH_TOKEN was available, docs/evidence/screen-45ac4478.json and design-reference.png are included
+- [ ] Commit messages include the ticket key as required and include Co-authored-by trailer
+- [ ] Accessibility checks: semantic landmarks, alt text, keyboard focus for CTA
+- [ ] No unrelated files modified
+
+Acceptance evidence (fill in)
+- Unit test summary (copy/paste relevant excerpt from docs/evidence/test-summary.txt)
+  - [PASTE UNIT TEST OUTPUT]
+- E2E test summary and screenshot paths
+  - docs/evidence/screenshot-1024x768.png
+  - docs/evidence/screenshot-375x812.png
+- Build output (if applicable)
+  - [PASTE BUILD OUTPUT OR "N/A"]
+
+Notes on deviations, constraints, and follow-ups
+- If any design assets were unavailable in Stitch or token access was not provided, the implementation uses locally committed placeholders (src/assets/hero-placeholder.png). Document the exact deviations here.
+- If additional iterations are required to match typography or spacing precisely, list them here and attach screenshots demonstrating the delta.
+- If the repository already had routing/layout patterns, LandingBarebones was integrated following existing conventions; if not, a minimal Vite + React scaffold was used.
+
+Reviewer checklist
+- Confirm files changed are scoped to feature and tests/evidence only
+- Confirm test artifacts exist at docs/evidence/ and that test-summary.txt is present
+- Review accessibility (tab order, alt text) and color tokens used (no hard-coded black backgrounds for surface/hero sections)
+- If Stitch JSON was not fetched, request STITCH_TOKEN (scoped, ephemeral) to re-run fetch commands and attach JSON+thumbnail
+
+Contact / assignee
+- Primary implementer: Tony Xu (fihtony@gmail.com)
+- Reviewer(s): @fihtony (or project reviewers)
+
+Additional references
+- Jira ticket: https://tarch.atlassian.net/browse/CSTL-1
+- Stitch project: https://stitch.withgoogle.com/projects/13629074018280446337?pli=1
+- Stitch screen id: 45ac4478a1b7455f861d7377f92105e6
+
+Prepared-by
+- Use the branch feat/CSTL-1/landing-page and include the commit message guidance above when composing commits for this change.
+
+Audit dependency (for PR review)
+- This PR references docs/evidence/test-summary.txt — ensure the file is committed and contains the full test output for reviewers.
+
+Quick pasteable checklist for committer before pushing
+- git checkout -b feat/CSTL-1/landing-page
+- make changes and add files listed above
+- npm ci && npm test && npm run test:e2e && npm run build
+- Save outputs into docs/evidence/test-summary.txt and commit screenshots/JSON there
+- git add -A && git commit -m "CSTL-1: Add Landing Page (Bare-bones) component and tests
+
+Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>"
+- Push branch and open PR using this template as the PR body.

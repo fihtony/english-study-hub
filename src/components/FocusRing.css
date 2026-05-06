@@ -1,0 +1,54 @@
+/* src/components/FocusRing.css
+   Shared focus ring styles for accessible keyboard focus.
+   - Uses design token --accent with a sensible fallback.
+   - Supports native :focus-visible and the focus-visible polyfill (.focus-visible).
+   - Includes forced-colors support for high-contrast modes.
+*/
+
+/* Remove default focus outline so custom focus-visible rules control keyboard focus appearance.
+   This is safe because a visible focus style is provided below for keyboard users. */
+.focus-ring:focus {
+  outline: none;
+}
+
+/* Primary accessible focus indicator:
+   - 3px solid ring using design token --accent
+   - 2px offset so the ring doesn't overlap element borders
+   - border-radius to follow typical control rounding */
+.focus-ring:focus-visible,
+.focus-ring.focus-visible {
+  outline: 3px solid var(--accent, #2563eb);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Keep link-underlines visible when focused via keyboard for extra affordance */
+a.focus-ring:focus-visible,
+a.focus-ring.focus-visible {
+  text-decoration: underline;
+}
+
+/* Respect users who prefer reduced motion — no transitions to interfere with accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .focus-ring:focus-visible,
+  .focus-ring.focus-visible {
+    transition: none;
+  }
+}
+
+/* High-contrast / forced colors support (Windows High Contrast, etc.)
+   Use system Highlight color so the ring remains visible and consistent with OS theme. */
+@media (forced-colors: active) {
+  .focus-ring:focus-visible,
+  .focus-ring.focus-visible {
+    outline: 3px solid Highlight;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Ensure focus is always visible in forced-colors even if the UA strips other styles */
+  .focus-ring:focus {
+    outline: 3px solid Highlight;
+    outline-offset: 2px;
+  }
+}

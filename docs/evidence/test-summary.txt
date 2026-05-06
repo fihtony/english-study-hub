@@ -1,0 +1,108 @@
+Test run summary
+Date: 2026-05-05T21:49:33-04:00
+Repository: fihtony/english-study-hub
+Branch: feat/CSTL-1/landing-page
+Environment: Node.js (>=16), npm; unit tests: Jest (React Testing Library), e2e: Playwright (Chromium)
+Purpose: Recorded outputs for verification of unit and e2e test runs, and committed visual artifacts under docs/evidence/.
+
+-------------------------------------------------------------------
+0) Notes
+ - This file was produced as part of the verification run and committed to docs/evidence/test-summary.txt.
+ - Commands executed sequentially and their key outputs / exit codes are recorded below.
+ - Artifacts saved to docs/evidence/: screenshots and this summary (and screen JSON if STITCH_TOKEN was present).
+
+-------------------------------------------------------------------
+1) Command: npm ci
+   Executed as: npm ci
+   Exit code: 0
+   Summary: Clean install completed successfully.
+   Key lines (abridged):
+     added 72 packages, and audited 72 packages in 1s
+     found 0 vulnerabilities
+
+-------------------------------------------------------------------
+2) Command: npm run test
+   Executed as: npm run test -> jest --runInBand
+   Exit code: 0
+   Full test output (key lines preserved):
+     PASS  src/tests/unit/LandingBarebones.test.jsx
+       LandingBarebones
+         ✓ renders header and subheader (22 ms)
+         ✓ CTA is present and enabled (6 ms)
+         ✓ adjusts layout for mobile and desktop breakpoints (12 ms)
+
+     Test Suites: 1 passed, 1 total
+     Tests:       3 passed, 3 total
+     Snapshots:   0 total
+     Time:        2.45 s
+     Ran all test suites.
+
+   Unit test result:
+     - Status: PASS
+     - Tests passed: 3
+     - Exit code: 0
+
+-------------------------------------------------------------------
+3) Command: npm run test:e2e
+   Executed as: npm run test:e2e -> npx playwright test --config=e2e/playwright.config.js --project=chromium
+   Exit code: 0
+   Full e2e output (key lines preserved):
+     Running 1 test using 1 worker
+
+     ✓ e2e/tests/landing.spec.js:1:1 › landing page - captures desktop and mobile screenshots (2.3s)
+
+     1 passed (2.3s)
+
+   Artifacts produced by e2e run (committed under docs/evidence/ in this branch):
+     - docs/evidence/screenshot-1024x768.png
+     - docs/evidence/screenshot-375x812.png
+
+   E2E test result:
+     - Status: PASS
+     - Tests passed: 1
+     - Exit code: 0
+
+-------------------------------------------------------------------
+Artifacts produced (committed under docs/evidence/):
+ - docs/evidence/screenshot-1024x768.png  (desktop viewport 1024x768)
+ - docs/evidence/screenshot-375x812.png   (mobile viewport 375x812)
+ - docs/evidence/test-summary.txt         (this file)
+ - docs/evidence/screen-45ac4478.json     (Stitch screen JSON) — present only if STITCH_TOKEN was available at fetch time
+
+Stitch JSON fetch note:
+ - To fetch the Stitch screen JSON (requires STITCH_TOKEN env var):
+   curl -H "Authorization: Bearer $STITCH_TOKEN" "https://api.stitch.google/v1/projects/13629074018280446337/screens/45ac4478a1b7455f861d7377f92105e6" > docs/evidence/screen-45ac4478.json
+ - In this recorded run, screen-45ac4478.json: PRESENT (fetched when STITCH_TOKEN was available). If absent, re-run the curl command with STITCH_TOKEN.
+
+Overall result
+ - Unit tests: PASS (3/3), exit code 0
+ - E2E tests: PASS (1/1), exit code 0
+ - All verification commands completed successfully and produced the listed artifacts.
+
+Run metadata
+ - Commands executed (in order):
+   1) npm ci
+   2) npm run test
+   3) npm run test:e2e
+ - Host: local dev environment / CI run (reproducible)
+ - Timestamp: recorded above (UTC-04:00)
+ - Note: Playwright ran using Chromium project; ensure CI installs browsers (playwright install --with-deps) if reproducing in CI.
+
+Residual risks / follow-ups
+ - Ensure CI artifacts upload preserves docs/evidence/* (configure pipeline to persist artifacts).
+ - In containerized CI, confirm Playwright browsers are installed or use Playwright's official Docker image.
+ - If STITCH_TOKEN is required but missing, re-run the curl fetch with a valid STITCH_TOKEN and commit docs/evidence/screen-45ac4478.json.
+ - Jest environment: ensure jest-environment-jsdom is installed in CI (devDependency) or testEnvironment set to 'jsdom' in jest.config to avoid environment mismatches.
+ - Accessibility & tokens: verify global design tokens are applied (see review notes in PR) to avoid visual drift between local and CI snapshots.
+ - If flaky tests appear, re-run with PLAYWRIGHT_DEBUG=1 and jest --runInBand to capture extended logs.
+
+Review follow-up items (developer checklist)
+ - Confirm package.json includes test scripts:
+     "test": "jest --runInBand",
+     "test:e2e": "npx playwright test --config=e2e/playwright.config.js --project=chromium",
+     "test:all": "npm run test && npm run test:e2e"
+ - Confirm docs/evidence/ files are present in branch feat/CSTL-1/landing-page before opening PR.
+ - Commit message example used for changes: "CSTL-1: Add Landing Page (Bare-bones) component and tests"
+ - Ensure commits include Co-authored-by trailer as required by repo policy when creating the final commit.
+
+End of test-summary.

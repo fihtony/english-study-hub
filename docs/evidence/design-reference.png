@@ -1,0 +1,15 @@
+STITCH_TOKEN not available — design thumbnail not fetched.
+
+To fetch the Stitch thumbnail and screen JSON, set STITCH_TOKEN in your environment and run:
+
+mkdir -p docs/evidence
+# thumbnail (PNG)
+curl -H "Authorization: Bearer $STITCH_TOKEN" "https://api.stitch.google/v1/screens/45ac4478a1b7455f861d7377f92105e6/thumbnail?size=1024" -o docs/evidence/design-reference.png
+
+# full screen JSON
+curl -H "Authorization: Bearer $STITCH_TOKEN" "https://api.stitch.google/v1/projects/13629074018280446337/screens/45ac4478a1b7455f861d7377f92105e6" -o docs/evidence/screen-45ac4478.json
+
+Stitch screen URL:
+https://stitch.withgoogle.com/projects/13629074018280446337/screens/45ac4478a1b7455f861d7377f92105e6
+
+After fetching, commit docs/evidence/design-reference.png and docs/evidence/screen-45ac4478.json to branch feat/CSTL-1/landing-page.
