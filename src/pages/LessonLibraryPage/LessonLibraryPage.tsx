@@ -19,15 +19,19 @@ export function LessonLibraryPage() {
   }, [searchQuery, difficultyFilter]);
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 flex flex-col">
       <header className="bg-white border-b border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 py-6">
-          <h1 className="text-3xl font-bold text-slate-800">Lesson Library</h1>
-          <p className="text-slate-600 mt-2">Browse and search our collection of English lessons</p>
+        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+          <div className="text-xl font-semibold text-slate-800">English Study Hub</div>
+          <nav className="flex gap-6">
+            <a href="/lessons" className="text-blue-600 font-medium">Lessons</a>
+            <a href="#" className="text-slate-600 hover:text-slate-800">Progress</a>
+            <a href="#" className="text-slate-600 hover:text-slate-800">Profile</a>
+          </nav>
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 py-8">
+      <main className="flex-1 max-w-7xl mx-auto px-4 py-8 w-full">
         <div className="flex flex-col sm:flex-row gap-4 mb-8">
           <div className="relative flex-1">
             <input
@@ -71,6 +75,12 @@ export function LessonLibraryPage() {
           </div>
         )}
       </main>
+
+      <footer className="bg-white border-t border-slate-200 py-6">
+        <div className="max-w-7xl mx-auto px-4 text-center text-slate-500 text-sm">
+          © 2026 English Study Hub. All rights reserved.
+        </div>
+      </footer>
     </div>
   );
 }

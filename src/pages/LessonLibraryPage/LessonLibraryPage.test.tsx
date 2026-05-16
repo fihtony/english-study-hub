@@ -5,7 +5,7 @@ import { LessonLibraryPage } from './LessonLibraryPage';
 describe('LessonLibraryPage', () => {
   it('renders all lessons by default', () => {
     render(<LessonLibraryPage />);
-    expect(screen.getByText('Lesson Library')).toBeDefined();
+    expect(screen.getByText('English Study Hub')).toBeDefined();
     expect(screen.getAllByRole('button').length).toBeGreaterThan(0);
   });
 
