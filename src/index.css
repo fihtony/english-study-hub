@@ -1,0 +1,98 @@
+:root {
+  /* Colors - Scholarly Modernist */
+  --colors-tertiary-container: #5d2500;
+  --colors-on-background: #111c2c;
+  --colors-primary-fixed-dim: #adc7f7;
+  --colors-on-tertiary-container: #f57d32;
+  --colors-on-tertiary: #ffffff;
+  --colors-error-container: #ffdad6;
+  --colors-surface-container-low: #f0f3ff;
+  --colors-secondary: #13696a;
+  --colors-surface-tint: #455f88;
+  --colors-inverse-primary: #adc7f7;
+  --colors-on-primary-fixed: #001b3c;
+  --colors-surface-container-highest: #d8e3fa;
+  --colors-secondary-fixed-dim: #89d3d4;
+  --colors-on-primary-container: #86a0cd;
+  --colors-on-surface: #111c2c;
+  --colors-secondary-container: #a2eded;
+  --colors-on-primary: #ffffff;
+  --colors-on-tertiary-fixed: #331100;
+  --colors-tertiary-fixed-dim: #ffb68f;
+  --colors-secondary-fixed: #a5eff0;
+  --colors-inverse-on-surface: #ebf1ff;
+  --colors-outline-variant: #c4c6cf;
+  --colors-on-secondary-fixed-variant: #004f50;
+  --colors-surface-variant: #d8e3fa;
+  --colors-error: #ba1a1a;
+  --colors-tertiary-fixed: #ffdbca;
+  --colors-on-error: #ffffff;
+  --colors-background: #f9f9ff;
+  --colors-surface-dim: #cfdaf1;
+  --colors-inverse-surface: #263142;
+  --colors-on-surface-variant: #43474e;
+  --colors-on-secondary-fixed: #002020;
+  --colors-tertiary: #3b1500;
+  --colors-surface-container: #e7eeff;
+  --colors-primary-container: #1a365d;
+  --colors-on-error-container: #93000a;
+  --colors-primary-fixed: #d6e3ff;
+  --colors-on-tertiary-fixed-variant: #773200;
+  --colors-on-secondary: #ffffff;
+  --colors-surface: #f9f9ff;
+  --colors-surface-container-high: #dee8ff;
+  --colors-surface-bright: #f9f9ff;
+  --colors-primary: #002045;
+  --colors-surface-container-lowest: #ffffff;
+  --colors-on-secondary-container: #1a6d6e;
+  --colors-on-primary-fixed-variant: #2d476f;
+  --colors-outline: #74777f;
+
+  /* Border Radius */
+  --rounded-sm: 0.125rem;
+  --rounded-DEFAULT: 0.25rem;
+  --rounded-lg: 0.25rem;
+  --rounded-xl: 0.5rem;
+  --rounded-full: 0.75rem;
+
+  /* Spacing */
+  --spacing-stack-sm: 8px;
+  --spacing-margin-mobile: 16px;
+  --spacing-unit: 8px;
+  --spacing-section-padding: 80px;
+  --spacing-stack-md: 24px;
+  --spacing-gutter: 24px;
+  --spacing-container-max: 1120px;
+  --spacing-stack-lg: 48px;
+
+  /* Typography */
+  --font-h1: 'Work Sans', sans-serif;
+  --font-button: 'Work Sans', sans-serif;
+  --font-body-ui: 'Work Sans', sans-serif;
+  --font-label-caps: 'Work Sans', sans-serif;
+  --font-h3: 'Work Sans', sans-serif;
+  --font-body-reading: 'Newsreader', serif;
+  --font-h2: 'Work Sans', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--colors-background);
+  color: var(--colors-on-background);
+  font-family: var(--font-body-ui);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Material Symbols Outlined */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  display: inline-block;
+  line-height: 1;
+}

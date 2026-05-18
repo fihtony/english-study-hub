@@ -1,0 +1,14 @@
+node_modules/
+dist/
+build/
+.vite/
+.env
+*.local
+coverage/
+__pycache__/
+screenshots/
+e2e/evidence/
+FINAL_VERIFICATION.md
+IMPLEMENTATION_EVIDENCE.md
+VERIFICATION_SUMMARY.txt
+*.log
