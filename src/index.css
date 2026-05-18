@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #1A73E8;
+  --color-secondary: #34A853;
+  --color-background: #FFFFFF;
+  --color-surface: #F8F9FA;
+  --color-text: #202124;
+  --color-text-secondary: #5F6368;
+  --color-border: #DADCE0;
+}
+
+body {
+  margin: 0;
+  font-family: 'Work Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--color-background);
+  color: var(--color-text);
+}
