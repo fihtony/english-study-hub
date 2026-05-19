@@ -1,3 +1,4 @@
+import { useState } from 'react'
 
 interface SearchBarProps {
   value: string
@@ -13,23 +14,18 @@ export default function SearchBar({
   onDifficultyChange,
 }: SearchBarProps) {
   return (
-    <div className="flex flex-col md:flex-row gap-4 items-start md:items-center">
-      <div className="relative flex-1 max-w-md">
-        <input
-          type="text"
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          placeholder="Search lessons..."
-          className="w-full px-4 py-3 border border-outline rounded-lg bg-surface-container-lowest text-on-background placeholder:text-on-surface-variant focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20 font-body-ui"
-        />
-        <span className="absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline">
-          search
-        </span>
-      </div>
+    <div className="flex flex-col md:flex-row gap-4">
+      <input
+        type="text"
+        placeholder="Search lessons..."
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="flex-1 px-4 py-3 border border-outline-variant rounded-lg bg-surface-container-low text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:border-primary"
+      />
       <select
         value={difficultyFilter}
         onChange={(e) => onDifficultyChange(e.target.value)}
-        className="px-4 py-3 border border-outline rounded-lg bg-surface-container-lowest text-on-background focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20 font-body-ui cursor-pointer"
+        className="px-4 py-3 border border-outline-variant rounded-lg bg-surface-container-low text-on-surface focus:outline-none focus:border-primary min-w-[180px]"
       >
         <option value="All">All Levels</option>
         <option value="Beginner">Beginner</option>
