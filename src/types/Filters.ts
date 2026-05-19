@@ -1,0 +1,1 @@
+export type DifficultyFilter = 'All' | 'Beginner' | 'Intermediate' | 'Advanced'
