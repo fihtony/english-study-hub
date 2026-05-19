@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #002045;
+  --on-primary: #ffffff;
+  --secondary: #13696a;
+  --on-secondary: #ffffff;
+  --background: #f9f9ff;
+  --on-background: #111c2c;
+  --surface-container-low: #f0f3ff;
+  --outline: #74777f;
+  --outline-variant: #c4c6cf;
+  --on-secondary-container: #1a6d6e;
+  --tertiary-container: #5d2500;
+  --on-tertiary: #ffffff;
+}
+
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: 'Work Sans', sans-serif;
+}
+
+.font-body-reading {
+  font-family: 'Newsreader', serif;
+}
+
+.font-h1 {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.font-h3 {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.font-label-caps {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.05em;
+}
+
+.font-button {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1;
+}
