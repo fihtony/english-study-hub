@@ -1,4 +1,21 @@
+import { useState } from 'react'
+import { lessons, filterLessons, Lesson } from '../data/lessons'
+
+const units = ['UNIT 01', 'UNIT 02', 'UNIT 03']
+const difficulties = ['Beginner', 'Intermediate', 'Advanced']
+
 export default function LessonLibraryPage() {
+  const [searchTerm, setSearchTerm] = useState('')
+  const [selectedDifficulty, setSelectedDifficulty] = useState<string>('')
+  const [selectedUnit, setSelectedUnit] = useState<string>('')
+
+  const filteredLessons = lessons.filter(lesson => {
+    const matchesSearch = filterLessons([lesson], searchTerm).length > 0
+    const matchesDifficulty = !selectedDifficulty || lesson.difficulty === selectedDifficulty
+    const matchesUnit = !selectedUnit || lesson.unit === selectedUnit
+    return matchesSearch && matchesDifficulty && matchesUnit
+  })
+
   return (
     <div className="min-h-screen flex flex-col bg-background">
       {/* TopNavBar */}
@@ -29,52 +46,96 @@ export default function LessonLibraryPage() {
           <h1 className="text-h1 text-primary">Lesson Library</h1>
         </div>
 
-        {/* Minimalist Lesson List */}
+        {/* Search and Filter Controls */}
+        <div className="mb-stack-lg space-y-4">
+          {/* Search Input */}
+          <div className="relative">
+            <input
+              type="text"
+              placeholder="Search lessons..."
+              value={searchTerm}
+              onChange={e => setSearchTerm(e.target.value)}
+              className="w-full px-4 py-3 pl-10 border border-outline-variant rounded-lg bg-surface-container-low text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:ring-2 focus:ring-secondary"
+            />
+            <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+          </div>
+
+          {/* Filter Row */}
+          <div className="flex flex-wrap gap-3 items-center">
+            {/* Difficulty Dropdown */}
+            <select
+              value={selectedDifficulty}
+              onChange={e => setSelectedDifficulty(e.target.value)}
+              className="px-3 py-2 border border-outline-variant rounded-lg bg-surface-container-low text-on-surface text-sm focus:outline-none focus:ring-2 focus:ring-secondary"
+            >
+              <option value="">All Difficulties</option>
+              {difficulties.map(d => (
+                <option key={d} value={d}>{d}</option>
+              ))}
+            </select>
+
+            {/* Unit Chips */}
+            <div className="flex gap-2 flex-wrap">
+              <button
+                onClick={() => setSelectedUnit('')}
+                className={`px-3 py-1.5 text-sm rounded-full border transition-colors ${
+                  selectedUnit === ''
+                    ? 'bg-secondary text-on-secondary border-secondary'
+                    : 'bg-surface-container-low text-on-surface border-outline-variant hover:border-secondary'
+                }`}
+              >
+                All Units
+              </button>
+              {units.map(unit => (
+                <button
+                  key={unit}
+                  onClick={() => setSelectedUnit(unit === selectedUnit ? '' : unit)}
+                  className={`px-3 py-1.5 text-sm rounded-full border transition-colors ${
+                    selectedUnit === unit
+                      ? 'bg-secondary text-on-secondary border-secondary'
+                      : 'bg-surface-container-low text-on-surface border-outline-variant hover:border-secondary'
+                  }`}
+                >
+                  {unit}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Lesson List */}
         <div className="flex flex-col space-y-0">
-          {/* Lesson Item 1 */}
-          <a className="group flex items-center justify-between py-6 border-b border-outline-variant hover:bg-surface-container-low transition-all px-4 -mx-4 rounded-lg" href="#">
-            <div className="flex flex-col">
-              <span className="text-[10px] text-outline mb-1">UNIT 01</span>
-              <h2 className="text-h3 text-on-background group-hover:text-secondary transition-colors">Advanced Syntax in Academic Prose</h2>
-            </div>
-            <span className="material-symbols-outlined text-outline group-hover:text-secondary group-hover:translate-x-1 transition-all">arrow_forward</span>
-          </a>
-
-          {/* Lesson Item 2 */}
-          <a className="group flex items-center justify-between py-6 border-b border-outline-variant hover:bg-surface-container-low transition-all px-4 -mx-4 rounded-lg" href="#">
-            <div className="flex flex-col">
-              <span className="text-[10px] text-outline mb-1">UNIT 01</span>
-              <h2 className="text-h3 text-on-background group-hover:text-secondary transition-colors">Etymology and the Evolution of Modern Lexicon</h2>
-            </div>
-            <span className="material-symbols-outlined text-outline group-hover:text-secondary group-hover:translate-x-1 transition-all">arrow_forward</span>
-          </a>
-
-          {/* Lesson Item 3 */}
-          <a className="group flex items-center justify-between py-6 border-b border-outline-variant hover:bg-surface-container-low transition-all px-4 -mx-4 rounded-lg" href="#">
-            <div className="flex flex-col">
-              <span className="text-[10px] text-outline mb-1">UNIT 02</span>
-              <h2 className="text-h3 text-on-background group-hover:text-secondary transition-colors">Nuanced Argumentation: The Art of the Thesis</h2>
-            </div>
-            <span className="material-symbols-outlined text-outline group-hover:text-secondary group-hover:translate-x-1 transition-all">arrow_forward</span>
-          </a>
-
-          {/* Lesson Item 4 */}
-          <a className="group flex items-center justify-between py-6 border-b border-outline-variant hover:bg-surface-container-low transition-all px-4 -mx-4 rounded-lg" href="#">
-            <div className="flex flex-col">
-              <span className="text-[10px] text-outline mb-1">UNIT 02</span>
-              <h2 className="text-h3 text-on-background group-hover:text-secondary transition-colors">Comparative Literature: Analyzing Cross-Cultural Themes</h2>
-            </div>
-            <span className="material-symbols-outlined text-outline group-hover:text-secondary group-hover:translate-x-1 transition-all">arrow_forward</span>
-          </a>
-
-          {/* Lesson Item 5 */}
-          <a className="group flex items-center justify-between py-6 border-b border-outline-variant hover:bg-surface-container-low transition-all px-4 -mx-4 rounded-lg" href="#">
-            <div className="flex flex-col">
-              <span className="text-[10px] text-outline mb-1">UNIT 03</span>
-              <h2 className="text-h3 text-on-background group-hover:text-secondary transition-colors">Scientific Methodology and Report Composition</h2>
-            </div>
-            <span className="material-symbols-outlined text-outline group-hover:text-secondary group-hover:translate-x-1 transition-all">arrow_forward</span>
-          </a>
+          {filteredLessons.length === 0 ? (
+            <p className="text-on-surface-variant py-8 text-center">No lessons match your criteria.</p>
+          ) : (
+            filteredLessons.map((lesson: Lesson) => (
+              <a
+                key={lesson.id}
+                className="group flex items-start justify-between py-6 border-b border-outline-variant hover:bg-surface-container-low transition-all px-4 -mx-4 rounded-lg"
+                href="#"
+              >
+                <div className="flex flex-col flex-1">
+                  <span className="text-[10px] text-outline mb-1">{lesson.unit}</span>
+                  <h2 className="text-h3 text-on-background group-hover:text-secondary transition-colors">{lesson.title}</h2>
+                  <p className="text-sm text-on-surface-variant mt-1">{lesson.description}</p>
+                  <div className="flex gap-3 mt-2">
+                    <span className={`text-xs px-2 py-0.5 rounded ${
+                      lesson.difficulty === 'Advanced' ? 'bg-error-container text-on-error-container' :
+                      lesson.difficulty === 'Intermediate' ? 'bg-tertiary-container text-on-tertiary-container' :
+                      'bg-secondary-container text-on-secondary-container'
+                    }`}>
+                      {lesson.difficulty}
+                    </span>
+                    <span className="text-xs text-on-surface-variant flex items-center gap-1">
+                      <span className="material-symbols-outlined text-xs">schedule</span>
+                      {lesson.duration}
+                    </span>
+                  </div>
+                </div>
+                <span className="material-symbols-outlined text-outline group-hover:text-secondary group-hover:translate-x-1 transition-all ml-4">arrow_forward</span>
+              </a>
+            ))
+          )}
         </div>
       </main>
 
