@@ -1,6 +1,6 @@
 function Hero() {
   return (
-    <main className="flex-grow flex flex-col items-center justify-center px-4 py-20 min-h-screen">
+    <main className="flex-grow flex flex-col items-center justify-center px-4 py-20">
       <div className="max-w-[1120px] w-full text-center space-y-12">
         <h1 className="font-[family-name:var(--font-h1)] text-[48px] leading-[1.2] tracking-[-0.02em] font-bold text-primary max-w-3xl mx-auto">
           Master Academic English with Scholarly Precision.

@@ -1,6 +1,6 @@
 function TopNavBar() {
   return (
-    <header className="bg-white border-b border-gray-100 fixed top-0 left-0 right-0 z-50">
+    <header className="bg-white border-b border-gray-100">
       <div className="flex items-center justify-between px-6 py-4 max-w-[1120px] mx-auto w-full">
         <div className="text-xl font-bold tracking-tighter text-blue-900 font-['Work_Sans']">
           Linguist Library
