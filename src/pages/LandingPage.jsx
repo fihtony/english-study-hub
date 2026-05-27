@@ -11,7 +11,7 @@ function ArrowForwardIcon() {
 function Header() {
   return (
     <header className="bg-white border-b border-gray-100 fixed top-0 left-0 right-0 z-50">
-      <div className="flex items-center justify-between px-6 py-4 max-w-[1120px] mx-auto w-full">
+      <div className="flex items-center justify-between px-margin-mobile py-4 max-w-[1120px] mx-auto w-full">
         <div className="text-xl font-bold tracking-tighter text-blue-900">
           Linguist Library
         </div>
@@ -43,15 +43,14 @@ function Hero() {
   return (
     <div className="max-w-[1120px] w-full text-center space-y-12">
       {/* Big Headline */}
-      <h1 className="text-[48px] leading-[1.2] tracking-[-0.02em] font-bold text-primary max-w-3xl mx-auto" style={{ fontFamily: 'Work Sans, sans-serif' }}>
+      <h1 className="text-h1 text-primary max-w-3xl mx-auto">
         Master Academic English with Scholarly Precision.
       </h1>
 
       {/* Single Primary CTA */}
       <div className="flex justify-center">
         <button
-          className="bg-[#f57d32] text-white text-[16px] leading-[1] font-medium px-12 py-4 rounded-xl shadow-sm hover:shadow-md transition-all active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-[#13696a] focus:ring-offset-2"
-          style={{ fontFamily: 'Work Sans, sans-serif' }}
+          className="bg-[#f57d32] text-white text-button px-12 py-4 rounded-xl shadow-sm hover:shadow-md transition-all active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-[#13696a] focus:ring-offset-2"
           onClick={() => setClicked(true)}
         >
           Start Learning Now
@@ -112,7 +111,7 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      <main className="flex-grow flex flex-col items-center justify-center px-4 py-20">
+      <main className="flex-grow flex flex-col items-center justify-center px-4 py-section-padding">
         <Hero />
       </main>
       <Footer />
