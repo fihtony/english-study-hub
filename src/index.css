@@ -205,7 +205,7 @@ body {
 }
 
 .text-teal-600 {
-  color: #0d9488;
+  color: #2C7A7B;
 }
 
 .text-slate-600 {
@@ -296,8 +296,14 @@ body {
   opacity: 0.9;
 }
 
+.icon-arrow-forward {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .hover\:text-teal-600:hover {
-  color: #0d9488;
+  color: #2C7A7B;
 }
 
 .group:hover .group-hover\:text-blue-900 {
