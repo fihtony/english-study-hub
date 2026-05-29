@@ -50,7 +50,7 @@ const PracticeQuizPage = () => {
           {/* Quiz Question */}
           <div className="space-y-stack-lg">
             <header>
-              <h2 className="font-h2 text-h2 text-primary mb-stack-md">Which of the following sentences correctly utilizes the present perfect continuous tense?</h2>
+              <h2 className="font-h2 text-h2 text-on-surface mb-stack-md">Which of the following sentences correctly utilizes the present perfect continuous tense?</h2>
               <div className="border-l-4 border-primary-container pl-stack-md">
                 <p className="font-body-reading text-body-reading italic text-on-surface-variant">
                   "The researchers _____ data for over three decades to ensure statistical significance."
