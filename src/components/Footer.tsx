@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="bg-slate-50 border-t border-gray-200">
+    <footer className="bg-surface-container-low">
       <div className="flex flex-col md:flex-row justify-between items-center px-8 py-12 max-w-[1120px] mx-auto w-full space-y-4 md:space-y-0">
         <div className="font-['Work_Sans'] text-xs text-slate-500">
           © 2024 Linguist Library. Premium Academic English Study.

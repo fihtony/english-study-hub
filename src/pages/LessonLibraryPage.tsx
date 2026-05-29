@@ -14,7 +14,7 @@ export default function LessonLibraryPage() {
   return (
     <div className="flex flex-col min-h-screen">
       <TopNavBar />
-      <main className="pt-[120px] pb-section-padding px-margin-mobile md:px-gutter max-w-[1120px] mx-auto flex-1">
+      <main className="pt-[120px] pb-section-padding px-margin-mobile md:px-gutter max-w-[1120px] mx-auto min-h-screen flex-1">
         <div className="mb-stack-lg border-b border-outline-variant pb-stack-md">
           <p className="font-label-caps text-label-caps text-on-secondary-container mb-stack-sm tracking-widest">
             CURRICULUM

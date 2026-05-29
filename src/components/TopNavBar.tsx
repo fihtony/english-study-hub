@@ -2,7 +2,7 @@ export default function TopNavBar() {
   return (
     <header className="bg-white border-b border-gray-100 fixed top-0 left-0 right-0 z-50">
       <div className="flex items-center justify-between px-6 py-4 max-w-[1120px] mx-auto w-full">
-        <div className="text-xl font-bold tracking-tighter text-blue-900">
+        <div className="text-xl font-bold tracking-tighter text-primary">
           Linguist Library
         </div>
         <nav className="hidden md:flex items-center space-x-8">
