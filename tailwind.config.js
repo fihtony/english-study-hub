@@ -56,7 +56,7 @@ export default {
         "DEFAULT": "0.125rem",
         "lg": "0.25rem",
         "xl": "0.5rem",
-        "full": "0.75rem"
+        "full": "9999px"
       },
       spacing: {
         "stack-sm": "8px",
@@ -78,7 +78,7 @@ export default {
         "h2": ["Work Sans"]
       },
       fontSize: {
-        "h1": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+        "h1": ["48px", {"lineHeight": "1.2", "fontWeight": "700"}],
         "button": ["16px", {"lineHeight": "1", "fontWeight": "500"}],
         "body-ui": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
         "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],

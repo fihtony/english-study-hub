@@ -22,10 +22,10 @@ const PracticeQuizPage = () => {
         <div className="flex items-center justify-between px-6 py-4 max-w-[1120px] mx-auto w-full">
           <span className="text-xl font-bold tracking-tighter text-primary font-h1">Linguist Library</span>
           <div className="hidden md:flex items-center gap-8">
-            <a className="font-body-ui text-sm font-medium tracking-tight text-secondary border-b-2 border-secondary pb-1 cursor-pointer active:opacity-80" href="#">Lessons</a>
-            <a className="font-body-ui text-sm font-medium tracking-tight text-on-surface-variant hover:text-secondary transition-colors duration-200 cursor-pointer active:opacity-80" href="#">Flashcards</a>
-            <a className="font-body-ui text-sm font-medium tracking-tight text-on-surface-variant hover:text-secondary transition-colors duration-200 cursor-pointer active:opacity-80" href="#">Progress</a>
-            <a className="font-body-ui text-sm font-medium tracking-tight text-on-surface-variant hover:text-secondary transition-colors duration-200 cursor-pointer active:opacity-80" href="#">Library</a>
+            <a className="font-body-ui text-sm font-medium tracking-tight text-secondary border-b-2 border-secondary pb-1 cursor-pointer active:opacity-80" href="/lessons">Lessons</a>
+            <a className="font-body-ui text-sm font-medium tracking-tight text-on-surface-variant hover:text-secondary transition-colors duration-200 cursor-pointer active:opacity-80" href="/flashcards">Flashcards</a>
+            <a className="font-body-ui text-sm font-medium tracking-tight text-on-surface-variant hover:text-secondary transition-colors duration-200 cursor-pointer active:opacity-80" href="/progress">Progress</a>
+            <a className="font-body-ui text-sm font-medium tracking-tight text-on-surface-variant hover:text-secondary transition-colors duration-200 cursor-pointer active:opacity-80" href="/library">Library</a>
           </div>
           <div className="flex items-center gap-4">
             <button className="font-body-ui text-sm font-medium tracking-tight text-on-surface-variant transition-colors duration-200 hover:text-secondary cursor-pointer active:opacity-80">Sign In</button>
@@ -93,9 +93,9 @@ const PracticeQuizPage = () => {
         <div className="flex flex-col md:flex-row justify-between items-center px-8 py-12 max-w-[1120px] mx-auto w-full space-y-4 md:space-y-0">
           <p className="font-body-ui text-xs text-on-surface-variant">© {new Date().getFullYear()} Linguist Library. Premium Academic English Study.</p>
           <div className="flex gap-6">
-            <a className="font-body-ui text-xs text-on-surface-variant hover:text-secondary transition-colors" href="#">Terms of Service</a>
-            <a className="font-body-ui text-xs text-on-surface-variant hover:text-secondary transition-colors" href="#">Privacy Policy</a>
-            <a className="font-body-ui text-xs text-on-surface-variant hover:text-secondary transition-colors" href="#">Contact Support</a>
+            <a className="font-body-ui text-xs text-on-surface-variant hover:text-secondary transition-colors" href="/terms">Terms of Service</a>
+            <a className="font-body-ui text-xs text-on-surface-variant hover:text-secondary transition-colors" href="/privacy">Privacy Policy</a>
+            <a className="font-body-ui text-xs text-on-surface-variant hover:text-secondary transition-colors" href="/contact">Contact Support</a>
           </div>
         </div>
       </footer>
