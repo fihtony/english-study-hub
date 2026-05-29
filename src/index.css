@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: #f9f9ff;
+}
+
+.font-h1 { font-family: 'Work Sans', sans-serif; }
+.font-h2 { font-family: 'Work Sans', sans-serif; }
+.font-h3 { font-family: 'Work Sans', sans-serif; }
+.font-button { font-family: 'Work Sans', sans-serif; }
+.font-body-ui { font-family: 'Work Sans', sans-serif; }
+.font-label-caps { font-family: 'Work Sans', sans-serif; }
+.font-body-reading { font-family: 'Newsreader', serif; }
+
+.text-h1 {
+  font-size: 48px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+  font-family: 'Work Sans', sans-serif;
+}
+
+.text-h2 {
+  font-size: 32px;
+  line-height: 1.3;
+  font-weight: 600;
+  font-family: 'Work Sans', sans-serif;
+}
+
+.text-label-caps {
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  font-family: 'Work Sans', sans-serif;
+}
+
+.text-body-reading {
+  font-size: 20px;
+  line-height: 1.7;
+  font-weight: 400;
+  font-family: 'Newsreader', serif;
+}
