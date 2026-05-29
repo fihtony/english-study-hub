@@ -1,15 +1,18 @@
 import ArrowForwardIcon from '../components/icons/ArrowForwardIcon';
+import { useState } from 'react';
 
 const PracticeQuizPage = () => {
   const currentQuestion = 4;
   const totalQuestions = 12;
   const progressPercent = Math.round((currentQuestion / totalQuestions) * 100);
 
+  const [selectedOption, setSelectedOption] = useState<string>('opt1');
+
   const options = [
-    { id: 'opt1', value: 'have been gathering', selected: true },
-    { id: 'opt2', value: 'had gathered', selected: false },
-    { id: 'opt3', value: 'are gathering', selected: false },
-    { id: 'opt4', value: 'will have gathered', selected: false },
+    { id: 'opt1', value: 'have been gathering' },
+    { id: 'opt2', value: 'had gathered' },
+    { id: 'opt3', value: 'are gathering' },
+    { id: 'opt4', value: 'will have gathered' },
   ];
 
   return (
@@ -39,7 +42,7 @@ const PracticeQuizPage = () => {
               <span className="font-label-caps text-label-caps text-on-surface-variant">QUESTION {currentQuestion} OF {totalQuestions}</span>
               <span className="font-label-caps text-label-caps text-on-secondary-container">{progressPercent}% COMPLETE</span>
             </div>
-            <div className="h-1 w-full bg-secondary-container">
+            <div className="h-1 w-full bg-secondary-container/10">
               <div className="h-full bg-secondary w-1/3"></div>
             </div>
           </div>
@@ -62,7 +65,8 @@ const PracticeQuizPage = () => {
                 {options.map((option) => (
                   <label key={option.id} className="group flex items-center p-stack-md border border-outline-variant hover:border-secondary transition-colors cursor-pointer bg-surface-container-lowest">
                     <input
-                      checked={option.selected}
+                      checked={selectedOption === option.id}
+                      onChange={() => setSelectedOption(option.id)}
                       className="w-4 h-4 text-secondary focus:ring-secondary border-outline transition-colors"
                       name="quiz_option"
                       type="radio"
