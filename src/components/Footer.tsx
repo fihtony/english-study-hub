@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 const currentYear = new Date().getFullYear()
 
 function Footer() {
@@ -8,9 +10,9 @@ function Footer() {
           © {currentYear} Linguist Library. Premium Academic English Study.
         </div>
         <div className="flex items-center space-x-6">
-          <a className="font-body-ui text-xs text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a>
-          <a className="font-body-ui text-xs text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
-          <a className="font-body-ui text-xs text-on-surface-variant hover:text-primary transition-colors" href="#">Contact Support</a>
+          <Link className="font-body-ui text-xs text-on-surface-variant hover:text-primary transition-colors" to="/terms">Terms of Service</Link>
+          <Link className="font-body-ui text-xs text-on-surface-variant hover:text-primary transition-colors" to="/privacy">Privacy Policy</Link>
+          <Link className="font-body-ui text-xs text-on-surface-variant hover:text-primary transition-colors" to="/support">Contact Support</Link>
         </div>
       </div>
     </footer>

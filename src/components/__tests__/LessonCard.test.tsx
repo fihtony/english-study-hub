@@ -21,7 +21,13 @@ describe('LessonCard', () => {
     expect(anchor?.className).toContain('hover:bg-surface-container-low')
   })
 
-  it('has correct href attribute', () => {
+  it('has correct href attribute pointing to lesson URL', () => {
+    const { container } = render(<LessonCard unit="UNIT 01" title="Test Lesson" lessonId="1" />)
+    const anchor = container.querySelector('a')
+    expect(anchor?.getAttribute('href')).toBe('/lessons/1')
+  })
+
+  it('uses placeholder href when no lessonId provided', () => {
     const { container } = render(<LessonCard unit="UNIT 01" title="Test Lesson" />)
     const anchor = container.querySelector('a')
     expect(anchor?.getAttribute('href')).toBe('#')
