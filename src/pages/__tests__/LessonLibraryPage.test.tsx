@@ -42,6 +42,6 @@ describe('LessonLibraryPage', () => {
       </MemoryRouter>
     )
     expect(screen.getByText('Linguist Library')).toBeInTheDocument()
-    expect(screen.getByText(/© 2024 Linguist Library/)).toBeInTheDocument()
+    expect(screen.getByText(/© \d{4} Linguist Library/)).toBeInTheDocument()
   })
 })

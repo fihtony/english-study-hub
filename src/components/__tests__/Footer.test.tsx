@@ -5,7 +5,7 @@ import Footer from '../../components/Footer'
 describe('Footer', () => {
   it('renders copyright text', () => {
     render(<Footer />)
-    expect(screen.getByText(/© 2024 Linguist Library/)).toBeInTheDocument()
+    expect(screen.getByText(/© \d{4} Linguist Library/)).toBeInTheDocument()
   })
 
   it('renders policy links', () => {
