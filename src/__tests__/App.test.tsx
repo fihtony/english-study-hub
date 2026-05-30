@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, MemoryRouter } from 'react-router-dom'
 import App from '../../src/App'
 
 describe('App Routing', () => {
@@ -36,9 +36,9 @@ describe('App Routing', () => {
 
   it('redirects from / to /lessons', async () => {
     render(
-      <BrowserRouter initialEntries={['/']}>
+      <MemoryRouter initialEntries={['/']}>
         <App />
-      </BrowserRouter>
+      </MemoryRouter>
     )
     // After redirect, /lessons should be active
     expect(window.location.pathname).toBe('/lessons')
