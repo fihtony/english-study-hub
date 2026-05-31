@@ -5,7 +5,7 @@ interface ArrowForwardIconProps {
 export default function ArrowForwardIcon({ className = '' }: ArrowForwardIconProps) {
   return (
     <svg
-      className={`material-symbols-outlined ${className}`}
+      className={className}
       width="24"
       height="24"
       viewBox="0 0 24 24"

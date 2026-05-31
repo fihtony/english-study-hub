@@ -31,7 +31,7 @@ describe('LessonCard', () => {
         <LessonCard lesson={mockLesson} />
       </MemoryRouter>
     )
-    const icon = document.querySelector('.material-symbols-outlined')
+    const icon = document.querySelector('svg')
     expect(icon).toBeInTheDocument()
   })
 
