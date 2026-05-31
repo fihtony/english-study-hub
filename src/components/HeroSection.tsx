@@ -1,7 +1,7 @@
 function ArrowForwardIcon() {
   return (
     <svg
-      className="material-symbols-outlined text-sm"
+      className="text-sm"
       viewBox="0 0 24 24"
       width="16"
       height="16"
@@ -18,8 +18,8 @@ function ArrowForwardIcon() {
 
 export default function HeroSection() {
   return (
-    <main className="flex-grow flex flex-col items-center justify-center px-4 py-section-padding">
-      <div className="max-w-[1120px] w-full text-center space-y-12">
+    <main className="flex-grow flex flex-col items-center justify-center px-margin-mobile py-section-padding">
+      <div className="max-w-[1120px] w-full text-center space-y-stack-lg">
         <h1 className="font-h1 text-5xl text-primary max-w-3xl mx-auto">
           Master Academic English with Scholarly Precision.
         </h1>

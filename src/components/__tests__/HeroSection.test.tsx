@@ -36,7 +36,7 @@ describe('HeroSection', () => {
 
   it('has accessible SVG icons for category links', () => {
     render(<HeroSection />);
-    const svgIcons = document.querySelectorAll('svg.material-symbols-outlined');
+    const svgIcons = document.querySelectorAll('svg');
     expect(svgIcons.length).toBeGreaterThan(0);
   });
 });
