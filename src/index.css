@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;1,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Work Sans', sans-serif;
+  background-color: #f9f9ff;
+  color: #111c2c;
+}
+
+.font-h1 {
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.font-body-reading {
+  font-family: 'Newsreader', serif;
+}
+
+.font-label-caps {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
