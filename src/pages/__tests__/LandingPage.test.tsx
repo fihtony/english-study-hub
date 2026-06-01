@@ -25,7 +25,7 @@ describe('LandingPage', () => {
   it('renders footer with links', () => {
     render(<LandingPage />);
     const currentYear = new Date().getFullYear();
-    expect(screen.getByText(new RegExp(`© ${currentYear}`))).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(`© ${currentYear} Linguist Library\\. Premium Academic English Study\\.`, 'i'))).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Terms of Service' })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Privacy Policy' })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Contact Support' })).toBeInTheDocument();

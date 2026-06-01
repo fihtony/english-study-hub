@@ -32,6 +32,13 @@ describe('TopNavBar', () => {
   it('navigation links have correct href attributes', () => {
     render(<TopNavBar />);
     const lessonsLink = screen.getByRole('link', { name: 'Lessons' });
+    const flashcardsLink = screen.getByRole('link', { name: 'Flashcards' });
+    const progressLink = screen.getByRole('link', { name: 'Progress' });
+    const libraryLink = screen.getByRole('link', { name: 'Library' });
+
     expect(lessonsLink).toHaveAttribute('href', '#');
+    expect(flashcardsLink).toHaveAttribute('href', '#');
+    expect(progressLink).toHaveAttribute('href', '#');
+    expect(libraryLink).toHaveAttribute('href', '#');
   });
 });

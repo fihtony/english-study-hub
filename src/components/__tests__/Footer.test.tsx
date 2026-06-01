@@ -5,7 +5,7 @@ describe('Footer', () => {
   it('renders copyright text with current year', () => {
     render(<Footer />);
     const currentYear = new Date().getFullYear();
-    const copyright = screen.getByText(new RegExp(`© ${currentYear} Linguist Library`, 'i'));
+    const copyright = screen.getByText(new RegExp(`© ${currentYear} Linguist Library\\. Premium Academic English Study\\.`, 'i'));
     expect(copyright).toBeInTheDocument();
   });
 
@@ -22,6 +22,7 @@ describe('Footer', () => {
     const privacyLink = screen.getByRole('link', { name: 'Privacy Policy' });
     expect(privacyLink).toBeInTheDocument();
     expect(privacyLink.tagName).toBe('A');
+    expect(privacyLink).toHaveAttribute('href', '#');
   });
 
   it('renders Contact Support link', () => {
@@ -29,6 +30,13 @@ describe('Footer', () => {
     const contactLink = screen.getByRole('link', { name: 'Contact Support' });
     expect(contactLink).toBeInTheDocument();
     expect(contactLink.tagName).toBe('A');
+    expect(contactLink).toHaveAttribute('href', '#');
+  });
+
+  it('Contact Support link has correct styling', () => {
+    render(<Footer />);
+    const contactLink = screen.getByRole('link', { name: 'Contact Support' });
+    expect(contactLink).toHaveClass('font-semibold');
   });
 
   it('all footer links have href attributes', () => {

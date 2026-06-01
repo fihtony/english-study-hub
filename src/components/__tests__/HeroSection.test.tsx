@@ -16,6 +16,12 @@ describe('HeroSection', () => {
     expect(ctaButton.tagName).toBe('BUTTON');
   });
 
+  it('CTA button is interactive and not disabled', () => {
+    render(<HeroSection />);
+    const ctaButton = screen.getByRole('button', { name: 'Start Learning Now' });
+    expect(ctaButton).not.toBeDisabled();
+  });
+
   it('renders category links', () => {
     render(<HeroSection />);
     const grammarLink = screen.getByRole('link', { name: /Advanced Grammar/i });
@@ -27,11 +33,18 @@ describe('HeroSection', () => {
     expect(vocabLink).toBeInTheDocument();
   });
 
-  it('category links are anchor elements', () => {
+  it('category links are anchor elements with correct href', () => {
     render(<HeroSection />);
     const grammarLink = screen.getByRole('link', { name: /Advanced Grammar/i });
+    const writingLink = screen.getByRole('link', { name: /Research Writing/i });
+    const vocabLink = screen.getByRole('link', { name: /Formal Vocabulary/i });
+
     expect(grammarLink.tagName).toBe('A');
     expect(grammarLink).toHaveAttribute('href', '#');
+    expect(writingLink.tagName).toBe('A');
+    expect(writingLink).toHaveAttribute('href', '#');
+    expect(vocabLink.tagName).toBe('A');
+    expect(vocabLink).toHaveAttribute('href', '#');
   });
 
   it('has accessible SVG icons for category links', () => {
