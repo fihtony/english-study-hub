@@ -53,10 +53,12 @@ export default {
         'outline': '#74777f',
       },
       borderRadius: {
-        'DEFAULT': '0.125rem',
-        'lg': '0.25rem',
-        'xl': '0.5rem',
-        'full': '0.75rem',
+        'DEFAULT': '0.25rem',
+        'sm': '0.125rem',
+        'md': '0.375rem',
+        'lg': '0.5rem',
+        'xl': '0.75rem',
+        'full': '9999px',
       },
       spacing: {
         'stack-sm': '8px',
