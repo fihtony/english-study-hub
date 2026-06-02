@@ -1,11 +1,12 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
+import '@testing-library/jest-dom'
 import TopNavBar from '../TopNavBar'
 
 describe('TopNavBar', () => {
   it('renders logo text', () => {
     render(<TopNavBar />)
-    expect(screen.getByText('Linguist Library')).toBeDefined()
+    expect(screen.getByText('Linguist Library')).toBeInTheDocument()
   })
 
   it('renders navigation links', () => {
