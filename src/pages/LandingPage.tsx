@@ -54,27 +54,27 @@ const TopNavBar = () => (
 const Hero = () => (
   <div className="flex flex-col items-center justify-center px-4 py-20 w-full text-center">
     <div className="max-w-[1120px] w-full space-y-12">
-      <h1 className="text-5xl font-bold text-primary max-w-3xl mx-auto leading-tight tracking-tight">
+      <h1 className="text-h1 font-h1 text-primary max-w-3xl mx-auto">
         Master Academic English with Scholarly Precision.
       </h1>
       <div className="flex justify-center pt-2">
-        <button className="bg-on-tertiary-container text-white font-medium text-base px-8 py-4 rounded-xl shadow-sm hover:shadow-md transition-all active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2">
+        <button className="bg-on-tertiary-container text-on-tertiary font-button text-button px-stack-lg py-4 rounded-2xl shadow-sm hover:shadow-md transition-all active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2">
           Start Learning Now
         </button>
       </div>
       <div className="flex flex-col md:flex-row items-center justify-center gap-6 pt-4">
         <a className="group flex items-center gap-2 text-on-surface-variant hover:text-secondary transition-colors" href="#">
-          <span className="text-xs font-semibold uppercase tracking-widest">Advanced Grammar</span>
+          <span className="text-label-caps font-label-caps uppercase">Advanced Grammar</span>
           <ArrowForwardIcon />
         </a>
         <div className="hidden md:block w-px h-4 bg-outline-variant" />
         <a className="group flex items-center gap-2 text-on-surface-variant hover:text-secondary transition-colors" href="#">
-          <span className="text-xs font-semibold uppercase tracking-widest">Research Writing</span>
+          <span className="text-label-caps font-label-caps uppercase">Research Writing</span>
           <ArrowForwardIcon />
         </a>
         <div className="hidden md:block w-px h-4 bg-outline-variant" />
         <a className="group flex items-center gap-2 text-on-surface-variant hover:text-secondary transition-colors" href="#">
-          <span className="text-xs font-semibold uppercase tracking-widest">Formal Vocabulary</span>
+          <span className="text-label-caps font-label-caps uppercase">Formal Vocabulary</span>
           <ArrowForwardIcon />
         </a>
       </div>
