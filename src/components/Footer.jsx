@@ -9,19 +9,19 @@ function Footer() {
         </div>
         <div className="flex space-x-6">
           <a
-            className="font-body-ui text-xs text-slate-500 hover:text-blue-900 transition-colors"
+            className="font-body-ui text-xs text-slate-500 hover:text-[#13696a] transition-colors"
             href="#terms"
           >
             Terms of Service
           </a>
           <a
-            className="font-body-ui text-xs text-slate-500 hover:text-blue-900 transition-colors"
+            className="font-body-ui text-xs text-slate-500 hover:text-[#13696a] transition-colors"
             href="#privacy"
           >
             Privacy Policy
           </a>
           <a
-            className="font-body-ui text-xs text-slate-500 hover:text-blue-900 transition-colors font-semibold text-slate-900"
+            className="font-body-ui text-xs text-slate-500 hover:text-[#13696a] transition-colors font-semibold text-slate-900"
             href="#contact"
           >
             Contact Support
