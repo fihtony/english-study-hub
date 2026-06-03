@@ -28,11 +28,12 @@ function TopNavBar() {
               <Link
                 key={link.path}
                 to={link.path}
-                className={`font-body-ui text-sm font-medium tracking-tight transition-colors duration-200 ${
+                className={`text-sm tracking-tight transition-colors duration-200 ${
                   isActive
                     ? 'text-secondary border-b-2 border-secondary pb-1'
-                    : 'text-on-surface-variant hover:text-secondary'
+                    : 'text-slate-600 hover:text-slate-600'
                 }`}
+                style={{ fontFamily: 'Work Sans, sans-serif', fontWeight: 500 }}
                 aria-label={link.label}
                 aria-current={isActive ? 'page' : undefined}
               >
