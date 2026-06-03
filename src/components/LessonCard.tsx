@@ -10,7 +10,7 @@ interface LessonCardProps {
 
 function ArrowForwardIcon() {
   return (
-    <svg className="material-symbols-outlined w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
       <path d="M5 12h14M12 5l7 7-7 7"/>
     </svg>
   )
@@ -32,7 +32,7 @@ function LessonCard({ lesson }: LessonCardProps) {
           {lesson.title}
         </h2>
       </div>
-      <span className={`material-symbols-outlined ${isHovered ? 'text-secondary' : 'text-outline'} group-hover:translate-x-1 transition-all`}>
+      <span className={`${isHovered ? 'text-secondary' : 'text-outline'} group-hover:translate-x-1 transition-all`}>
         <ArrowForwardIcon />
       </span>
     </a>

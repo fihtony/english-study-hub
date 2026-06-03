@@ -35,7 +35,7 @@ function TopNavBar() {
           ))}
         </nav>
         <div className="flex items-center">
-          <button className="bg-tertiary-container text-on-tertiary px-5 py-2.5 font-button text-button rounded-lg transition-all active:opacity-80">
+          <button className="bg-[#DD6B20] text-white px-5 py-2.5 font-button text-button rounded-lg transition-all active:opacity-80">
             Sign In
           </button>
         </div>

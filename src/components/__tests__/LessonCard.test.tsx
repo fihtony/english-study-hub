@@ -27,6 +27,6 @@ test('renders with correct structure', () => {
 test('displays arrow icon', () => {
   render(<LessonCard lesson={mockLesson} />)
 
-  const icon = document.querySelector('.material-symbols-outlined')
+  const icon = document.querySelector('svg')
   expect(icon).toBeInTheDocument()
 })
