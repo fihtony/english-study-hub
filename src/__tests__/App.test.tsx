@@ -3,6 +3,7 @@ import { expect, test } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import LessonLibraryPage from '../pages/LessonLibraryPage'
+import App from '../App'
 
 test('renders Lesson Library page at /lessons', () => {
   render(
@@ -43,4 +44,11 @@ test('page has correct header text', () => {
   )
 
   expect(screen.getByText('CURRICULUM')).toBeInTheDocument()
+})
+
+test('redirects from / to /lessons', () => {
+  render(<App />)
+
+  // The page should show Lesson Library content after redirect
+  expect(screen.getByText('Lesson Library')).toBeInTheDocument()
 })

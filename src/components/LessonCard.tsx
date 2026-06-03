@@ -27,8 +27,8 @@ function LessonCard({ lesson }: LessonCardProps) {
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="flex flex-col">
-        <span className="font-label-caps text-[10px] text-outline mb-1">{lesson.unit}</span>
-        <h2 className={`font-h3 text-h3 ${isHovered ? 'text-secondary' : 'text-on-background'} transition-colors`}>
+        <span className="font-label-caps text-label-caps text-on-surface-variant mb-1">{lesson.unit}</span>
+        <h2 className={`font-h3 text-h3 ${isHovered ? 'text-secondary' : 'text-on-surface'} transition-colors`}>
           {lesson.title}
         </h2>
       </div>
