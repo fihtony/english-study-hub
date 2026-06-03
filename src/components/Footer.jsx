@@ -8,9 +8,9 @@ export default function Footer() {
           © {currentYear} Linguist Library. Premium Academic English Study.
         </div>
         <div className="flex space-x-6">
-          <a className="font-body-ui text-xs text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a>
-          <a className="font-body-ui text-xs text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
-          <a className="font-body-ui text-xs text-on-surface-variant hover:text-primary transition-colors font-semibold text-on-surface" href="#">Contact Support</a>
+          <a className="font-body-ui text-xs text-on-surface-variant hover:text-primary transition-colors" href="/terms">Terms of Service</a>
+          <a className="font-body-ui text-xs text-on-surface-variant hover:text-primary transition-colors" href="/privacy">Privacy Policy</a>
+          <a className="font-body-ui text-xs text-on-surface-variant hover:text-primary transition-colors font-semibold text-on-surface" href="/contact">Contact Support</a>
         </div>
       </div>
     </footer>

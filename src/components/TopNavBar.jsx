@@ -6,10 +6,10 @@ export default function TopNavBar() {
           Linguist Library
         </div>
         <nav className="hidden md:flex items-center gap-gutter">
-          <a className="font-body-ui text-sm font-medium tracking-tight text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Lessons</a>
-          <a className="font-body-ui text-sm font-medium tracking-tight text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Flashcards</a>
-          <a className="font-body-ui text-sm font-medium tracking-tight text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Progress</a>
-          <a className="font-body-ui text-sm font-medium tracking-tight text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Library</a>
+          <a className="font-body-ui text-sm font-medium tracking-tight text-on-surface-variant hover:text-primary transition-colors duration-200" href="/lessons">Lessons</a>
+          <a className="font-body-ui text-sm font-medium tracking-tight text-on-surface-variant hover:text-primary transition-colors duration-200" href="/flashcards">Flashcards</a>
+          <a className="font-body-ui text-sm font-medium tracking-tight text-on-surface-variant hover:text-primary transition-colors duration-200" href="/progress">Progress</a>
+          <a className="font-body-ui text-sm font-medium tracking-tight text-on-surface-variant hover:text-primary transition-colors duration-200" href="/library">Library</a>
         </nav>
         <button className="font-body-ui text-sm font-medium tracking-tight text-on-surface-variant hover:text-primary transition-colors duration-200">
           Sign In

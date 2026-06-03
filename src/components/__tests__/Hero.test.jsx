@@ -39,11 +39,10 @@ describe('Hero', () => {
     expect(screen.getByRole('link', { name: /Formal Vocabulary/i })).toBeInTheDocument()
   })
 
-  it('category links have href="#" ', () => {
+  it('category links have correct href attributes', () => {
     render(<Hero />)
-    const links = screen.getAllByRole('link')
-    links.forEach(link => {
-      expect(link).toHaveAttribute('href', '#')
-    })
+    expect(screen.getByRole('link', { name: /Advanced Grammar/i })).toHaveAttribute('href', '/lessons?category=advanced-grammar')
+    expect(screen.getByRole('link', { name: /Research Writing/i })).toHaveAttribute('href', '/lessons?category=research-writing')
+    expect(screen.getByRole('link', { name: /Formal Vocabulary/i })).toHaveAttribute('href', '/lessons?category=formal-vocabulary')
   })
 })

@@ -19,17 +19,17 @@ export default function Hero() {
           </button>
         </div>
         <div className="flex flex-col md:flex-row items-center justify-center gap-gutter pt-stack-lg">
-          <a className="group flex items-center space-x-2 text-on-surface-variant hover:text-secondary transition-colors" href="#">
+          <a className="group flex items-center space-x-2 text-on-surface-variant hover:text-secondary transition-colors" href="/lessons?category=advanced-grammar">
             <span className="font-label-caps text-label-caps uppercase tracking-widest">Advanced Grammar</span>
             <ArrowForwardIcon />
           </a>
           <div className="hidden md:block w-px h-4 bg-outline-variant"></div>
-          <a className="group flex items-center space-x-2 text-on-surface-variant hover:text-secondary transition-colors" href="#">
+          <a className="group flex items-center space-x-2 text-on-surface-variant hover:text-secondary transition-colors" href="/lessons?category=research-writing">
             <span className="font-label-caps text-label-caps uppercase tracking-widest">Research Writing</span>
             <ArrowForwardIcon />
           </a>
           <div className="hidden md:block w-px h-4 bg-outline-variant"></div>
-          <a className="group flex items-center space-x-2 text-on-surface-variant hover:text-secondary transition-colors" href="#">
+          <a className="group flex items-center space-x-2 text-on-surface-variant hover:text-secondary transition-colors" href="/lessons?category=formal-vocabulary">
             <span className="font-label-caps text-label-caps uppercase tracking-widest">Formal Vocabulary</span>
             <ArrowForwardIcon />
           </a>

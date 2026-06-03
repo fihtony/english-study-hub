@@ -18,10 +18,10 @@ describe('TopNavBar', () => {
 
   it('nav links have correct href attributes', () => {
     render(<TopNavBar />)
-    expect(screen.getByRole('link', { name: 'Lessons' })).toHaveAttribute('href', '#')
-    expect(screen.getByRole('link', { name: 'Flashcards' })).toHaveAttribute('href', '#')
-    expect(screen.getByRole('link', { name: 'Progress' })).toHaveAttribute('href', '#')
-    expect(screen.getByRole('link', { name: 'Library' })).toHaveAttribute('href', '#')
+    expect(screen.getByRole('link', { name: 'Lessons' })).toHaveAttribute('href', '/lessons')
+    expect(screen.getByRole('link', { name: 'Flashcards' })).toHaveAttribute('href', '/flashcards')
+    expect(screen.getByRole('link', { name: 'Progress' })).toHaveAttribute('href', '/progress')
+    expect(screen.getByRole('link', { name: 'Library' })).toHaveAttribute('href', '/library')
   })
 
   it('renders Sign In as a button', () => {

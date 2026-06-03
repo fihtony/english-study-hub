@@ -6,7 +6,7 @@ describe('Footer', () => {
   it('renders copyright text with current year', () => {
     render(<Footer />)
     const currentYear = new Date().getFullYear()
-    expect(screen.getByText(new RegExp(`© ${currentYear} Linguist Library`))).toBeInTheDocument()
+    expect(screen.getByText(new RegExp(`© ${currentYear} Linguist Library.*Premium Academic English Study`))).toBeInTheDocument()
   })
 
   it('renders all 3 footer links', () => {
@@ -16,10 +16,10 @@ describe('Footer', () => {
     expect(screen.getByRole('link', { name: 'Contact Support' })).toBeInTheDocument()
   })
 
-  it('footer links have href="#" ', () => {
+  it('footer links have correct href attributes', () => {
     render(<Footer />)
-    expect(screen.getByRole('link', { name: 'Terms of Service' })).toHaveAttribute('href', '#')
-    expect(screen.getByRole('link', { name: 'Privacy Policy' })).toHaveAttribute('href', '#')
-    expect(screen.getByRole('link', { name: 'Contact Support' })).toHaveAttribute('href', '#')
+    expect(screen.getByRole('link', { name: 'Terms of Service' })).toHaveAttribute('href', '/terms')
+    expect(screen.getByRole('link', { name: 'Privacy Policy' })).toHaveAttribute('href', '/privacy')
+    expect(screen.getByRole('link', { name: 'Contact Support' })).toHaveAttribute('href', '/contact')
   })
 })
