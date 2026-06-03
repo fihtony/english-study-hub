@@ -36,7 +36,7 @@ export default function QuizCanvas() {
       {/* Quiz Question */}
       <div className="space-y-stack-lg">
         <header>
-          <h2 className="font-h2 text-h2 text-primary mb-stack-md">{quizData.questionText}</h2>
+          <h2 className="font-h2 text-h2 text-on-surface mb-stack-md">{quizData.questionText}</h2>
           <div className="border-l-4 border-primary-container pl-stack-md">
             <p className="font-body-reading text-body-reading italic text-on-surface-variant">
               "{quizData.sampleSentence}"
