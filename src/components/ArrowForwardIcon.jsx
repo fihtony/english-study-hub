@@ -1,7 +1,7 @@
 export default function ArrowForwardIcon() {
   return (
     <svg
-      className="material-symbols-outlined text-sm"
+      className="text-sm"
       width="16"
       height="16"
       viewBox="0 0 24 24"
