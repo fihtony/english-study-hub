@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #f9f9ff;
+  color: #111c2c;
+  font-family: 'Work Sans', sans-serif;
+}
+
+.font-body-reading {
+  font-family: 'Newsreader', serif;
+}
