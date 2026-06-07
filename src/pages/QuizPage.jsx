@@ -19,7 +19,9 @@ const quizData = {
     "are gathering",
     "will have gathered"
   ],
-  correctAnswer: 0
+  correctAnswer: 0,
+  verdict: true,
+  score: 1
 }
 
 function QuizPage() {
