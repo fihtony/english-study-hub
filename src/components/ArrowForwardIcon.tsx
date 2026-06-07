@@ -1,7 +1,7 @@
 const ArrowForwardIcon = () => {
   return (
     <svg
-      className="material-symbols-outlined"
+      className="w-6 h-6"
       width="24"
       height="24"
       viewBox="0 0 24 24"

@@ -2,7 +2,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="bg-surface border-t border-outline-variant">
+    <footer className="bg-slate-50 border-t border-outline-variant dark:bg-slate-950 dark:border-gray-800">
       <div className="flex flex-col md:flex-row justify-between items-center px-8 py-12 max-w-[1120px] mx-auto w-full space-y-4 md:space-y-0">
         <div className="font-body-ui text-xs text-on-surface-variant">
           © {currentYear} Linguist Library. Premium Academic English Study.

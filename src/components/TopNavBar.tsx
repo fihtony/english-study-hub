@@ -24,7 +24,7 @@ const TopNavBar = () => {
               className={`font-body-ui text-sm font-medium tracking-tight hover:text-secondary transition-colors duration-200 cursor-pointer ${
                 location.pathname === link.path
                   ? 'text-secondary border-b-2 border-secondary pb-1'
-                  : 'text-on-surface-variant'
+                  : 'text-slate-600'
               }`}
             >
               {link.label}

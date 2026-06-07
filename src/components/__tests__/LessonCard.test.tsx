@@ -22,7 +22,7 @@ describe('LessonCard', () => {
 
   it('renders arrow icon', () => {
     renderWithRouter(<LessonCard unit="UNIT 01" title="Test Lesson" />)
-    const icon = document.querySelector('.material-symbols-outlined')
+    const icon = document.querySelector('svg')
     expect(icon).toBeInTheDocument()
   })
 
