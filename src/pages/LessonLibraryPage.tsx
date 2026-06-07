@@ -2,24 +2,35 @@ import TopNavBar from '../components/TopNavBar'
 import Footer from '../components/Footer'
 import LessonCard from '../components/LessonCard'
 
-const lessons = [
+interface Lesson {
+  id: string
+  unit: string
+  title: string
+}
+
+const lessons: Lesson[] = [
   {
+    id: 'lesson-1',
     unit: 'UNIT 01',
     title: 'Advanced Syntax in Academic Prose',
   },
   {
+    id: 'lesson-2',
     unit: 'UNIT 01',
     title: 'Etymology and the Evolution of Modern Lexicon',
   },
   {
+    id: 'lesson-3',
     unit: 'UNIT 02',
     title: 'Nuanced Argumentation: The Art of the Thesis',
   },
   {
+    id: 'lesson-4',
     unit: 'UNIT 02',
     title: 'Comparative Literature: Analyzing Cross-Cultural Themes',
   },
   {
+    id: 'lesson-5',
     unit: 'UNIT 03',
     title: 'Scientific Methodology and Report Composition',
   },
@@ -37,9 +48,9 @@ const LessonLibraryPage = () => {
           <h1 className="font-h1 text-h1 text-primary">Lesson Library</h1>
         </div>
         <div className="flex flex-col space-y-0">
-          {lessons.map((lesson, index) => (
+          {lessons.map((lesson) => (
             <LessonCard
-              key={index}
+              key={lesson.id}
               unit={lesson.unit}
               title={lesson.title}
             />
