@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 interface TopNavBarProps {
   logoText?: string
@@ -24,9 +24,9 @@ function TopNavBar({ logoText = 'Linguist Library' }: TopNavBarProps) {
           {navLinks.map((link) => {
             const isActive = location.pathname === link.path
             return (
-              <a
+              <Link
                 key={link.path}
-                href={link.path}
+                to={link.path}
                 aria-label={link.label}
                 aria-current={isActive ? 'page' : undefined}
                 className={`font-body-ui text-sm font-medium tracking-tight transition-colors duration-200 cursor-pointer ${
@@ -36,7 +36,7 @@ function TopNavBar({ logoText = 'Linguist Library' }: TopNavBarProps) {
                 }`}
               >
                 {link.label}
-              </a>
+              </Link>
             )
           })}
         </nav>
