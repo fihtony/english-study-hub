@@ -1,0 +1,1 @@
+{"root":["./src/App.tsx","./src/main.tsx","./src/setupTests.ts","./src/vite-env.d.ts","./src/components/ArrowForwardIcon.tsx","./src/components/Footer.tsx","./src/components/LessonCard.tsx","./src/components/TopNavBar.tsx","./src/components/__tests__/LessonCard.test.tsx","./src/pages/LessonLibraryPage.tsx"],"version":"5.7.3"}
