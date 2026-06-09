@@ -1,15 +1,14 @@
 const ArrowForwardIcon = () => (
   <svg
-    className="material-symbols-outlined"
     fill="none"
-    height="24"
+    height="20"
     viewBox="0 0 24 24"
-    width="24"
+    width="20"
     xmlns="http://www.w3.org/2000/svg"
     xmlnsXlink="http://www.w3.org/1999/xlink"
   >
     <path
-      d="M8.75215.255L14.00710 8.752 4.745l.885-.885L15.777 9l-6.14 6.14-.885-.885z"
+      d="M6.4 18.4v-5.6H20v-2.8H6.4V4l-1.6 1.6 6.4 6.4-6.4 6.4z"
       fill="currentColor"
     />
   </svg>
