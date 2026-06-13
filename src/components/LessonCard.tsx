@@ -20,7 +20,7 @@ const LessonCard = ({ lesson, onClick }: LessonCardProps) => {
       aria-label={`${lesson.title} - ${lesson.unit}`}
     >
       <div className="flex flex-col">
-        <span className="font-label-caps text-[10px] text-outline mb-1">{lesson.unit}</span>
+        <span className="font-label-caps text-outline mb-1">{lesson.unit}</span>
         <h2 className="font-h3 text-h3 text-on-background group-hover:text-secondary transition-colors">
           {lesson.title}
         </h2>
