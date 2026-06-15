@@ -14,7 +14,9 @@ const quizData = {
     "are gathering",
     "will have gathered"
   ],
-  correctAnswerIndex: 0
+  correctAnswerIndex: 0,
+  verdict: null,
+  score: 0
 }
 
 export default function PracticeQuizPage() {
