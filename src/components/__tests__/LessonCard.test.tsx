@@ -24,4 +24,10 @@ describe('LessonCard', () => {
     await user.click(card)
     expect(card).toHaveAttribute('href', '#lesson-1')
   })
+
+  it('renders arrow forward icon', () => {
+    render(<LessonCard lesson={mockLesson} />)
+    const icon = document.querySelector('svg')
+    expect(icon).toBeInTheDocument()
+  })
 })
