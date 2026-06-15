@@ -1,7 +1,7 @@
 function ArrowForwardIcon() {
   return (
     <svg
-      className="material-symbols-outlined w-6 h-6 text-outline group-hover:text-secondary group-hover:translate-x-1 transition-all"
+      className="w-6 h-6 text-outline group-hover:text-secondary group-hover:translate-x-1 transition-all"
       viewBox="0 0 24 24"
       fill="none"
       aria-hidden="true"
