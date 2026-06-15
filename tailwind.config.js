@@ -9,6 +9,8 @@ export default {
         "primary-fixed-dim": "#adc7f7",
         "on-tertiary-container": "#f57d32",
         "on-tertiary": "#ffffff",
+        "cta": "#DD6B20",
+        "on-cta": "#ffffff",
         "error-container": "#ffdad6",
         "surface-container-low": "#f0f3ff",
         "secondary": "#13696a",

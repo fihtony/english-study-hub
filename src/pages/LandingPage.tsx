@@ -70,7 +70,7 @@ export default function LandingPage() {
           {/* Single Primary CTA */}
           <div className="flex justify-center pt-stack-sm">
             <button
-              className="bg-on-tertiary-container text-on-tertiary text-button px-stack-lg py-4 rounded-xl shadow-sm hover:shadow-md transition-all active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 font-button"
+              className="bg-cta text-on-cta text-button px-stack-lg py-4 rounded-xl shadow-sm hover:shadow-md transition-all active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 font-button"
             >
               Start Learning Now
             </button>
