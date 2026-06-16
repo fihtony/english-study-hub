@@ -1,6 +1,6 @@
 /**
- * ArrowForwardIcon - Inline SVG replacement for Material Symbols Outlined arrow_forward
- * Matches the visual style and size from the design reference
+ * ArrowForwardIcon - Forward arrow icon
+ * Inline SVG for consistent rendering across all environments
  */
 function ArrowForwardIcon() {
   return (
@@ -14,7 +14,7 @@ function ArrowForwardIcon() {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="material-symbols-outlined text-sm"
+      className="text-sm"
       aria-hidden="true"
     >
       <path d="M5 12h14" />
