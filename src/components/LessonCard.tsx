@@ -13,7 +13,7 @@ const LessonCard = ({ unit, title, href }: LessonCardProps) => {
       href={href}
     >
       <div className="flex flex-col">
-        <span className="font-label-caps text-[10px] text-outline mb-1">{unit}</span>
+        <span className="font-label-caps text-label-caps text-outline mb-1">{unit}</span>
         <h2 className="font-h3 text-h3 text-on-background group-hover:text-secondary transition-colors">
           {title}
         </h2>
