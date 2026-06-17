@@ -41,9 +41,7 @@ export function PracticeQuizPage() {
   };
 
   const handleNext = () => {
-    if (selectedOption) {
-      console.log('Selected option:', selectedOption);
-    }
+    // Handle next question logic
   };
 
   return (

@@ -4,6 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
+        'teal-600': '#2C7A7B',
         'tertiary-container': '#5d2500',
         'on-background': '#111c2c',
         'primary-fixed-dim': '#adc7f7',
