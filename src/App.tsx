@@ -1,0 +1,15 @@
+import { Routes, Route, Navigate } from 'react-router-dom'
+import PracticeQuizPage from './pages/PracticeQuizPage'
+
+function App() {
+  return (
+    <div className="flex flex-col min-h-screen">
+      <Routes>
+        <Route path="/" element={<Navigate to="/quiz" replace />} />
+        <Route path="/quiz" element={<PracticeQuizPage />} />
+      </Routes>
+    </div>
+  )
+}
+
+export default App
