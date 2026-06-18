@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;1,400&display=swap');
+@import "tailwindcss";
+
+/* Design System Theme - Tailwind v4 @theme configuration */
+@theme {
+  /* Primary brand colors */
+  --color-primary: #002045;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #1a365d;
+  --color-on-primary-container: #86a0cd;
+  --color-primary-fixed: #d6e3ff;
+  --color-primary-fixed-dim: #adc7f7;
+  --color-on-primary-fixed: #001b3c;
+  --color-on-primary-fixed-variant: #2d476f;
+
+  /* Secondary brand colors */
+  --color-secondary: #13696a;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #a2eded;
+  --color-on-secondary-container: #1a6d6e;
+  --color-secondary-fixed: #a5eff0;
+  --color-secondary-fixed-dim: #89d3d4;
+  --color-on-secondary-fixed: #002020;
+  --color-on-secondary-fixed-variant: #004f50;
+
+  /* Tertiary brand colors */
+  --color-tertiary: #3b1500;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #5d2500;
+  --color-on-tertiary-container: #f57d32;
+  --color-tertiary-fixed: #ffdbca;
+  --color-tertiary-fixed-dim: #ffb68f;
+  --color-on-tertiary-fixed: #331100;
+  --color-on-tertiary-fixed-variant: #773200;
+
+  /* Surface colors */
+  --color-surface: #f9f9ff;
+  --color-surface-dim: #cfdaf1;
+  --color-surface-bright: #f9f9ff;
+  --color-surface-container: #e7eeff;
+  --color-surface-container-low: #f0f3ff;
+  --color-surface-container-high: #dee8ff;
+  --color-surface-container-highest: #d8e3fa;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-variant: #d8e3fa;
+  --color-surface-tint: #455f88;
+
+
+  /* On colors */
+  --color-on-surface: #111c2c;
+  --color-on-surface-variant: #43474e;
+  --color-on-background: #111c2c;
+  --color-inverse-surface: #263142;
+  --color-inverse-on-surface: #ebf1ff;
+  --color-inverse-primary: #adc7f7;
+
+  /* Other colors */
+  --color-background: #f9f9ff;
+  --color-outline: #74777f;
+  --color-outline-variant: #c4c6cf;
+  --color-error: #ba1a1a;
+  --color-on-error: #ffffff;
+  --color-error-container: #ffdad6;
+  --color-on-error-container: #93000a;
+
+
+  /* Standard color palette (slate, gray, blue, white for utility classes) */
+  --color-slate-50: #f8fafc;
+  --color-slate-100: #f1f5f9;
+  --color-slate-200: #e2e8f0;
+  --color-slate-300: #cbd5e1;
+  --color-slate-400: #94a3b8;
+  --color-slate-500: #64748b;
+  --color-slate-600: #475569;
+  --color-slate-700: #334155;
+  --color-slate-800: #1e293b;
+  --color-slate-900: #0f172a;
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+  --color-blue-50: #eff6ff;
+  --color-blue-100: #dbeafe;
+  --color-blue-200: #bfdbfe;
+  --color-blue-300: #93c5fd;
+  --color-blue-400: #60a5fa;
+  --color-blue-500: #3b82f6;
+  --color-blue-600: #2563eb;
+  --color-blue-700: #1d4ed8;
+  --color-blue-800: #1e40af;
+  --color-blue-900: #1e3a8a;
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  /* Spacing */
+  --spacing-stack-sm: 8px;
+  --spacing-margin-mobile: 16px;
+  --spacing-unit: 8px;
+  --spacing-section-padding: 80px;
+  --spacing-stack-md: 24px;
+  --spacing-gutter: 24px;
+  --spacing-container-max: 1120px;
+  --spacing-stack-lg: 48px;
+
+  /* Border radius */
+  --radius-sm: 0.125rem;
+  --radius-md: 0.25rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+
+  /* Font families */
+  --font-family-h1: 'Work Sans', sans-serif;
+  --font-family-h2: 'Work Sans', sans-serif;
+  --font-family-h3: 'Work Sans', sans-serif;
+  --font-family-body-ui: 'Work Sans', sans-serif;
+  --font-family-body-reading: 'Newsreader', serif;
+  --font-family-button: 'Work Sans', sans-serif;
+  --font-family-label-caps: 'Work Sans', sans-serif;
+}
+
+/* Base styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  font-family: 'Work Sans', sans-serif;
+}
